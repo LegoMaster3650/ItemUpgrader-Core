@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.upgrades.EntryCategoryManager;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.core.BlockPos;
@@ -227,7 +227,7 @@ public class EntryCategory<T> {
 		return this.getEntry(buf.readResourceLocation());
 	}
 	
-	private static final Factory FACTORY = new Factory(ItemUpgrader.MOD_ID);
+	private static final Factory FACTORY = new Factory(ItemUpgraderCore.MOD_ID);
 	
 	private static <T> EntryCategory<T> create(String name) {
 		return FACTORY.create(name);

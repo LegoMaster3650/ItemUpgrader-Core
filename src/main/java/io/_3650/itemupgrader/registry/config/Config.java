@@ -25,9 +25,6 @@ public class Config {
 
 		public final BooleanValue allowRadiusSphere;
 		
-		public final IntValue shieldRaiseSpeed;
-		public final IntValue shieldParryDuration;
-		
 		Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Strangely buggy when in server config so this is in common config instead.").push("datapack");
 			
@@ -41,13 +38,6 @@ public class Config {
 			allowRadiusSphere = builder.comment("Allows upgrades to search for items in a sphere rather than a cube if specified.", "Disabling this COULD help performance.", "Requires datapack reload to take effect.", "[Default: true]").define("allowMagneticSphere", true);
 			
 			builder.pop();
-			
-			builder.push("functionality");
-			
-			shieldRaiseSpeed = builder.comment("How long it takes a shield to activate and block damage.", "[Vanilla: 5]", "[Default: 0]").defineInRange("shieldRaiseSpeed", 0, 0, 20);
-			shieldParryDuration = builder.comment("Defines the duration after putting up a shield the parry upgrade will be functional for.", "[Default: 10]").defineInRange("shieldParryDuration", 10, 5, 100);
-			
-			builder.pop();
 		}
 		
 	}
@@ -57,9 +47,6 @@ public class Config {
 		public final BooleanValue requiresKeyHeld;
 		public final BooleanValue showUpgradeID;
 		public final BooleanValue useRomanNumerals;
-		
-		public final IntValue coordinateDisplayMode;
-		public final IntValue timeDisplayMode;
 		
 		public final IntValue recipeClickAreaLeftX;
 		public final IntValue recipeClickAreaTopY;
@@ -72,25 +59,6 @@ public class Config {
 			requiresKeyHeld = builder.comment("Does the upgrade tooltip require a key to be held to expand?", "[Default: true]").define("requiresKeyHeld", true);
 			showUpgradeID = builder.comment("Show an item's upgrade id when advanced tooltips are enabled", "[Default: false]").define("showUpgradeID", false);
 			useRomanNumerals = builder.comment("Uses roman numerals instead of numbers when describing enchantments.", "[Default: false]").define("useRomanNumerals", false);
-			
-			builder.pop();
-			///////////////////////////////////////////////////////////
-			builder.push("information_format");
-			
-			coordinateDisplayMode = builder.comment(
-					"The display mode for any Reveal coordinates upgrades.",
-					"1 - XYZ: X.XXX / Y.YYYYY / Z.ZZZ",
-					"2 - XYZ: X.XXX, Y.YYYYY, Z.ZZZ",
-					"3 - X.XXX / Y.YYYYY / Z.ZZZ",
-					"4 - X.XXX, Y.YYYYY, Z.ZZZ",
-					"[Default: 1]").defineInRange("coordinateDisplayMode", 1, 1, 4);
-			timeDisplayMode = builder.comment(
-					"The display mode for any Reveal time upgrades.",
-					"1 - Day #, HH:MM AM/PM",
-					"2 - Day #, HH:MM",
-					"3 - HH:MM AM/PM",
-					"4 - HH:MM",
-					"[Default: 1]").defineInRange("timeDisplayMode", 1, 1, 4);
 			
 			builder.pop();
 			///////////////////////////////////////////////////////////

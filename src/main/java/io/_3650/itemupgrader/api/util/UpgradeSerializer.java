@@ -12,7 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.registry.ItemUpgraderRegistry;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
 import io._3650.itemupgrader.api.serializer.UpgradeConditionSerializer;
@@ -20,11 +20,11 @@ import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.type.UpgradeResult;
-import io._3650.itemupgrader.upgrades.conditions.compound.AndUpgradeCondition;
-import io._3650.itemupgrader.upgrades.results.CompoundUpgradeResult;
 import io._3650.itemupgrader.api.type.IUpgradeType.IUpgradeInternals;
 import io._3650.itemupgrader.registry.ModUpgradeConditions;
 import io._3650.itemupgrader.registry.ModUpgradeResults;
+import io._3650.itemupgrader.upgrades.conditions.compound.AndUpgradeCondition;
+import io._3650.itemupgrader.upgrades.results.CompoundUpgradeResult;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -45,7 +45,7 @@ public class UpgradeSerializer {
 		//minecraft never registers anything anyways, default to item upgrader instead
 		if (actionId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) actionId = ItemUpgraderRegistry.modRes(actionId.getPath());
 		//verify it exists and throw a temper tantrum if not
-		if (!ItemUpgrader.ACTION_REGISTRY.get().containsKey(actionId)) throw new NoSuchElementException("Action " + actionId.toString() + " does not exist");
+		if (!ItemUpgraderCore.ACTION_REGISTRY.get().containsKey(actionId)) throw new NoSuchElementException("Action " + actionId.toString() + " does not exist");
 		//get internals
 		IUpgradeInternals internals = IUpgradeInternals.of(actionId, json);
 		//get valid slots
@@ -61,7 +61,7 @@ public class UpgradeSerializer {
 			}
 		}
 		//get action serializer
-		UpgradeActionSerializer<?> actionType = ItemUpgrader.ACTION_REGISTRY.get().getValue(actionId);
+		UpgradeActionSerializer<?> actionType = ItemUpgraderCore.ACTION_REGISTRY.get().getValue(actionId);
 		//deserialize
 		return actionType.fromJson(internals, validSlots, json);
 	}
@@ -98,13 +98,13 @@ public class UpgradeSerializer {
 		//minecraft never registers anything anyways, default to item upgrader instead
 		if (conditionId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) conditionId = ItemUpgraderRegistry.modRes(conditionId.getPath());
 		//verify it exists and throw a temper tantrum if not
-		if (!ItemUpgrader.CONDITION_REGISTRY.get().containsKey(conditionId)) throw new NoSuchElementException("Condition " + conditionId.toString() + " does not exist");
+		if (!ItemUpgraderCore.CONDITION_REGISTRY.get().containsKey(conditionId)) throw new NoSuchElementException("Condition " + conditionId.toString() + " does not exist");
 		//get internals
 		IUpgradeInternals internals = IUpgradeInternals.of(conditionId, json);
 		//get inverted
 		boolean inverted = GsonHelper.getAsBoolean(json, "inverted", false);
 		//get condition serializer
-		UpgradeConditionSerializer<?> conditionType = ItemUpgrader.CONDITION_REGISTRY.get().getValue(conditionId);
+		UpgradeConditionSerializer<?> conditionType = ItemUpgraderCore.CONDITION_REGISTRY.get().getValue(conditionId);
 		//deserialize
 		return conditionType.fromJson(internals, inverted, json);
 	}
@@ -141,11 +141,11 @@ public class UpgradeSerializer {
 		// minecraft never registers anything anyways, default to item upgrader instead
 		if (resultId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) resultId = ItemUpgraderRegistry.modRes(resultId.getPath());
 		//verify it exists and throw a temper tantrum if not
-		if (!ItemUpgrader.RESULT_REGISTRY.get().containsKey(resultId)) throw new NoSuchElementException("Result " + resultId.toString() + " does not exist");
+		if (!ItemUpgraderCore.RESULT_REGISTRY.get().containsKey(resultId)) throw new NoSuchElementException("Result " + resultId.toString() + " does not exist");
 		// get internals
 		IUpgradeInternals internals = IUpgradeInternals.of(resultId, json);
 		// get result serializer
-		UpgradeResultSerializer<?> resultType = ItemUpgrader.RESULT_REGISTRY.get().getValue(resultId);
+		UpgradeResultSerializer<?> resultType = ItemUpgraderCore.RESULT_REGISTRY.get().getValue(resultId);
 		// deserialize
 		return resultType.fromJson(internals, json);
 	}
@@ -220,10 +220,10 @@ public class UpgradeSerializer {
 	 */
 	public static UpgradeCondition conditionFromNetwork(FriendlyByteBuf buf) throws NoSuchElementException {
 		ResourceLocation conditionId = buf.readResourceLocation();
-		if (!ItemUpgrader.CONDITION_REGISTRY.get().containsKey(conditionId)) throw new NoSuchElementException("Condition " + conditionId.toString() + " does not exist");
+		if (!ItemUpgraderCore.CONDITION_REGISTRY.get().containsKey(conditionId)) throw new NoSuchElementException("Condition " + conditionId.toString() + " does not exist");
 		IUpgradeInternals internals = IUpgradeInternals.of(conditionId, buf);
 		boolean inverted = buf.readBoolean();
-		UpgradeConditionSerializer<?> serializer = ItemUpgrader.CONDITION_REGISTRY.get().getValue(conditionId);
+		UpgradeConditionSerializer<?> serializer = ItemUpgraderCore.CONDITION_REGISTRY.get().getValue(conditionId);
 		return serializer.fromNetwork(internals, inverted, buf);
 	}
 	
@@ -235,9 +235,9 @@ public class UpgradeSerializer {
 	 */
 	public static UpgradeResult resultFromNetwork(FriendlyByteBuf buf) throws NoSuchElementException {
 		ResourceLocation resultId = buf.readResourceLocation();
-		if (!ItemUpgrader.RESULT_REGISTRY.get().containsKey(resultId)) throw new NoSuchElementException("Result " + resultId.toString() + " does not exist");
+		if (!ItemUpgraderCore.RESULT_REGISTRY.get().containsKey(resultId)) throw new NoSuchElementException("Result " + resultId.toString() + " does not exist");
 		IUpgradeInternals resultInternals = IUpgradeInternals.of(resultId, buf);
-		UpgradeResultSerializer<?> serializer = ItemUpgrader.RESULT_REGISTRY.get().getValue(resultId);
+		UpgradeResultSerializer<?> serializer = ItemUpgraderCore.RESULT_REGISTRY.get().getValue(resultId);
 		return serializer.fromNetwork(resultInternals, buf);
 	}
 	

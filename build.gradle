@@ -20,8 +20,8 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = '1.0.0'
-group = 'io.legom.itemupgrader'
-archivesBaseName = 'itemupgrader'
+group = 'io._3650.itemupgrader'
+archivesBaseName = 'itemupgrader-core'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 

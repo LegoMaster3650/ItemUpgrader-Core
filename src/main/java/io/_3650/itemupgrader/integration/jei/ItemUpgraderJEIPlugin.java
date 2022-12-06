@@ -2,7 +2,7 @@ package io._3650.itemupgrader.integration.jei;
 
 import java.util.List;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.recipes.ItemUpgradeRecipe;
 import io._3650.itemupgrader.registry.config.Config;
 import mezz.jei.api.IModPlugin;
@@ -21,11 +21,11 @@ import net.minecraft.world.level.block.Blocks;
 @JeiPlugin
 public class ItemUpgraderJEIPlugin implements IModPlugin {
 	
-	public static final RecipeType<ItemUpgradeRecipe> UPGRADE_TYPE = RecipeType.create(ItemUpgrader.MOD_ID, "item_upgrade", ItemUpgradeRecipe.class);
+	public static final RecipeType<ItemUpgradeRecipe> UPGRADE_TYPE = RecipeType.create(ItemUpgraderCore.MOD_ID, "item_upgrade", ItemUpgradeRecipe.class);
 	
 	@Override
 	public ResourceLocation getPluginUid() {
-		return new ResourceLocation(ItemUpgrader.MOD_ID, "upgrades");
+		return new ResourceLocation(ItemUpgraderCore.MOD_ID, "upgrades");
 	}
 	
 	@Override

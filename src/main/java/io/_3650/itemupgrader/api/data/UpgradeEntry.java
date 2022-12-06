@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.registry.RegistryHelper;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -113,7 +113,7 @@ public class UpgradeEntry<T> {
 		buf.writeResourceLocation(this.id);
 	}
 	
-	private static final Factory FACTORY = new Factory(ItemUpgrader.MOD_ID);
+	private static final Factory FACTORY = new Factory(ItemUpgraderCore.MOD_ID);
 	
 	public static final UpgradeEntry<LogicalSide> SIDE = FACTORY.create("side", LogicalSide.class);
 	public static final UpgradeEntry<EquipmentSlot> SLOT = FACTORY.create("slot", EquipmentSlot.class, true);

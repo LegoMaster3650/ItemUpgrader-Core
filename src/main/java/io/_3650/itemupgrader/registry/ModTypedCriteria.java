@@ -1,6 +1,6 @@
 package io._3650.itemupgrader.registry;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.ingredient.TypedCriteria;
 import io._3650.itemupgrader.api.registry.ItemUpgraderRegistry;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -24,7 +24,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModTypedCriteria {
 	
-	public static final DeferredRegister<TypedCriteria> CRITERIA = DeferredRegister.create(ItemUpgraderRegistry.TYPED_CRITERIA, ItemUpgrader.MOD_ID);
+	public static final DeferredRegister<TypedCriteria> CRITERIA = DeferredRegister.create(ItemUpgraderRegistry.TYPED_CRITERIA, ItemUpgraderCore.MOD_ID);
 	
 	//Always True or False criteria
 	public static final RegistryObject<TypedCriteria> TRUE = CRITERIA.register("true", TypedCriteria.TRUE);

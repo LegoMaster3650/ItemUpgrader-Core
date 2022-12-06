@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import io._3650.itemupgrader.api.event.LivingTotemEvent;
-import io._3650.itemupgrader.registry.config.Config;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,11 +36,6 @@ public abstract class LivingEntityMixin {
 		LivingEntity thisLiving = (LivingEntity) (Object) this; //a moderate amount of trolling
 		LivingTotemEvent event = new LivingTotemEvent.Post(thisLiving, itemstack, damageSource);
 		MinecraftForge.EVENT_BUS.post(event);
-	}
-	
-	@Inject(method = "isBlocking", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
-	private void itemupgrader_isBlocking(CallbackInfoReturnable<Boolean> cir) {
-		cir.setReturnValue(this.useItem.getItem().getUseDuration(this.useItem) - this.useItemRemaining >= Config.COMMON.shieldRaiseSpeed.get());
 	}
 	
 }

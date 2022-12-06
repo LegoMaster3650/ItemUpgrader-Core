@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -29,7 +29,7 @@ public class TypedIngredient extends AbstractIngredient {
 	public TypedIngredient(ResourceLocation type) {
 		super();
 		this.type = type;
-		this.criteria = !ItemUpgrader.TYPED_CRITERIA_REGISTRY.get().containsKey(this.type) ? TypedCriteria.FALSE.get() : ItemUpgrader.TYPED_CRITERIA_REGISTRY.get().getValue(this.type);
+		this.criteria = !ItemUpgraderCore.TYPED_CRITERIA_REGISTRY.get().containsKey(this.type) ? TypedCriteria.FALSE.get() : ItemUpgraderCore.TYPED_CRITERIA_REGISTRY.get().getValue(this.type);
 	}
 	
 	@Override

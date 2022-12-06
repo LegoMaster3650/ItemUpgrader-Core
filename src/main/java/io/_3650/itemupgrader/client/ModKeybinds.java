@@ -2,7 +2,7 @@ package io._3650.itemupgrader.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientRegistry;
@@ -21,11 +21,11 @@ public class ModKeybinds {
 	}
 	
 	private static KeyMapping registerKey(String name, KeyConflictContext context, int keycode, String category) {
-		KeyMapping keyMap = new KeyMapping("key." + ItemUpgrader.MOD_ID + "." + name, context, InputConstants.Type.KEYSYM, keycode, category);
+		KeyMapping keyMap = new KeyMapping("key." + ItemUpgraderCore.MOD_ID + "." + name, context, InputConstants.Type.KEYSYM, keycode, category);
 		ClientRegistry.registerKeyBinding(keyMap);
 		return keyMap;
 	}
 	
-	private static final String MAIN_CATEGORY = "key.categories." + ItemUpgrader.MOD_ID;
+	private static final String MAIN_CATEGORY = "key.categories." + ItemUpgraderCore.MOD_ID;
 	
 }

@@ -1,6 +1,6 @@
 package io._3650.itemupgrader.api.registry;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.ingredient.TypedCriteria;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
@@ -30,7 +30,7 @@ public class ItemUpgraderRegistry {
 	 * @return A ResourceLocation with the value itemupgrader:{@literal <name>}
 	 */
 	public static ResourceLocation modRes(String name) {
-		return new ResourceLocation(ItemUpgrader.MOD_ID, name);
+		return new ResourceLocation(ItemUpgraderCore.MOD_ID, name);
 	}
 	
 }

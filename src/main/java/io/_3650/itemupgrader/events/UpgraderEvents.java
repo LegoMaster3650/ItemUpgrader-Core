@@ -1,6 +1,6 @@
 package io._3650.itemupgrader.events;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.ItemUpgraderApi;
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
@@ -9,7 +9,7 @@ import io._3650.itemupgrader.registry.ModUpgradeActions;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = ItemUpgrader.MOD_ID)
+@Mod.EventBusSubscriber(modid = ItemUpgraderCore.MOD_ID)
 public class UpgraderEvents {
 	
 	@SubscribeEvent

@@ -32,6 +32,7 @@ public class ClientStuff {
 	public static void displayItemActivation(ItemStack stack) {
 		Minecraft.getInstance().gameRenderer.displayItemActivation(stack);
 	}
+	
 	@SuppressWarnings("resource")
 	public static void displayItemPickup(int itemId, int targetId, int amount) {
 		ClientLevel level = Minecraft.getInstance().level;

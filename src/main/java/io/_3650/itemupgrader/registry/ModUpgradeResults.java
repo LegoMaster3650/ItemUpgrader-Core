@@ -1,6 +1,6 @@
 package io._3650.itemupgrader.registry;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.registry.ItemUpgraderRegistry;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
 import io._3650.itemupgrader.upgrades.results.AreaDamageUpgradeResult;
@@ -8,6 +8,7 @@ import io._3650.itemupgrader.upgrades.results.AttributeUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.AutoSmeltUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.BlockParticleUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.CancelUpgradeResult;
+import io._3650.itemupgrader.upgrades.results.CommandUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.CompoundUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.ConditionalUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.ConsumeUpgradeResult;
@@ -25,7 +26,6 @@ import io._3650.itemupgrader.upgrades.results.PlaySoundUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.ProjectilePierceUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.RandomTickUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.RemoveItemUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.CommandUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.SavePositionUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.SaveTimestampUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.SetHealthUpgradeResult;
@@ -40,21 +40,12 @@ import io._3650.itemupgrader.upgrades.results.modify.ResetDefaultItemUpgradeResu
 import io._3650.itemupgrader.upgrades.results.modify.SetNumberEntryUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.modify.UpdatePositionUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.modify.UpdateSlotItemUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.AbsorbItemsUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.FallToFoodUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.PlayerDeathpointUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.PlayerSpawnpointUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.ReboundEntityUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.ReflectProjectileUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.TellCoordsUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.TellTimeUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.special.TotemParticlesUpgradeResult;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModUpgradeResults {
 	
-	public static final DeferredRegister<UpgradeResultSerializer<?>> RESULTS = DeferredRegister.create(ItemUpgraderRegistry.RESULTS, ItemUpgrader.MOD_ID);
+	public static final DeferredRegister<UpgradeResultSerializer<?>> RESULTS = DeferredRegister.create(ItemUpgraderRegistry.RESULTS, ItemUpgraderCore.MOD_ID);
 	
 	public static final RegistryObject<CancelUpgradeResult.Serializer> CANCEL = RESULTS.register("cancel", () -> new CancelUpgradeResult.Serializer());
 	public static final RegistryObject<ConsumeUpgradeResult.Serializer> CONSUME = RESULTS.register("consume", () -> new ConsumeUpgradeResult.Serializer());
@@ -95,16 +86,6 @@ public class ModUpgradeResults {
 	public static final RegistryObject<UpdatePositionUpgradeResult.Serializer> UPDATE_POSITION = RESULTS.register("update_position", () -> new UpdatePositionUpgradeResult.Serializer());
 	public static final RegistryObject<UpdateSlotItemUpgradeResult.Serializer> UPDATE_ITEM = RESULTS.register("update_item", () -> new UpdateSlotItemUpgradeResult.Serializer());
 	public static final RegistryObject<ResetDefaultItemUpgradeResult.Serializer> RESET_ITEM = RESULTS.register("reset_item", () -> new ResetDefaultItemUpgradeResult.Serializer());
-	
-	public static final RegistryObject<FallToFoodUpgradeResult.Serializer> SPECIAL_FALL_TO_FOOD = RESULTS.register("internal_fall_to_food", () -> new FallToFoodUpgradeResult.Serializer());
-	public static final RegistryObject<PlayerSpawnpointUpgradeResult.Serializer> SPECIAL_SPAWNPOINT = RESULTS.register("internal_spawnpoint", () -> new PlayerSpawnpointUpgradeResult.Serializer());
-	public static final RegistryObject<PlayerDeathpointUpgradeResult.Serializer> SPECIAL_DEATHPOINT = RESULTS.register("internal_deathpoint", () -> new PlayerDeathpointUpgradeResult.Serializer());
-	public static final RegistryObject<TellCoordsUpgradeResult.Serializer> SPECIAL_TELL_COORDS = RESULTS.register("internal_tell_coords", () -> new TellCoordsUpgradeResult.Serializer());
-	public static final RegistryObject<TellTimeUpgradeResult.Serializer> SPECIAL_TELL_TIME = RESULTS.register("internal_tell_time", () -> new TellTimeUpgradeResult.Serializer());
-	public static final RegistryObject<TotemParticlesUpgradeResult.Serializer> SPECIAL_TOTEM_PARTICLES = RESULTS.register("internal_totem_particles", () -> new TotemParticlesUpgradeResult.Serializer());
-	public static final RegistryObject<ReflectProjectileUpgradeResult.Serializer> SPECIAL_PARRY = RESULTS.register("internal_parry", () -> new ReflectProjectileUpgradeResult.Serializer());
-	public static final RegistryObject<ReboundEntityUpgradeResult.Serializer> SPECIAL_REBOUND = RESULTS.register("internal_rebound", () -> new ReboundEntityUpgradeResult.Serializer());
-	public static final RegistryObject<AbsorbItemsUpgradeResult.Serializer> SPECIAL_ABSORB_ITEMS = RESULTS.register("internal_absorb_items", () -> new AbsorbItemsUpgradeResult.Serializer());
 	
 	
 }

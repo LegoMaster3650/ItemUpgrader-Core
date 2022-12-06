@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
@@ -232,7 +232,7 @@ public class ItemUpgrade {
 		ListMultimap<ResourceLocation, UpgradeAction> netActions = MultimapBuilder.hashKeys(netValidActionsCount).arrayListValues().build();
 		for (int i = 0; i < netValidActionsCount; i++) {
 			ResourceLocation actionId = buf.readResourceLocation();
-			UpgradeActionSerializer<?> serializer = ItemUpgrader.ACTION_REGISTRY.get().getValue(actionId);
+			UpgradeActionSerializer<?> serializer = ItemUpgraderCore.ACTION_REGISTRY.get().getValue(actionId);
 			//actions of type
 			int actionsCount = buf.readInt();
 			for (var j = 0; j < actionsCount; j++) {

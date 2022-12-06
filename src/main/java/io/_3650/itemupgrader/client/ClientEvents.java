@@ -7,7 +7,7 @@ import org.apache.commons.compress.utils.Lists;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
 
-import io._3650.itemupgrader.ItemUpgrader;
+import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.ItemUpgrade;
 import io._3650.itemupgrader.api.ItemUpgraderApi;
 import io._3650.itemupgrader.api.type.UpgradeAction;
@@ -27,7 +27,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = ItemUpgrader.MOD_ID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = ItemUpgraderCore.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
 	
 	@SubscribeEvent

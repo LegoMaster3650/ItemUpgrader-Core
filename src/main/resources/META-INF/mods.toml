@@ -6,14 +6,14 @@ license="MIT License"
 [[mods]]
 modId="itemupgrader"
 version="${file.jarVersion}"
-displayName="Item Upgrader"
+displayName="Item Upgrader Core"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
 #logoFile="itemupgrader.png"
 #credits="Joe Mama"
 authors="LegoMaster3650"
 description='''
-Yeah this is a mod it does stuff and things
+Core for the Item Upgrader mod, containing the base upgrade system and more generic features
 '''
 
 [[dependencies.itemupgrader]]

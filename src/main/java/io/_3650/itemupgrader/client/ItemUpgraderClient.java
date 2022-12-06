@@ -20,7 +20,7 @@ public class ItemUpgraderClient {
 	public void clientSetup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
 			LOGGER.debug("Item Upgrader client init");
-			ModKeybinds.init();
+			//but nobody came...
 		});
 	}
 	

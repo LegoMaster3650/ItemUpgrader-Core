@@ -11,8 +11,8 @@ import io._3650.itemupgrader.api.util.UpgradeSerializer;
 import io._3650.itemupgrader.api.util.UpgradeTooltipHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 
@@ -50,9 +50,9 @@ public class ConditionalUpgradeResult extends UpgradeResult {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		MutableComponent tooltip = new TranslatableComponent("tooltip.itemupgrader.if", UpgradeTooltipHelper.condition(this.condition, stack)).withStyle(ChatFormatting.BLUE)
+		MutableComponent tooltip = Component.translatable("tooltip.itemupgrader.if", UpgradeTooltipHelper.condition(this.condition, stack)).withStyle(ChatFormatting.BLUE)
 				.append(UpgradeTooltipHelper.result(this.result, stack));
-		if (this.elseResult != null) tooltip.append(new TranslatableComponent("tooltip.itemupgrader.else")).append(UpgradeTooltipHelper.result(this.elseResult, stack));
+		if (this.elseResult != null) tooltip.append(Component.translatable("tooltip.itemupgrader.else")).append(UpgradeTooltipHelper.result(this.elseResult, stack));
 		return ComponentHelper.arrayify(tooltip);
 	}
 	

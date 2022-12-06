@@ -9,8 +9,8 @@ import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 
 public class ResetDefaultItemUpgradeResult extends UpgradeResult {
@@ -39,7 +39,7 @@ public class ResetDefaultItemUpgradeResult extends UpgradeResult {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return new MutableComponent[] {new TranslatableComponent(this.itemEntry.getDescriptionId())};
+		return new MutableComponent[] {Component.translatable(this.itemEntry.getDescriptionId())};
 	}
 	
 	@Override

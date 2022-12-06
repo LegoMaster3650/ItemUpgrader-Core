@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[43,)"
 license="MIT License"
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
 
@@ -12,6 +12,7 @@ displayName="Item Upgrader Core"
 #logoFile="itemupgrader.png"
 #credits="Joe Mama"
 authors="LegoMaster3650"
+displayTest="MATCH_VERSION"
 description='''
 Core for the Item Upgrader mod, containing the base upgrade system and more generic features
 '''
@@ -19,14 +20,14 @@ Core for the Item Upgrader mod, containing the base upgrade system and more gene
 [[dependencies.itemupgrader]]
 	modId="forge"
 	mandatory=true
-	versionRange="[40,)"
+	versionRange="[43.1,)"
 	ordering="NONE"
 	side="BOTH"
 
 [[dependencies.itemupgrader]]
 	modId="minecraft"
 	mandatory=true
-	versionRange="[1.18.2,1.19)"
+	versionRange="[1.19.2,1.20)"
 	ordering="NONE"
 	side="BOTH"
 

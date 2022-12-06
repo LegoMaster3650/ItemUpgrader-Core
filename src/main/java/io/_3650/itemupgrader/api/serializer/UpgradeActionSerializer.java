@@ -11,7 +11,6 @@ import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.type.IUpgradeType.IUpgradeInternals;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * Serializer class for upgrade actions
@@ -19,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  *
  * @param <T> The {@linkplain UpgradeAction} subclass serialized by this serializer
  */
-public abstract class UpgradeActionSerializer<T extends UpgradeAction> extends ForgeRegistryEntry<UpgradeActionSerializer<T>> {
+public abstract class UpgradeActionSerializer<T extends UpgradeAction> {
 	
 	/**
 	 * Gets the entry data guaranteed to be provided by the serialized action

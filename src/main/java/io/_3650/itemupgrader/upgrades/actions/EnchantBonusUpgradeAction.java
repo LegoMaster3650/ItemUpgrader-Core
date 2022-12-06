@@ -13,9 +13,8 @@ import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.registry.config.Config;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
@@ -37,10 +36,10 @@ public class EnchantBonusUpgradeAction extends ConditionalUpgradeAction {
 	
 	@Override
 	public MutableComponent applyResultTooltip(MutableComponent tooltip, ItemStack stack) {
-		tooltip = tooltip.append(new TranslatableComponent("action.itemupgrader.enchantment.tooltip" + (this.modifier < 0 ? ".decrease" : this.modifier == 1 ? ".one" : ""), Config.CLIENT.useRomanNumerals.get() ? new TranslatableComponent("enchantment.level." + this.modifier) : new TextComponent("" + Mth.abs(this.modifier)), new TranslatableComponent("enchantment." + ComponentHelper.keyFormat(this.enchantId))));
+		tooltip = tooltip.append(Component.translatable("action.itemupgrader.enchantment.tooltip" + (this.modifier < 0 ? ".decrease" : this.modifier == 1 ? ".one" : ""), Config.CLIENT.useRomanNumerals.get() ? Component.translatable("enchantment.level." + this.modifier) : Component.literal("" + Mth.abs(this.modifier)), Component.translatable("enchantment." + ComponentHelper.keyFormat(this.enchantId))));
 		if (this.minBaseLevel > 0) {
-			if (this.minBaseLevel == 1) return tooltip.append(new TranslatableComponent("action.itemupgrader.enchantment.tooltip.present"));
-			else return tooltip.append(new TranslatableComponent("action.itemupgrader.enchantment.tooltip.min_level", this.minBaseLevel));
+			if (this.minBaseLevel == 1) return tooltip.append(Component.translatable("action.itemupgrader.enchantment.tooltip.present"));
+			else return tooltip.append(Component.translatable("action.itemupgrader.enchantment.tooltip.min_level", this.minBaseLevel));
 		} else return tooltip;
 	}
 	

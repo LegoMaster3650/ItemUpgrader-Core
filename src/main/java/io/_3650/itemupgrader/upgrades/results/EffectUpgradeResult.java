@@ -10,8 +10,8 @@ import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.effect.MobEffect;
@@ -55,9 +55,9 @@ public class EffectUpgradeResult extends UpgradeResult {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		MutableComponent result = new TranslatableComponent(this.effect.getDescriptionId());
-		if (this.amplifier > 0) result = new TranslatableComponent("potion.withAmplifier", result, new TranslatableComponent("potion.potency." + this.amplifier));
-		if (this.duration > 20) result = new TranslatableComponent("potion.withDuration", result, MobEffectUtil.formatDuration(new MobEffectInstance(this.effect, this.duration, this.amplifier, this.ambient, this.showParticles, this.showIcon), 1.0F));
+		MutableComponent result = Component.translatable(this.effect.getDescriptionId());
+		if (this.amplifier > 0) result = Component.translatable("potion.withAmplifier", result, Component.translatable("potion.potency." + this.amplifier));
+		if (this.duration > 20) result = Component.translatable("potion.withDuration", result, MobEffectUtil.formatDuration(new MobEffectInstance(this.effect, this.duration, this.amplifier, this.ambient, this.showParticles, this.showIcon), 1.0F));
 		return ComponentHelper.arrayify(result.withStyle(this.effect.getCategory().getTooltipFormatting()));
 	}
 

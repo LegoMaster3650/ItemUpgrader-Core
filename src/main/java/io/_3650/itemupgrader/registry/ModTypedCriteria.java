@@ -59,6 +59,7 @@ public class ModTypedCriteria {
 	
 	//Misc.
 	public static final RegistryObject<TypedCriteria> BOOK = CRITERIA.register("book", TypedCriteria.of(stack -> stack.getItem() instanceof BookItem));
+	@SuppressWarnings("deprecation") //I am intentionally ignoring stack context here
 	public static final RegistryObject<TypedCriteria> ENCHANTABLE = CRITERIA.register("enchantable", TypedCriteria.of(stack -> stack.getItem().getEnchantmentValue() > 0));
 	public static final RegistryObject<TypedCriteria> UNBRAKING_ENCHANTABLE = CRITERIA.register("unbreaking_enchantable", TypedCriteria.of(stack -> Enchantments.UNBREAKING.canEnchant(stack)));
 	public static final RegistryObject<TypedCriteria> EFFICIENCY_ENCHANTABLE = CRITERIA.register("efficiency_enchantable", TypedCriteria.of(stack -> Enchantments.BLOCK_EFFICIENCY.canEnchant(stack)));

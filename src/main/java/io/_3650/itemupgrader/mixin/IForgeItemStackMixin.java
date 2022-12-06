@@ -18,9 +18,9 @@ public interface IForgeItemStackMixin extends IForgeItemStack {
 	 * @see {@link IForgeItemStack#getItemEnchantability()}
 	 */
 	@Overwrite(remap = false)
-	default int getItemEnchantability() {
+	default int getEnchantmentValue() {
 		ItemStack stack = (ItemStack) (Object) this;
-		return ModSpecialEvents.itemEnchantability(stack, stack.getItem().getItemEnchantability(stack));
+		return ModSpecialEvents.itemEnchantability(stack, stack.getItem().getEnchantmentValue(stack));
 	}
 	
 }

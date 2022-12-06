@@ -9,8 +9,8 @@ import io._3650.itemupgrader.api.serializer.UpgradeConditionSerializer;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,7 @@ public class RandomUpgradeCondition extends UpgradeCondition {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return ComponentHelper.arrayify(new TextComponent(ComponentHelper.SIGNED_PERCENT.format(this.chance)));
+		return ComponentHelper.arrayify(Component.literal(ComponentHelper.SIGNED_PERCENT.format(this.chance)));
 	}
 	
 	@Override

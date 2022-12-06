@@ -11,8 +11,8 @@ import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.registry.types.OperationValue;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 
@@ -76,7 +76,7 @@ public class TagVarFloatUpgradeCondition extends UpgradeCondition {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return new MutableComponent[]{new TextComponent(this.tagName), new TextComponent(this.op.getName()), new TextComponent(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.value))};
+		return new MutableComponent[]{Component.literal(this.tagName), Component.literal(this.op.getName()), Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.value))};
 	}
 	
 	@Override

@@ -9,9 +9,8 @@ import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -46,7 +45,7 @@ public class SetHealthUpgradeResult extends UpgradeResult {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return new MutableComponent[] {new TranslatableComponent(this.livingEntry.getDescriptionId()), new TextComponent(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.amount))};
+		return new MutableComponent[] {Component.translatable(this.livingEntry.getDescriptionId()), Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.amount))};
 	}
 	
 	@Override

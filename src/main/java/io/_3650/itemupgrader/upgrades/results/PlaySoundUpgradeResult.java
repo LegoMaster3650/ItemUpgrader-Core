@@ -13,7 +13,6 @@ import io._3650.itemupgrader.client.ClientStuff;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -68,7 +67,7 @@ public class PlaySoundUpgradeResult extends UpgradeResult {
 		if (this.subtitleCache == null) {
 			Component subtitleComponent = DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> ClientStuff.getSubtitle(this.soundId));
 			if (/* subtitleComponent != null && */subtitleComponent instanceof MutableComponent component) this.subtitleCache = component;
-			else this.subtitleCache = new TranslatableComponent("subtitles." + this.soundId.getPath());
+			else this.subtitleCache = Component.translatable("subtitles." + this.soundId.getPath());
 		}
 		return ComponentHelper.arrayify(this.subtitleCache);
 	}

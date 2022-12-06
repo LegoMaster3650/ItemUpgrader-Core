@@ -5,27 +5,29 @@ import com.mojang.blaze3d.platform.InputConstants;
 import io._3650.itemupgrader.ItemUpgraderCore;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 
 public class ModKeybinds {
 	
-	public static KeyMapping showTooltipKey;
+	private static final String MAIN_CATEGORY = "key.categories." + ItemUpgraderCore.MOD_ID;
 	
-	public static void init() {
-		showTooltipKey = registerKey("show_tooltip", KeyConflictContext.GUI, InputConstants.KEY_LSHIFT, MAIN_CATEGORY);
+	public static final KeyMapping SHOW_TOOLTIP = new KeyMapping("key." + ItemUpgraderCore.MOD_ID + ".show_tooltip", KeyConflictContext.GUI, InputConstants.Type.KEYSYM, InputConstants.KEY_LSHIFT, MAIN_CATEGORY);
+	
+	public static KeyMapping showTooltip;
+	
+	public static void init(RegisterKeyMappingsEvent event) {
+		showTooltip = createKeybind(event, "show_tooltip", KeyConflictContext.GUI, InputConstants.KEY_LSHIFT, MAIN_CATEGORY);
 	}
 	
-	public static boolean isKeyPressed(KeyMapping key) {
-		return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), key.getKey().getValue());
-	}
-	
-	private static KeyMapping registerKey(String name, KeyConflictContext context, int keycode, String category) {
+	private static KeyMapping createKeybind(RegisterKeyMappingsEvent event, String name, KeyConflictContext context, int keycode, String category) {
 		KeyMapping keyMap = new KeyMapping("key." + ItemUpgraderCore.MOD_ID + "." + name, context, InputConstants.Type.KEYSYM, keycode, category);
-		ClientRegistry.registerKeyBinding(keyMap);
+		event.register(keyMap);
 		return keyMap;
 	}
 	
-	private static final String MAIN_CATEGORY = "key.categories." + ItemUpgraderCore.MOD_ID;
+	public static boolean isKeyPressed(KeyMapping key) {
+		return key != null && InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), key.getKey().getValue());
+	}
 	
 }

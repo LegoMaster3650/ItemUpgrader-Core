@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.type.IUpgradeType.IUpgradeInternals;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * Serializer class for upgrade conditions
@@ -13,7 +12,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  *
  * @param <T> The {@linkplain UpgradeCondition} subclass serialized by this serializer
  */
-public abstract class UpgradeConditionSerializer<T extends UpgradeCondition> extends ForgeRegistryEntry<UpgradeConditionSerializer<T>> {
+public abstract class UpgradeConditionSerializer<T extends UpgradeCondition> {
 	
 	/**
 	 * Constructs your subclass T using the given internals and json

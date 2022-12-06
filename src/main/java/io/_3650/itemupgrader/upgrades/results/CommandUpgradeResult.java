@@ -15,9 +15,8 @@ import io._3650.itemupgrader.api.util.UpgradeJsonHelper;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
@@ -69,7 +68,7 @@ public class CommandUpgradeResult extends UpgradeResult {
 				level,
 				this.permissionLevel,
 				"ItemUpgrader." + this.getId(),
-				new TextComponent("ItemUpgrader" + this.getId()),
+				Component.literal("ItemUpgrader" + this.getId()),
 				level.getServer(),
 				entity);
 		else sourceStack = new CommandSourceStack(
@@ -82,7 +81,7 @@ public class CommandUpgradeResult extends UpgradeResult {
 				entity.getDisplayName(),
 				level.getServer(),
 				entity);
-		return level.getServer().getCommands().performCommand(sourceStack, this.commandFormat) > 0;
+		return level.getServer().getCommands().performPrefixedCommand(sourceStack, this.commandFormat) > 0;
 	}
 	
 	private final Serializer instance = new Serializer();
@@ -93,7 +92,7 @@ public class CommandUpgradeResult extends UpgradeResult {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return ComponentHelper.arrayify(new TranslatableComponent("upgradeCommand." + this.getDescriptionId()));
+		return ComponentHelper.arrayify(Component.translatable("upgradeCommand." + this.getDescriptionId()));
 	}
 	
 	@Override

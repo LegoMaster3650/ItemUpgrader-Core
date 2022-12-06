@@ -7,9 +7,9 @@ import java.util.Locale;
 
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 
@@ -86,14 +86,14 @@ public class ComponentHelper {
 	 * @return The components formatted as an or list
 	 */
 	public static MutableComponent orList(List<MutableComponent> components) {
-		if (components.size() <= 0) return new TranslatableComponent("tooltip.itemupgrader.error");
+		if (components.size() <= 0) return Component.translatable("tooltip.itemupgrader.error");
 		if (components.size() == 1) return components.get(0);
-		if (components.size() == 2) return components.get(0).append(new TranslatableComponent("itemupgrader.text.or")).append(components.get(1));
+		if (components.size() == 2) return components.get(0).append(Component.translatable("itemupgrader.text.or")).append(components.get(1));
 		MutableComponent main = components.get(0);
 		for (var i = 1; i < components.size() - 1; i++) {
-			main.append(new TranslatableComponent("itemupgrader.text.list")).append(components.get(i));
+			main.append(Component.translatable("itemupgrader.text.list")).append(components.get(i));
 		}
-		return main.append(new TranslatableComponent("itemupgrader.text.or.list")).append(components.get(components.size() - 1));
+		return main.append(Component.translatable("itemupgrader.text.or.list")).append(components.get(components.size() - 1));
 	}
 	
 	/**
@@ -103,14 +103,14 @@ public class ComponentHelper {
 	 * @return The components formatted as an and list
 	 */
 	public static MutableComponent andList(List<MutableComponent> components) {
-		if (components.size() <= 0) return new TranslatableComponent("tooltip.itemupgrader.error");
+		if (components.size() <= 0) return Component.translatable("tooltip.itemupgrader.error");
 		if (components.size() == 1) return components.get(0);
-		if (components.size() == 2) return components.get(0).append(new TranslatableComponent("itemupgrader.text.and")).append(components.get(1));
+		if (components.size() == 2) return components.get(0).append(Component.translatable("itemupgrader.text.and")).append(components.get(1));
 		MutableComponent main = components.get(0);
 		for (var i = 1; i < components.size() - 1; i++) {
-			main.append(new TranslatableComponent("itemupgrader.text.list")).append(components.get(i));
+			main.append(Component.translatable("itemupgrader.text.list")).append(components.get(i));
 		}
-		return main.append(new TranslatableComponent("itemupgrader.text.and.list")).append(components.get(components.size() - 1));
+		return main.append(Component.translatable("itemupgrader.text.and.list")).append(components.get(components.size() - 1));
 	}
 	
 	/**
@@ -120,11 +120,11 @@ public class ComponentHelper {
 	 * @return The components formatted as a list
 	 */
 	public static MutableComponent list(List<MutableComponent> components) {
-		if (components.size() <= 0) return new TranslatableComponent("tooltip.itemupgrader.error");
+		if (components.size() <= 0) return Component.translatable("tooltip.itemupgrader.error");
 		if (components.size() == 1) return components.get(0);
 		MutableComponent main = components.get(0);
 		for (var i = 1; i < components.size() - 1; i++) {
-			main.append(new TranslatableComponent("itemupgrader.text.list")).append(components.get(i));
+			main.append(Component.translatable("itemupgrader.text.list")).append(components.get(i));
 		}
 		return main;
 	}
@@ -134,8 +134,8 @@ public class ComponentHelper {
 	 * @param slot The {@linkplain EquipmentSlot} to use
 	 * @return A {@linkplain TranslatableComponent} with the item upgrader translation key for the given slot
 	 */
-	public static TranslatableComponent componentFromSlot(EquipmentSlot slot) {
-		return new TranslatableComponent("equipmentSlot." + slot.getName());
+	public static MutableComponent componentFromSlot(EquipmentSlot slot) {
+		return Component.translatable("equipmentSlot." + slot.getName());
 	}
 	
 	/**
@@ -143,8 +143,8 @@ public class ComponentHelper {
 	 * @param slot The {@linkplain EquipmentSlot} to use
 	 * @return A {@linkplain TranslatableComponent} for the given "When in/on slot"
 	 */
-	public static TranslatableComponent slotInOn(EquipmentSlot slot) {
-		return new TranslatableComponent("tooltip.itemupgrader.slots." + (slot.getType() == EquipmentSlot.Type.ARMOR ? "on" : "in"), ComponentHelper.componentFromSlot(slot));
+	public static MutableComponent slotInOn(EquipmentSlot slot) {
+		return Component.translatable("tooltip.itemupgrader.slots." + (slot.getType() == EquipmentSlot.Type.ARMOR ? "on" : "in"), ComponentHelper.componentFromSlot(slot));
 	}
 	
 }

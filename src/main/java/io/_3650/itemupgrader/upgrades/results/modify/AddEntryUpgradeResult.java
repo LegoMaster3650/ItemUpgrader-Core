@@ -14,9 +14,8 @@ import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.registry.types.NumberType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 
@@ -74,8 +73,8 @@ public class AddEntryUpgradeResult extends UpgradeResult {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		MutableComponent amountTooltip = new TextComponent(ComponentHelper.SIGNED_NUMBER.format(this.amount));
-		MutableComponent entryTooltip = new TranslatableComponent(this.target == NumberType.FLOAT ? this.floatEntry.getDescriptionId() : this.intEntry.getDescriptionId());
+		MutableComponent amountTooltip = Component.literal(ComponentHelper.SIGNED_NUMBER.format(this.amount));
+		MutableComponent entryTooltip = Component.translatable(this.target == NumberType.FLOAT ? this.floatEntry.getDescriptionId() : this.intEntry.getDescriptionId());
 		return new MutableComponent[] {amountTooltip, entryTooltip};
 	}
 	

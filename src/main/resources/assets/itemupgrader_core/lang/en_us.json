@@ -35,6 +35,8 @@
 	"tooltip.itemupgrader.if": "If %s, ",
 	"tooltip.itemupgrader.else": ", Or Else ",
 	
+	"tooltip.itemupgrader.allow": "Allow",
+	"tooltip.itemupgrader.deny": "Deny",
 	
 	
 	"death.attack.itemUpgrader": "%1$s died",
@@ -229,8 +231,8 @@
 	"upgradeCondition.itemupgrader.block_tag.inverted": "block doesn't have tag %s",
 	"upgradeCondition.itemupgrader.verify_timestamp": "timestamp is valid",
 	"upgradeCondition.itemupgrader.verify_timestamp.inverted": "timestamp is valid",
-	"upgradeCondition.itemupgrader.success": "last result succeeded",
-	"upgradeCondition.itemupgrader.success.inverted": "last result failed",
+	"upgradeCondition.itemupgrader.success": "successful",
+	"upgradeCondition.itemupgrader.success.inverted": "unsuccessful",
 	"upgradeCondition.itemupgrader.edible": "item is edible",
 	"upgradeCondition.itemupgrader.sneaking": "sneaking",
 	"upgradeCondition.itemupgrader.random": "%s chance",
@@ -238,7 +240,7 @@
 	
 	
 	"upgradeResult.itemupgrader.cancel": "Cancel",
-	"upgradeResult.itemupgrader.consume": "Cancel and stop other items from running",
+	"upgradeResult.itemupgrader.consume": "%s other similar events for this action",
 	"upgradeResult.itemupgrader.attribute": "%s",
 	"upgradeResult.itemupgrader.effect": "Gain %s",
 	"upgradeResult.itemupgrader.block_particle": "Display target block particle",

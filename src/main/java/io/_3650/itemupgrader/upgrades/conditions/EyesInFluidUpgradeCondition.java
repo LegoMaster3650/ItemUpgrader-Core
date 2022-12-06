@@ -10,21 +10,20 @@ import io._3650.itemupgrader.api.serializer.UpgradeConditionSerializer;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class EyesInFluidUpgradeCondition extends UpgradeCondition {
 	
 	private final UpgradeEntry<Entity> entityEntry;
 	private final ResourceLocation fluidId;
-	private final TagKey<Fluid> fluid;
+	private final FluidType fluid;
 	private final String fluidKey;
 	
 	public EyesInFluidUpgradeCondition(IUpgradeInternals internals, boolean inverted, UpgradeEntry<Entity> entityEntry, ResourceLocation fluidId, String fluidKey) {
@@ -33,19 +32,19 @@ public class EyesInFluidUpgradeCondition extends UpgradeCondition {
 		}));
 		this.entityEntry = entityEntry;
 		this.fluidId = fluidId;
-		this.fluid = //net.minecraft.tags.FluidTags.create(fluidId); //Using registry for now
-				ForgeRegistries.FLUIDS.tags().createTagKey(fluidId);
+		this.fluid = ForgeRegistries.FLUID_TYPES.get().getValue(fluidId);
 		this.fluidKey = fluidKey;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean test(UpgradeEventData data) {
-		return data.getEntry(this.entityEntry).isEyeInFluid(this.fluid);
+		return data.getEntry(this.entityEntry).isEyeInFluidType(this.fluid);
 	}
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return ComponentHelper.arrayify(new TranslatableComponent(this.fluidKey));
+		return ComponentHelper.arrayify(Component.translatable(this.fluidKey));
 	}
 	
 	@Override

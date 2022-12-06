@@ -12,26 +12,30 @@ import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockIDUpgradeCondition extends UpgradeCondition {
 	
 	private final ResourceLocation block;
+	private final Block blockReference;
 	
 	public BlockIDUpgradeCondition(IUpgradeInternals internals, boolean inverted, ResourceLocation block) {
 		super(internals, inverted, UpgradeEntrySet.BLOCK_STATE);
 		this.block = block;
+		this.blockReference = ForgeRegistries.BLOCKS.getValue(block);
 	}
 	
 	@Override
 	public boolean test(UpgradeEventData data) {
 		BlockState state = data.getEntry(UpgradeEntry.BLOCK_STATE);
-		return state.getBlock().getRegistryName().equals(this.block);
+		return state.getBlock() == this.blockReference;
 	}
 	
 	private final Serializer instance = new Serializer();
@@ -47,7 +51,7 @@ public class BlockIDUpgradeCondition extends UpgradeCondition {
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
 		if (this.descriptionId == null) this.descriptionId = Util.makeDescriptionId("block", this.block);
-		return ComponentHelper.arrayify(new TranslatableComponent(this.descriptionId));
+		return ComponentHelper.arrayify(Component.translatable(this.descriptionId));
 	}
 	
 	@Override

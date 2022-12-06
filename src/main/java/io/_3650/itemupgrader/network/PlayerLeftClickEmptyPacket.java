@@ -23,7 +23,7 @@ public record PlayerLeftClickEmptyPacket(EquipmentSlot slot, boolean emptyStack)
 		ctx.get().enqueueWork(() -> {
 			ServerPlayer player = ctx.get().getSender();
 			ItemStack stack = packet.emptyStack ? ItemStack.EMPTY : player.getItemBySlot(packet.slot);
-			ModEvents.leftClickBase(packet.slot, player, stack);
+			ModEvents.leftClickBase(packet.slot, player, stack, packet.emptyStack);
 		});
 		ctx.get().setPacketHandled(true);
 	}

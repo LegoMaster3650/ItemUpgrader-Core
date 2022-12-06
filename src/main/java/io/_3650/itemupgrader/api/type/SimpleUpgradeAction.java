@@ -19,8 +19,8 @@ import io._3650.itemupgrader.api.util.UpgradeJsonHelper;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
 import io._3650.itemupgrader.api.util.UpgradeTooltipHelper;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -74,7 +74,7 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 					elseResultComponents.add(UpgradeTooltipHelper.result(result, stack));
 				}
 			}
-			if (elseResultComponents.size() > 0) return tooltip.append(new TranslatableComponent("tooltip.itemupgrader.else").append(ComponentHelper.andList(elseResultComponents)));
+			if (elseResultComponents.size() > 0) return tooltip.append(Component.translatable("tooltip.itemupgrader.else").append(ComponentHelper.andList(elseResultComponents)));
 		}
 		//return
 		return tooltip;
@@ -92,6 +92,7 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 	
 	@Override
 	public void execute(UpgradeEventData data) {
+		if (data.hasEntry(UpgradeEntry.CONSUMED)) data.consume();
 		for (UpgradeResult result : this.results) {
 			UpgradeEventData.InternalStuffIgnorePlease.setSuccess(data, result.execute(data));
 		}

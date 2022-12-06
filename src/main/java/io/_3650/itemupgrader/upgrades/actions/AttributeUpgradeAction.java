@@ -24,8 +24,8 @@ import io._3650.itemupgrader.registry.types.ModUpgradeEntry;
 import io._3650.itemupgrader.registry.types.ModUpgradeEntrySet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -64,10 +64,10 @@ public class AttributeUpgradeAction extends ConditionalUpgradeAction {
 		
 		//Make component
 		if (this.amount >= 0.0D) {
-			return tooltip.append(new TranslatableComponent("attribute.modifier.plus."+ this.operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayAmount), new TranslatableComponent(this.attribute.getDescriptionId())).withStyle(ChatFormatting.BLUE));
+			return tooltip.append(Component.translatable("attribute.modifier.plus."+ this.operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayAmount), Component.translatable(this.attribute.getDescriptionId())).withStyle(ChatFormatting.BLUE));
 		} else {
 			displayAmount *= -1.0D;
-			return tooltip.append(new TranslatableComponent("attribute.modifier.take."+ this.operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayAmount), new TranslatableComponent(this.attribute.getDescriptionId())).withStyle(ChatFormatting.RED));
+			return tooltip.append(Component.translatable("attribute.modifier.take."+ this.operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayAmount), Component.translatable(this.attribute.getDescriptionId())).withStyle(ChatFormatting.RED));
 		}
 	}
 	

@@ -9,9 +9,8 @@ import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
@@ -75,7 +74,7 @@ public class DamageUpgradeResult extends UpgradeResult {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return new MutableComponent[] {new TextComponent(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.damage)), new TextComponent(this.damageSourceName), new TranslatableComponent(this.entityEntry.getDescriptionId())};
+		return new MutableComponent[] {Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.damage)), Component.literal(this.damageSourceName), Component.translatable(this.entityEntry.getDescriptionId())};
 	}
 	
 	@Override

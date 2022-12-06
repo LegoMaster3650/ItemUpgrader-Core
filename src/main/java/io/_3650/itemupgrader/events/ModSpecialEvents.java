@@ -10,6 +10,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraftforge.registries.ForgeRegistries;
 
 //For "events" that don't use forge's event system
 public class ModSpecialEvents {
@@ -21,7 +22,7 @@ public class ModSpecialEvents {
 	public static int lootEnchantmentBonus(Enchantment enchantment, int enchantmentLevel, ItemStack dropStack, LootContext context) {
 		if (context.hasParam(LootContextParams.TOOL)) {
 			UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.LOOT_ENCHANTMENT, new UpgradeEventData.Builder(context.getParam(LootContextParams.TOOL))
-					.entry(UpgradeEntry.ENCHANTMENT_ID, enchantment.getRegistryName())
+					.entry(UpgradeEntry.ENCHANTMENT_ID, ForgeRegistries.ENCHANTMENTS.getKey(enchantment))
 					.modifiableEntry(UpgradeEntry.ENCHANTMENT_LEVEL, enchantmentLevel));
 			return data.getEntry(UpgradeEntry.ENCHANTMENT_LEVEL);
 		} else return enchantmentLevel;
@@ -30,7 +31,7 @@ public class ModSpecialEvents {
 	public static int riptideBonus(ItemStack stack, LivingEntity living, int riptide) {
 		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.ENCHANTMENT_BONUS, new UpgradeEventData.Builder(living)
 				.entry(UpgradeEntry.ITEM, stack)
-				.entry(UpgradeEntry.ENCHANTMENT_ID, Enchantments.RIPTIDE.getRegistryName())
+				.entry(UpgradeEntry.ENCHANTMENT_ID, ForgeRegistries.ENCHANTMENTS.getKey(Enchantments.RIPTIDE))
 				.modifiableEntry(UpgradeEntry.ENCHANTMENT_LEVEL, riptide));
 		return data.getEntry(UpgradeEntry.ENCHANTMENT_LEVEL);
 	}
@@ -38,14 +39,14 @@ public class ModSpecialEvents {
 	public static byte loyaltyBonus(ItemStack stack, LivingEntity living, int loyalty) {
 		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.ENCHANTMENT_BONUS, new UpgradeEventData.Builder(living)
 				.entry(UpgradeEntry.ITEM, stack)
-				.entry(UpgradeEntry.ENCHANTMENT_ID, Enchantments.LOYALTY.getRegistryName())
+				.entry(UpgradeEntry.ENCHANTMENT_ID, ForgeRegistries.ENCHANTMENTS.getKey(Enchantments.LOYALTY))
 				.modifiableEntry(UpgradeEntry.ENCHANTMENT_LEVEL, loyalty));
 		return data.getEntry(UpgradeEntry.ENCHANTMENT_LEVEL).byteValue();
 	}
 	
 	public static int unbreakingBonus(ItemStack stack, int unbreaking) {
 		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.ENCHANTMENT_BONUS, new UpgradeEventData.Builder(stack)
-				.entry(UpgradeEntry.ENCHANTMENT_ID, Enchantments.UNBREAKING.getRegistryName())
+				.entry(UpgradeEntry.ENCHANTMENT_ID, ForgeRegistries.ENCHANTMENTS.getKey(Enchantments.UNBREAKING))
 				.modifiableEntry(UpgradeEntry.ENCHANTMENT_LEVEL, unbreaking));
 		return data.getEntry(UpgradeEntry.ENCHANTMENT_LEVEL);
 	}

@@ -14,9 +14,8 @@ import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.registry.config.Config;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -84,9 +83,9 @@ public class MagnetUpgradeResult extends UpgradeResult {
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
 		ArrayList<MutableComponent> types = new ArrayList<>(2);
-		if(this.attractItems) types.add(new TranslatableComponent("upgradeResult.itemupgrader.magnet.items"));
-		if(this.attractXp) types.add(new TranslatableComponent("upgradeResult.itemupgrader.magnet.xp"));
-		return new MutableComponent[] {ComponentHelper.andList(types), new TextComponent(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.range))};
+		if(this.attractItems) types.add(Component.translatable("upgradeResult.itemupgrader.magnet.items"));
+		if(this.attractXp) types.add(Component.translatable("upgradeResult.itemupgrader.magnet.xp"));
+		return new MutableComponent[] {ComponentHelper.andList(types), Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.range))};
 	}
 	
 	@Override

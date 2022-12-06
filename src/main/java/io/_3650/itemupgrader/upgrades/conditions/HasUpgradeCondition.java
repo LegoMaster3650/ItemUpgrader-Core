@@ -13,8 +13,8 @@ import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.upgrades.ItemUpgradeManager;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,7 +46,7 @@ public class HasUpgradeCondition extends UpgradeCondition {
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
 		ItemUpgrade upgrade = ItemUpgradeManager.INSTANCE.getUpgrade(this.upgradeId);
-		MutableComponent upgradeComponent = new TranslatableComponent("upgrade." + ComponentHelper.keyFormat(this.upgradeId));
+		MutableComponent upgradeComponent = Component.translatable("upgrade." + ComponentHelper.keyFormat(this.upgradeId));
 		if (upgrade != null) upgradeComponent = ComponentHelper.applyColor(upgrade.getColor(), upgradeComponent);
 		MutableComponent slotComponent = ComponentHelper.slotInOn(this.slot);
 		return new MutableComponent[] {upgradeComponent, slotComponent};

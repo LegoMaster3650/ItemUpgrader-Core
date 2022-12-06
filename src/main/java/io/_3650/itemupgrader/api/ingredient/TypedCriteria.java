@@ -4,14 +4,13 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * Criteria for {@linkplain TypedIngredient} registered in the <b>TYPED_CRITERIA</b> ItemUpgraderRegistry
  * @author LegoMaster3650
  * @see TypedIngredient
  */
-public class TypedCriteria extends ForgeRegistryEntry<TypedCriteria> {
+public class TypedCriteria {
 	
 	/**Utility for quickly getting an always true {@linkplain TypedCriteria}*/
 	public static final Supplier<TypedCriteria> TRUE = () -> new TypedCriteria(stack -> true);

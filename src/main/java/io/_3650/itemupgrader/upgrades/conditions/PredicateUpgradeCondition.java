@@ -13,8 +13,8 @@ import io._3650.itemupgrader.api.util.UpgradeJsonHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
@@ -84,7 +84,7 @@ public class PredicateUpgradeCondition extends UpgradeCondition {
 	
 	@Override
 	public MutableComponent[] getTooltip(ItemStack stack) {
-		return ComponentHelper.arrayify(new TranslatableComponent("predicate." + ComponentHelper.keyFormat(this.predicateId)));
+		return ComponentHelper.arrayify(Component.translatable("predicate." + ComponentHelper.keyFormat(this.predicateId)));
 	}
 	
 	@Override

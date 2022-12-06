@@ -21,7 +21,6 @@ import io._3650.itemupgrader.registry.ModTypedCriteria;
 import io._3650.itemupgrader.registry.ModUpgradeActions;
 import io._3650.itemupgrader.registry.ModUpgradeConditions;
 import io._3650.itemupgrader.registry.ModUpgradeResults;
-import io._3650.itemupgrader.registry.RegistryHelper;
 import io._3650.itemupgrader.registry.config.Config;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -47,14 +46,15 @@ public class ItemUpgraderCore {
 	//I know this is item upgrader core not item upgrader but the mod really called Item Upgrader wont have many things meant to be exposed for external use ;P
 	public static final String MOD_ID = "itemupgrader";
 	
-	public static final Supplier<IForgeRegistry<UpgradeActionSerializer<UpgradeAction>>> ACTION_REGISTRY = ModUpgradeActions.ACTIONS.makeRegistry(RegistryHelper.fixStupidClass(UpgradeActionSerializer.class), () ->
-			new RegistryBuilder<UpgradeActionSerializer<UpgradeAction>>().disableSaving());
-	public static final Supplier<IForgeRegistry<UpgradeConditionSerializer<UpgradeCondition>>> CONDITION_REGISTRY = ModUpgradeConditions.CONDITIONS.makeRegistry(RegistryHelper.fixStupidClass(UpgradeConditionSerializer.class),  () ->
-			new RegistryBuilder<UpgradeConditionSerializer<UpgradeCondition>>().disableSaving());
-	public static final Supplier<IForgeRegistry<UpgradeResultSerializer<UpgradeResult>>> RESULT_REGISTRY = ModUpgradeResults.RESULTS.makeRegistry(RegistryHelper.fixStupidClass(UpgradeResultSerializer.class), () ->
-			new RegistryBuilder<UpgradeResultSerializer<UpgradeResult>>().disableSaving());
+	//TODO this will probably break
+	public static final Supplier<IForgeRegistry<UpgradeActionSerializer<? extends UpgradeAction>>> ACTION_REGISTRY = ModUpgradeActions.ACTIONS.makeRegistry(() ->
+			new RegistryBuilder<UpgradeActionSerializer<?>>().disableSaving());
+	public static final Supplier<IForgeRegistry<UpgradeConditionSerializer<? extends UpgradeCondition>>> CONDITION_REGISTRY = ModUpgradeConditions.CONDITIONS.makeRegistry(() ->
+			new RegistryBuilder<UpgradeConditionSerializer<?>>().disableSaving());
+	public static final Supplier<IForgeRegistry<UpgradeResultSerializer<? extends UpgradeResult>>> RESULT_REGISTRY = ModUpgradeResults.RESULTS.makeRegistry(() ->
+			new RegistryBuilder<UpgradeResultSerializer<?>>().disableSaving());
 	
-	public static final Supplier<IForgeRegistry<TypedCriteria>> TYPED_CRITERIA_REGISTRY = ModTypedCriteria.CRITERIA.makeRegistry(TypedCriteria.class, () -> new RegistryBuilder<TypedCriteria>());
+	public static final Supplier<IForgeRegistry<TypedCriteria>> TYPED_CRITERIA_REGISTRY = ModTypedCriteria.CRITERIA.makeRegistry(() -> new RegistryBuilder<TypedCriteria>());
 	
 	public ItemUpgraderCore() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

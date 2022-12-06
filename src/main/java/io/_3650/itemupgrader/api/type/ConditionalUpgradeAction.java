@@ -15,8 +15,8 @@ import io._3650.itemupgrader.api.util.UpgradeJsonHelper;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
 import io._3650.itemupgrader.api.util.UpgradeTooltipHelper;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
@@ -41,7 +41,7 @@ public abstract class ConditionalUpgradeAction extends UpgradeAction {
 				conditionComponents.add(UpgradeTooltipHelper.condition(condition, stack));
 			}
 		}
-		if (!conditionComponents.isEmpty()) tooltip.append(new TranslatableComponent("tooltip.itemupgrader.if", ComponentHelper.andList(conditionComponents)));
+		if (!conditionComponents.isEmpty()) tooltip.append(Component.translatable("tooltip.itemupgrader.if", ComponentHelper.andList(conditionComponents)));
 		return this.applyResultTooltip(tooltip, stack);
 	}
 	

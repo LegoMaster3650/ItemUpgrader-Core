@@ -12,9 +12,8 @@ import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.registry.types.NumberType;
 import io._3650.itemupgrader.registry.types.OperationValue;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 
@@ -103,11 +102,11 @@ public class CompareNumbersUpgradeCondition extends UpgradeCondition {
 	public MutableComponent[] getTooltip(ItemStack stack) {
 		switch (this.target) {
 		default:
-			return ComponentHelper.arrayify(new TranslatableComponent("tooltip.itemupgrader.error"));
+			return ComponentHelper.arrayify(Component.translatable("tooltip.itemupgrader.error"));
 		case INTEGER:
-			return new MutableComponent[] {new TranslatableComponent(this.intEntry.getDescriptionId()), new TextComponent(this.op.getName()), new TextComponent("" + this.intValue)};
+			return new MutableComponent[] {Component.translatable(this.intEntry.getDescriptionId()), Component.literal(this.op.getName()), Component.literal(Integer.valueOf(this.intValue).toString())};
 		case FLOAT:
-			return new MutableComponent[] {new TranslatableComponent(this.floatEntry.getDescriptionId()), new TextComponent(this.op.getName()), new TextComponent(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.floatValue))};
+			return new MutableComponent[] {Component.translatable(this.floatEntry.getDescriptionId()), Component.literal(this.op.getName()), Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(this.floatValue))};
 		}
 	}
 	

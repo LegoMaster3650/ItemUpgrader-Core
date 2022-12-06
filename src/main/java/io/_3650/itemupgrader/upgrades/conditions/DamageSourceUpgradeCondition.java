@@ -12,8 +12,8 @@ import io._3650.itemupgrader.api.serializer.UpgradeConditionSerializer;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
@@ -107,19 +107,19 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 	public MutableComponent[] getTooltip(ItemStack stack) {
 		if (this.tooltipCache == null) {
 			ArrayList<MutableComponent> tooltipList = new ArrayList<>();
-			if (this.hasEntity) tooltipList.add(new TranslatableComponent("damageSourceProperty.hasEntity"));
-			if (this.hasDirectEntity) tooltipList.add(new TranslatableComponent("damageSourceProperty.hasDirectEntity"));
-			if (this.isBypassArmor) tooltipList.add(new TranslatableComponent("damageSourceProperty.isBypassArmor"));
-			if (this.isBypassInvul) tooltipList.add(new TranslatableComponent("damageSourceProperty.isBypassInvul"));
-			if (this.isBypassMagic) tooltipList.add(new TranslatableComponent("damageSourceProperty.isBypassMagic"));
-			if (this.isCreativePlayer) tooltipList.add(new TranslatableComponent("damageSourceProperty.isCreativePlayer"));
-			if (this.isDamageHelmet) tooltipList.add(new TranslatableComponent("damageSourceProperty.isDamageHelmet"));
-			if (this.isExplosion) tooltipList.add(new TranslatableComponent("damageSourceProperty.isExplosion"));
-			if (this.isFall) tooltipList.add(new TranslatableComponent("damageSourceProperty.isFall"));
-			if (this.isFire) tooltipList.add(new TranslatableComponent("damageSourceProperty.isFire"));
-			if (this.isMagic) tooltipList.add(new TranslatableComponent("damageSourceProperty.isMagic"));
-			if (this.isNoAggro) tooltipList.add(new TranslatableComponent("damageSourceProperty.isNoAggro"));
-			if (this.isProjectile) tooltipList.add(new TranslatableComponent("damageSourceProperty.isProjectile"));
+			if (this.hasEntity) tooltipList.add(Component.translatable("damageSourceProperty.hasEntity"));
+			if (this.hasDirectEntity) tooltipList.add(Component.translatable("damageSourceProperty.hasDirectEntity"));
+			if (this.isBypassArmor) tooltipList.add(Component.translatable("damageSourceProperty.isBypassArmor"));
+			if (this.isBypassInvul) tooltipList.add(Component.translatable("damageSourceProperty.isBypassInvul"));
+			if (this.isBypassMagic) tooltipList.add(Component.translatable("damageSourceProperty.isBypassMagic"));
+			if (this.isCreativePlayer) tooltipList.add(Component.translatable("damageSourceProperty.isCreativePlayer"));
+			if (this.isDamageHelmet) tooltipList.add(Component.translatable("damageSourceProperty.isDamageHelmet"));
+			if (this.isExplosion) tooltipList.add(Component.translatable("damageSourceProperty.isExplosion"));
+			if (this.isFall) tooltipList.add(Component.translatable("damageSourceProperty.isFall"));
+			if (this.isFire) tooltipList.add(Component.translatable("damageSourceProperty.isFire"));
+			if (this.isMagic) tooltipList.add(Component.translatable("damageSourceProperty.isMagic"));
+			if (this.isNoAggro) tooltipList.add(Component.translatable("damageSourceProperty.isNoAggro"));
+			if (this.isProjectile) tooltipList.add(Component.translatable("damageSourceProperty.isProjectile"));
 			this.tooltipCache = ComponentHelper.andList(tooltipList);
 		}
 		return ComponentHelper.arrayify(this.tooltipCache);

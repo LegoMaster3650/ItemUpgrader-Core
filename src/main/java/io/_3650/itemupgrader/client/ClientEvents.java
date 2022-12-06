@@ -15,14 +15,13 @@ import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.api.util.UpgradeTooltipHelper;
 import io._3650.itemupgrader.registry.config.Config;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.KeybindComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,14 +38,14 @@ public class ClientEvents {
 			if (!upgrade.isVisible()) return;
 			String upgradeTranslationKey = "upgrade." + ComponentHelper.keyFormat(upgrade.getId());
 			List<MutableComponent> tooltip = Lists.newArrayList();
-			if (Config.CLIENT.requiresKeyHeld.get() && !ModKeybinds.isKeyPressed(ModKeybinds.showTooltipKey)) {
+			if (Config.CLIENT.requiresKeyHeld.get() && !ModKeybinds.isKeyPressed(ModKeybinds.SHOW_TOOLTIP)) {
 				//Upgrade Header
-				tooltip.add(new TranslatableComponent("tooltip.itemupgrader.upgrade", ComponentHelper.applyColor(upgrade.getColor(), new TranslatableComponent(upgradeTranslationKey + ".icon"))).withStyle(ChatFormatting.GOLD));
+				tooltip.add(Component.translatable("tooltip.itemupgrader.upgrade", ComponentHelper.applyColor(upgrade.getColor(), Component.translatable(upgradeTranslationKey + ".icon"))).withStyle(ChatFormatting.GOLD));
 				//Shift(or other key) to expand
-				tooltip.add(upgradeLine(new TranslatableComponent("tooltip.itemupgrader.expand", new KeybindComponent("key.itemupgrader.show_tooltip").withStyle(ChatFormatting.YELLOW)).withStyle(ChatFormatting.GRAY)));
+				tooltip.add(upgradeLine(Component.translatable("tooltip.itemupgrader.expand", Component.keybind("key.itemupgrader.show_tooltip").withStyle(ChatFormatting.YELLOW)).withStyle(ChatFormatting.GRAY)));
 			} else {
 				//Upgrade Header
-				tooltip.add(new TranslatableComponent("tooltip.itemupgrader.upgrade", ComponentHelper.applyColor(upgrade.getColor(), new TranslatableComponent(upgradeTranslationKey)).withStyle(ChatFormatting.BOLD)).withStyle(ChatFormatting.GOLD));
+				tooltip.add(Component.translatable("tooltip.itemupgrader.upgrade", ComponentHelper.applyColor(upgrade.getColor(), Component.translatable(upgradeTranslationKey)).withStyle(ChatFormatting.BOLD)).withStyle(ChatFormatting.GOLD));
 				
 				//Description
 				boolean hasDescription = upgrade.hasDescription();
@@ -54,10 +53,10 @@ public class ClientEvents {
 					int linecount = upgrade.getDescriptionLines();
 					if (linecount > 1) {
 						for (int i = 1; i <= linecount; i++) {
-							tooltip.add(upgradeLine(new TranslatableComponent(upgradeTranslationKey + ".description." + i).withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.ITALIC)));
+							tooltip.add(upgradeLine(Component.translatable(upgradeTranslationKey + ".description." + i).withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.ITALIC)));
 						}
 					} else {
-						tooltip.add(upgradeLine(new TranslatableComponent(upgradeTranslationKey + ".description").withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.ITALIC)));
+						tooltip.add(upgradeLine(Component.translatable(upgradeTranslationKey + ".description").withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.ITALIC)));
 					}
 				}
 				
@@ -85,8 +84,8 @@ public class ClientEvents {
 				
 				boolean actionEmptyLine = doSlotsDisplay;
 				for (var slot : slotActions.keySet()) {
-					if (actionEmptyLine || hasDescription) tooltip.add(upgradeLine(new TextComponent("")));
-					tooltip.add(upgradeLine(new TranslatableComponent("tooltip.itemupgrader.slots", ComponentHelper.slotInOn(slot)).withStyle(ChatFormatting.GRAY)));
+					if (actionEmptyLine || hasDescription) tooltip.add(upgradeLine(Component.literal("")));
+					tooltip.add(upgradeLine(Component.translatable("tooltip.itemupgrader.slots", ComponentHelper.slotInOn(slot)).withStyle(ChatFormatting.GRAY)));
 					for (var action : slotActions.get(slot)) {
 						tooltip.add(upgradeLine(UpgradeTooltipHelper.action(action, stack)));
 						actionEmptyLine = true;
@@ -99,19 +98,24 @@ public class ClientEvents {
 					for (EquipmentSlot slot : upgrade.getValidSlots()) {
 						slotsList.add(ComponentHelper.slotInOn(slot));
 					}
-					tooltip.add(slotsDisplayIndex, upgradeLine(new TranslatableComponent("tooltip.itemupgrader.slots", slotsList.size() == 0 ? new TranslatableComponent("equipmentSlot.any") : ComponentHelper.orList(slotsList)).withStyle(ChatFormatting.GRAY)));
-					if (hasDescription) tooltip.add(slotsDisplayIndex, upgradeLine(new TextComponent("")));
+					tooltip.add(slotsDisplayIndex, upgradeLine(Component.translatable("tooltip.itemupgrader.slots", slotsList.size() == 0 ? Component.translatable("equipmentSlot.any") : ComponentHelper.orList(slotsList)).withStyle(ChatFormatting.GRAY)));
+					if (hasDescription) tooltip.add(slotsDisplayIndex, upgradeLine(Component.literal("")));
 				}
 				
 			}
-			if (tooltip.size() == 1) tooltip.add(upgradeLine(new TranslatableComponent("tooltip.itemupgrader.no_description").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC)));
+			if (tooltip.size() == 1) tooltip.add(upgradeLine(Component.translatable("tooltip.itemupgrader.no_description").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC)));
 			event.getToolTip().addAll(1, tooltip);
-			if (Config.CLIENT.showUpgradeID.get() && event.getFlags().isAdvanced()) event.getToolTip().add(new TranslatableComponent("tooltip.itemupgrader.advanced_id", new TextComponent(upgrade.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+			if (Config.CLIENT.showUpgradeID.get() && event.getFlags().isAdvanced()) event.getToolTip().add(Component.translatable("tooltip.itemupgrader.advanced_id", Component.literal(upgrade.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
 		}
 	}
 	
 	private static MutableComponent upgradeLine(MutableComponent component) {
-		return new TranslatableComponent("tooltip.itemupgrader.prefix").withStyle(ChatFormatting.DARK_GRAY).append(component);
+		return Component.translatable("tooltip.itemupgrader.prefix").withStyle(ChatFormatting.DARK_GRAY).append(component);
+	}
+	
+	@SubscribeEvent
+	public static void onKeyMappings(RegisterKeyMappingsEvent event) {
+		ModKeybinds.init(event);
 	}
 	
 }

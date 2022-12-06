@@ -28,7 +28,7 @@ public class ModUpgradeActions {
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> BLOCK_DROPS = ACTIONS.register("block_drops", SimpleUpgradeAction.of(UpgradeEntrySet.BLOCK_DROPS));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> TRIDENT_THROW = ACTIONS.register("trident_throw", SimpleUpgradeAction.of(UpgradeEntrySet.ENTITY_ITEM.with(builder -> builder.provide(UpgradeEntry.PROJECTILE))));
 	
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> BREAKING_SPEED = ACTIONS.register("breaking_speed", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(UpgradeEntrySet.BLOCK_POS_STATE).with(builder -> builder.modifiable(UpgradeEntry.BREAKING_SPEED))));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> BREAKING_SPEED = ACTIONS.register("breaking_speed", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(UpgradeEntrySet.BLOCK_STATE).with(builder -> builder.modifiable(UpgradeEntry.BREAKING_SPEED))));
 	
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> UPGRADE_APPLY_PRE = ACTIONS.register("upgrade_apply_pre", SimpleUpgradeAction.of(UpgradeEntrySet.ITEM_UPGRADE_ID.with(builder -> builder.cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> UPGRADE_APPLY_POST = ACTIONS.register("upgrade_apply_post", SimpleUpgradeAction.of(UpgradeEntrySet.ITEM_UPGRADE_ID));
@@ -36,25 +36,25 @@ public class ModUpgradeActions {
 	
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_TICK = ACTIONS.register("living_tick", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_SLOT_ITEM));
 	
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> ENTITY_INTERACT = ACTIONS.register("entity_interact", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_ENTITY_INTERACTION.with(builder -> builder.cancellable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> ENTITY_INTERACT = ACTIONS.register("entity_interact", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_ENTITY_INTERACTION.with(builder -> builder.cancellable().consumable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> ENTITY_INTERACT_SPECIFIC = ACTIONS.register("entity_interact_specific", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_ENTITY_INTERACTION.with(builder -> builder.cancellable().consumable())));
 	
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> RIGHT_CLICK = ACTIONS.register("right_click", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.cancellable())));
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> RIGHT_CLICK_EFFECT = ACTIONS.register("right_click_effect", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provide(UpgradeEntry.USED_ITEM).consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> RIGHT_CLICK = ACTIONS.register("right_click", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.cancellable().consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> RIGHT_CLICK_EFFECT = ACTIONS.register("right_click_effect", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provide(UpgradeEntry.USED_ITEM))));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> RIGHT_CLICK_BLOCK = ACTIONS.register("right_click_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_BLOCK_INTERACTION.with(builder -> builder.cancellable().consumable())));
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> RIGHT_CLICK_BLOCK_EFFECT = ACTIONS.register("right_click_block_effect", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_BLOCK_INTERACTION.with(builder -> builder.provide(UpgradeEntry.USED_ITEM).consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> RIGHT_CLICK_BLOCK_EFFECT = ACTIONS.register("right_click_block_effect", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_BLOCK_INTERACTION.with(builder -> builder.provide(UpgradeEntry.USED_ITEM))));
 	
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> LEFT_CLICK = ACTIONS.register("left_click", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> LEFT_CLICK = ACTIONS.register("left_click", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.cancellable().consumable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LEFT_CLICK_EFFECT = ACTIONS.register("left_click_effect", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provide(UpgradeEntry.USED_ITEM))));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LEFT_CLICK_BLOCK = ACTIONS.register("left_click_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_BLOCK_INTERACTION.with(builder -> builder.consumable())));
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> LEFT_CLICK_BLOCK_EFFECT = ACTIONS.register("left_click_block_effect", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_BLOCK_INTERACTION.with(builder -> builder.provide(UpgradeEntry.USED_ITEM).consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> LEFT_CLICK_BLOCK_EFFECT = ACTIONS.register("left_click_block_effect", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_BLOCK_INTERACTION.with(builder -> builder.provide(UpgradeEntry.USED_ITEM))));
 	
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> PLAYER_ATTACK = ACTIONS.register("player_attack", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_ENTITY_INTERACTION.with(builder -> builder.cancellable().consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> PLAYER_ATTACK = ACTIONS.register("player_attack", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_ENTITY_INTERACTION.with(builder -> builder.cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_PRE_HURT = ACTIONS.register("pre_hurt", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_DAMAGE.with(builder -> builder.cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_HURT = ACTIONS.register("hurt", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_DAMAGE.with(builder -> builder.modifiable(UpgradeEntry.DAMAGE).cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_DAMAGE = ACTIONS.register("damage", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_DAMAGE.with(builder -> builder.modifiable(UpgradeEntry.DAMAGE).cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_DEATH = ACTIONS.register("death", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_SLOT_ITEM.with(builder -> builder.provide(UpgradeEntry.DAMAGE_SOURCE).cancellable())));
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_FALL = ACTIONS.register("fall", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_SLOT_ITEM.with(builder -> builder.modifiableAll(UpgradeEntry.DAMAGE_MULT, UpgradeEntry.FALL_DIST).cancellable().consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_FALL = ACTIONS.register("fall", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_SLOT_ITEM.with(builder -> builder.modifiableAll(UpgradeEntry.DAMAGE_MULT, UpgradeEntry.FALL_DIST).cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_TOTEM_PRE = ACTIONS.register("totem", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_SLOT_ITEM.with(builder -> builder.provide(UpgradeEntry.DAMAGE_SOURCE).cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_TOTEM_POST = ACTIONS.register("after_totem", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_ITEM.with(builder -> builder.provide(UpgradeEntry.DAMAGE_SOURCE))));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> PLAYER_SHIELD_BLOCK = ACTIONS.register("shield_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_ITEM.with(builder -> builder.provide(UpgradeEntry.DAMAGE_SOURCE).modifiableAll(UpgradeEntry.DAMAGE, UpgradeEntry.DO_SHIELD_DAMAGE).cancellable())));
@@ -62,10 +62,10 @@ public class ModUpgradeActions {
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> TRIDENT_HIT = ACTIONS.register("trident_hit", SimpleUpgradeAction.of(UpgradeEntrySet.ENTITY_ITEM.with(builder -> builder.provideAll(UpgradeEntry.PROJECTILE, UpgradeEntry.DIRECT_DAMAGER).cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> PROJECTILE_BLOCK = ACTIONS.register("projectile_block", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_ITEM.with(builder -> builder.provideAll(UpgradeEntry.PROJECTILE, UpgradeEntry.TARGET_ENTITY, UpgradeEntry.DIRECT_DAMAGER).cancellable())));
 	
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> BREAK_BLOCK = ACTIONS.register("break_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BLOCK_POS, UpgradeEntry.BLOCK_STATE).cancellable().consumable())));
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> PLACE_BLOCK = ACTIONS.register("place_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BLOCK_POS, UpgradeEntry.BLOCK_STATE).cancellable().consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> BREAK_BLOCK = ACTIONS.register("break_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BLOCK_POS, UpgradeEntry.BLOCK_STATE).cancellable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> PLACE_BLOCK = ACTIONS.register("place_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BLOCK_POS, UpgradeEntry.BLOCK_STATE).cancellable())));
 	
-	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_JUMP = ACTIONS.register("jump", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_SLOT_ITEM.with(builder -> builder.consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> LIVING_JUMP = ACTIONS.register("jump", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_SLOT_ITEM));
 	
 	
 }

@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.api.type.IUpgradeType.IUpgradeInternals;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * Serializer for upgrade results
@@ -13,7 +12,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  *
  * @param <T> The {@linkplain UpgradeResult} subclass serialized by this serializer
  */
-public abstract class UpgradeResultSerializer<T extends UpgradeResult> extends ForgeRegistryEntry<UpgradeResultSerializer<T>> {
+public abstract class UpgradeResultSerializer<T extends UpgradeResult> {
 	
 	/**
 	 * Constructs your subclass T using the given internals and json

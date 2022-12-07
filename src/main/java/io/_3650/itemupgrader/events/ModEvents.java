@@ -198,13 +198,13 @@ public class ModEvents {
 					.entry(UpgradeEntry.INTERACTION_POS, Vec3.atCenterOf(pos))
 					.entry(UpgradeEntry.USED_ITEM, event.getItemStack()));
 		}
-		UpgradeEventData data1 = rightClickBase(slot, player, event.getItemStack(), false);
-		if (data1 != null) {
-			if (data1.isConsumed()) {
-				event.setCancellationResult(InteractionResult.CONSUME);
-				event.setCanceled(true);
-			} else if (data1.isCancelled()) event.setCanceled(true);
-		}
+//		UpgradeEventData data1 = rightClickBase(slot, player, event.getItemStack(), false);
+//		if (data1 != null) {
+//			if (data1.isConsumed()) {
+//				event.setCancellationResult(InteractionResult.CONSUME);
+//				event.setCanceled(true);
+//			} else if (data1.isCancelled()) event.setCanceled(true);
+//		}
 	}
 	
 	@SubscribeEvent
@@ -246,8 +246,9 @@ public class ModEvents {
 	
 	@SubscribeEvent
 	public static void playerClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-		EquipmentSlot slot = slotFromHand(event.getHand());
 		Player player = event.getEntity();
+		
+		EquipmentSlot slot = slotFromHand(event.getHand());
 		BlockPos pos = event.getPos();
 		BlockState state = event.getLevel().getBlockState(pos);
 		UpgradeEventData.Builder builder = new UpgradeEventData.Builder(player, slot)

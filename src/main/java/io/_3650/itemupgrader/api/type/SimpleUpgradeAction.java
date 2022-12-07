@@ -92,7 +92,7 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 	
 	@Override
 	public void execute(UpgradeEventData data) {
-		if (data.hasEntry(UpgradeEntry.CONSUMED)) data.consume(); // TODO auto consume too aggresive
+//		if (data.hasEntry(UpgradeEntry.CONSUMED)) data.consume();
 		for (UpgradeResult result : this.results) {
 			UpgradeEventData.InternalStuffIgnorePlease.setSuccess(data, result.execute(data));
 		}

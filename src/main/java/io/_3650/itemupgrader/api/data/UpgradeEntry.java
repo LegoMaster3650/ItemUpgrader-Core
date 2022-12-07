@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import io._3650.itemupgrader.ItemUpgraderCore;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.registry.RegistryHelper;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -14,7 +15,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -116,7 +116,7 @@ public class UpgradeEntry<T> {
 	private static final Factory FACTORY = new Factory(ItemUpgraderCore.MOD_ID);
 	
 	public static final UpgradeEntry<LogicalSide> SIDE = FACTORY.create("side", LogicalSide.class);
-	public static final UpgradeEntry<EquipmentSlot> SLOT = FACTORY.create("slot", EquipmentSlot.class, true);
+	public static final UpgradeEntry<InventorySlot> SLOT = FACTORY.create("slot", InventorySlot.class, true);
 	public static final UpgradeEntry<ItemStack> ITEM = FACTORY.createDefault("item", ItemStack.class, EntryCategory.ITEM);
 	public static final UpgradeEntry<ItemStack> PREV_ITEM = FACTORY.create("previous_item", ItemStack.class, EntryCategory.ITEM);
 	public static final UpgradeEntry<ItemStack> USED_ITEM = FACTORY.create("used_item", ItemStack.class, EntryCategory.ITEM);

@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.registry.types.AttributeReplacement;
@@ -26,7 +27,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -41,9 +41,9 @@ public class AttributeUpgradeResult extends UpgradeResult {
 	private final Operation operation;
 	private final double amount;
 	private final String name;
-	private final Map<EquipmentSlot, UUID> uuids;
+	private final Map<InventorySlot, UUID> uuids;
 	
-	public AttributeUpgradeResult(IUpgradeInternals internals, ResourceLocation attributeId, Operation operation, double amount, @Nullable String name, Map<EquipmentSlot, UUID> uuids) {
+	public AttributeUpgradeResult(IUpgradeInternals internals, ResourceLocation attributeId, Operation operation, double amount, @Nullable String name, Map<InventorySlot, UUID> uuids) {
 		super(internals, ModUpgradeEntrySet.ATTRIBUTES);
 		this.attributeId = attributeId;
 		this.attribute = Objects.requireNonNull(ForgeRegistries.ATTRIBUTES.getValue(attributeId));
@@ -117,10 +117,10 @@ public class AttributeUpgradeResult extends UpgradeResult {
 			Operation operation = getAttributeOperationByName(GsonHelper.getAsString(json, "operation", "add"));
 			double amount = GsonHelper.getAsDouble(json, "amount");
 			String name = GsonHelper.getAsString(json, "name", null);
-			Map<EquipmentSlot, UUID> uuids = Maps.newHashMap();
+			Map<InventorySlot, UUID> uuids = Maps.newHashMap();
 			if (GsonHelper.isObjectNode(json, "uuids")) {
 				JsonObject uuidJson = GsonHelper.getAsJsonObject(json, "uuids");
-				for (var slot : EquipmentSlot.values()) {
+				for (var slot : InventorySlot.values()) {
 					if (GsonHelper.isStringValue(uuidJson, slot.getName())) {
 						try {
 							UUID uuid = UUID.fromString(GsonHelper.getAsString(uuidJson, slot.getName()));
@@ -133,7 +133,7 @@ public class AttributeUpgradeResult extends UpgradeResult {
 					}
 				}
 			} else {
-				for (var slot : EquipmentSlot.values()) {
+				for (var slot : InventorySlot.values()) {
 					uuids.put(slot, UUID.randomUUID());
 				}
 			}
@@ -148,7 +148,7 @@ public class AttributeUpgradeResult extends UpgradeResult {
 			//name
 			buf.writeBoolean(result.name != null);
 			if (result.name != null) buf.writeUtf(result.name);
-			buf.writeMap(result.uuids, (buffer, slot) -> buffer.writeEnum(slot), (buffer, uuid) -> buffer.writeUUID(uuid));
+			buf.writeMap(result.uuids, (buffer, slot) -> buffer.writeResourceLocation(slot.getId()), (buffer, uuid) -> buffer.writeUUID(uuid));
 		}
 		
 		@Override
@@ -158,7 +158,7 @@ public class AttributeUpgradeResult extends UpgradeResult {
 			double amount = buf.readDouble();
 			String name = null;
 			if (buf.readBoolean()) name = buf.readUtf();
-			Map<EquipmentSlot, UUID> uuids = buf.readMap(buffer -> buffer.readEnum(EquipmentSlot.class), buffer -> buffer.readUUID());
+			Map<InventorySlot, UUID> uuids = buf.readMap(buffer -> InventorySlot.byId(buffer.readResourceLocation()), buffer -> buffer.readUUID());
 			return new AttributeUpgradeResult(internals, attributeId, operation, amount, name, uuids);
 		}
 		

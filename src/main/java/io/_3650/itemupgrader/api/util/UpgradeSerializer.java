@@ -17,6 +17,7 @@ import io._3650.itemupgrader.api.registry.ItemUpgraderRegistry;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
 import io._3650.itemupgrader.api.serializer.UpgradeConditionSerializer;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.type.UpgradeResult;
@@ -28,7 +29,6 @@ import io._3650.itemupgrader.upgrades.results.CompoundUpgradeResult;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.entity.EquipmentSlot;
 
 public class UpgradeSerializer {
 	
@@ -49,15 +49,15 @@ public class UpgradeSerializer {
 		//get internals
 		IUpgradeInternals internals = IUpgradeInternals.of(actionId, json);
 		//get valid slots
-		Set<EquipmentSlot> validSlots = new LinkedHashSet<>();
+		Set<InventorySlot> validSlots = new LinkedHashSet<>();
 		if (GsonHelper.isStringValue(json, "slot")) {
 			validSlots = new LinkedHashSet<>(1);
-			validSlots.add(EquipmentSlot.byName(GsonHelper.getAsString(json, "slot")));
+			validSlots.add(InventorySlot.byName(GsonHelper.getAsString(json, "slot")));
 		} else if (GsonHelper.isArrayNode(json, "slots")) {
 			JsonArray validSlotsJson = GsonHelper.getAsJsonArray(json, "slots");
 			validSlots = new LinkedHashSet<>(validSlotsJson.size());
 			for (var element : validSlotsJson) {
-				if (GsonHelper.isStringValue(element)) validSlots.add(EquipmentSlot.byName(element.getAsString()));
+				if (GsonHelper.isStringValue(element)) validSlots.add(InventorySlot.byName(element.getAsString()));
 			}
 		}
 		//get action serializer
@@ -157,13 +157,13 @@ public class UpgradeSerializer {
 	 */
 	public static void actionToNetwork(UpgradeAction action, FriendlyByteBuf buf) {
 		action.getInternals().to(buf);
-		Set<EquipmentSlot> actionValidSlots = action.getValidSlots();
+		Set<InventorySlot> actionValidSlots = action.getValidSlots();
 		boolean hasActionValidSlots = actionValidSlots != null;
 		buf.writeBoolean(hasActionValidSlots);
 		if (hasActionValidSlots) {
 			buf.writeInt(actionValidSlots.size());
 			for (var slot : actionValidSlots) {
-				buf.writeEnum(slot);
+				buf.writeResourceLocation(slot.getId());
 			}
 		}
 		action.hackyToNetworkReadJavadoc(buf);
@@ -201,12 +201,12 @@ public class UpgradeSerializer {
 	 */
 	public static UpgradeAction actionFromNetwork(ResourceLocation actionId, UpgradeActionSerializer<?> serializer, FriendlyByteBuf buf) {
 		IUpgradeInternals internals = IUpgradeInternals.of(actionId, buf);
-		Set<EquipmentSlot> actionValidSlots = ImmutableSet.of();
+		Set<InventorySlot> actionValidSlots = ImmutableSet.of();
 		if (buf.readBoolean()) {
 			int actionValidSlotsSize = buf.readInt();
 			actionValidSlots = new LinkedHashSet<>(actionValidSlotsSize);
 			for (int k = 0; k < actionValidSlotsSize; k++) {
-				actionValidSlots.add(buf.readEnum(EquipmentSlot.class));
+				actionValidSlots.add(InventorySlot.byId(buf.readResourceLocation()));
 			}
 		}
 		return serializer.fromNetwork(internals, actionValidSlots, buf);

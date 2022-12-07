@@ -14,6 +14,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -267,10 +268,10 @@ public class UpgradeEventData {
 		 * {@linkplain UpgradeEntry#LEVEL}<br>
 		 * {@linkplain UpgradeEntry#SIDE}
 		 * @param player A {@linkplain Player} to use for context
-		 * @param slot An {@linkplain EquipmentSlot} to use for context
+		 * @param slot An {@linkplain InventorySlot} to use for context
 		 */
-		public Builder(Player player, EquipmentSlot slot) {
-			this.entry(UpgradeEntry.ITEM, player.hasItemInSlot(slot) ? player.getItemBySlot(slot) : ItemStack.EMPTY)
+		public Builder(Player player, InventorySlot slot) {
+			this.entry(UpgradeEntry.ITEM, slot.getItem(player))
 				.entry(UpgradeEntry.SLOT, slot)
 				.entry(UpgradeEntry.PLAYER, player)
 				.entry(UpgradeEntry.LIVING, player)
@@ -278,6 +279,32 @@ public class UpgradeEventData {
 				.entry(UpgradeEntry.POSITION, player.position())
 				.entry(UpgradeEntry.LEVEL, player.level)
 				.entry(UpgradeEntry.SIDE, player.level.isClientSide ? LogicalSide.CLIENT : LogicalSide.SERVER);
+		}
+		
+		/**
+		 * <b>Complaint with {@linkplain UpgradeEntrySet#PLAYER_SLOT_ITEM}</b><br>
+		 * Constructs a builder with following properties automatically determined:<br>
+		 * {@linkplain UpgradeEntry#ITEM}<br>
+		 * {@linkplain UpgradeEntry#SLOT}<br>
+		 * {@linkplain UpgradeEntry#PLAYER}<br>
+		 * {@linkplain UpgradeEntry#LIVING}<br>
+		 * {@linkplain UpgradeEntry#ENTITY}<br>
+		 * {@linkplain UpgradeEntry#POSITION}<br>
+		 * {@linkplain UpgradeEntry#LEVEL}<br>
+		 * {@linkplain UpgradeEntry#SIDE}
+		 * @param player A {@linkplain Player} to use for context
+		 * @param slot An {@linkplain EquipmentSlot} to use for context
+		 */
+		public Builder(Player player, EquipmentSlot slot) {
+			InventorySlot invSlot = InventorySlot.byBase(slot);
+			this.entry(UpgradeEntry.ITEM, invSlot.getItem(player))
+			.entry(UpgradeEntry.SLOT, invSlot)
+			.entry(UpgradeEntry.PLAYER, player)
+			.entry(UpgradeEntry.LIVING, player)
+			.entry(UpgradeEntry.ENTITY, player)
+			.entry(UpgradeEntry.POSITION, player.position())
+			.entry(UpgradeEntry.LEVEL, player.level)
+			.entry(UpgradeEntry.SIDE, player.level.isClientSide ? LogicalSide.CLIENT : LogicalSide.SERVER);
 		}
 		
 		/**
@@ -311,16 +338,40 @@ public class UpgradeEventData {
 		 * {@linkplain UpgradeEntry#LEVEL}<br>
 		 * {@linkplain UpgradeEntry#SIDE}
 		 * @param living A {@linkplain LivingEntity} to use for context
-		 * @param slot An {@linkplain EquipmentSlot} to use for context
+		 * @param slot An {@linkplain InventorySlot} to use for context
 		 */
-		public Builder(LivingEntity living, EquipmentSlot slot) {
-			this.entry(UpgradeEntry.ITEM, living.hasItemInSlot(slot) ? living.getItemBySlot(slot) : ItemStack.EMPTY)
+		public Builder(LivingEntity living, InventorySlot slot) {
+			this.entry(UpgradeEntry.ITEM, slot.getItem(living))
 				.entry(UpgradeEntry.SLOT, slot)
 				.entry(UpgradeEntry.LIVING, living)
 				.entry(UpgradeEntry.ENTITY, living)
 				.entry(UpgradeEntry.POSITION, living.position())
 				.entry(UpgradeEntry.LEVEL, living.level)
 				.entry(UpgradeEntry.SIDE, living.level.isClientSide ? LogicalSide.CLIENT : LogicalSide.SERVER);
+		}
+		
+		/**
+		 * <b>Complaint with {@linkplain UpgradeEntrySet#LIVING_SLOT_ITEM}</b><br>
+		 * Constructs a builder with following properties automatically determined:<br>
+		 * {@linkplain UpgradeEntry#ITEM}<br>
+		 * {@linkplain UpgradeEntry#SLOT}<br>
+		 * {@linkplain UpgradeEntry#LIVING}<br>
+		 * {@linkplain UpgradeEntry#ENTITY}<br>
+		 * {@linkplain UpgradeEntry#POSITION}<br>
+		 * {@linkplain UpgradeEntry#LEVEL}<br>
+		 * {@linkplain UpgradeEntry#SIDE}
+		 * @param living A {@linkplain LivingEntity} to use for context
+		 * @param slot An {@linkplain EquipmentSlot} to use for context
+		 */
+		public Builder(LivingEntity living, EquipmentSlot slot) {
+			InventorySlot invSlot = InventorySlot.byBase(slot);
+			this.entry(UpgradeEntry.ITEM, invSlot.getItem(living))
+			.entry(UpgradeEntry.SLOT, invSlot)
+			.entry(UpgradeEntry.LIVING, living)
+			.entry(UpgradeEntry.ENTITY, living)
+			.entry(UpgradeEntry.POSITION, living.position())
+			.entry(UpgradeEntry.LEVEL, living.level)
+			.entry(UpgradeEntry.SIDE, living.level.isClientSide ? LogicalSide.CLIENT : LogicalSide.SERVER);
 		}
 		
 		/**

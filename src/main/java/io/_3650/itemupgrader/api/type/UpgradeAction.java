@@ -9,8 +9,8 @@ import com.google.common.collect.ImmutableSet;
 
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -19,14 +19,14 @@ import net.minecraft.world.item.ItemStack;
  */
 public abstract class UpgradeAction extends IUpgradeType {
 	
-	private final Set<EquipmentSlot> validSlots;
+	private final Set<InventorySlot> validSlots;
 	
 	/**
 	 * Constructs an {@linkplain UpgradeAction} using the given internals
 	 * @param internals {@linkplain IUpgradeInternals} containing information for this type
-	 * @param validSlots A {@linkplain Set} of the {@linkplain EquipmentSlot}s the upgrade is valid for
+	 * @param validSlots A {@linkplain Set} of the {@linkplain InventorySlot}s the upgrade is valid for
 	 */
-	public UpgradeAction(@Nonnull IUpgradeInternals internals, @Nonnull Set<EquipmentSlot> validSlots) {
+	public UpgradeAction(@Nonnull IUpgradeInternals internals, @Nonnull Set<InventorySlot> validSlots) {
 		super(internals);
 		this.validSlots = ImmutableSet.copyOf(validSlots);
 	}
@@ -34,18 +34,18 @@ public abstract class UpgradeAction extends IUpgradeType {
 	/**
 	 * Checks if the given slot is valid for this action<br>
 	 * Note: {@code null} is always valid
-	 * @param slot The {@linkplain EquipmentSlot} to check
+	 * @param slot The {@linkplain InventorySlot} to check
 	 * @return Whether the slot is valid for this action or not
 	 */
-	public boolean isValidSlot(@Nullable EquipmentSlot slot) {
+	public boolean isValidSlot(@Nullable InventorySlot slot) {
 		return slot == null || validSlots.isEmpty() || validSlots.contains(slot);
 	}
 	
 	/**
 	 * Gets the set of the valid slots for this upgrade
-	 * @return The {@linkplain Set} of {@linkplain EquipmentSlot}s that are valid for this action
+	 * @return The {@linkplain Set} of {@linkplain InventorySlot}s that are valid for this action
 	 */
-	public Set<EquipmentSlot> getValidSlots() {
+	public Set<InventorySlot> getValidSlots() {
 		return this.validSlots;
 	}
 	

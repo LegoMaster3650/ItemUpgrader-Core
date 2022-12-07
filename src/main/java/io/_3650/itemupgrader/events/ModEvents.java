@@ -14,6 +14,7 @@ import io._3650.itemupgrader.api.ItemUpgraderApi;
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.event.LivingUseTotemPostEvent;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.mixin.ThrownTridentAccessor;
 import io._3650.itemupgrader.network.NetworkHandler;
 import io._3650.itemupgrader.network.PlayerLeftClickEmptyPacket;
@@ -84,7 +85,7 @@ public class ModEvents {
 	public static void attributeModifiers(ItemAttributeModifierEvent event) {
 		UpgradeEventData.Builder builder = UpgradeEventData.builder()
 				.entry(UpgradeEntry.ITEM, event.getItemStack())
-				.entry(UpgradeEntry.SLOT, event.getSlotType())
+				.entry(UpgradeEntry.SLOT, InventorySlot.byBase(event.getSlotType()))
 				.entry(ModUpgradeEntry.ATTRIBUTES, event.getModifiers())
 				.modifiableEntry(ModUpgradeEntry.ATTRIBUTE_ADDITIONS, MultimapBuilder.hashKeys().hashSetValues().build())
 				.modifiableEntry(ModUpgradeEntry.ATTRIBUTE_REPLACEMENTS, Sets.newHashSet());
@@ -425,7 +426,7 @@ public class ModEvents {
 		LivingEntity living = event.getEntity();
 		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.LIVING_TOTEM_PRE, new UpgradeEventData.Builder(living)
 				.entry(UpgradeEntry.ITEM, event.getTotem())
-				.entry(UpgradeEntry.SLOT, slotFromHand(event.getHandHolding()))
+				.entry(UpgradeEntry.SLOT, InventorySlot.byBase(slotFromHand(event.getHandHolding()))) //quite a few calls chained ok
 				.entry(UpgradeEntry.DAMAGE_SOURCE, event.getSource())
 				.cancellable());
 		if (data.isCancelled()) event.setCanceled(true);

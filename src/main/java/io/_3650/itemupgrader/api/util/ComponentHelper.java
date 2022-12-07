@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Locale;
 
 import io._3650.itemupgrader.api.data.UpgradeEntry;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 
 /**
  * Helpful class for dealing with some text component stuff
@@ -131,20 +131,20 @@ public class ComponentHelper {
 	
 	/**
 	 * Quickly gets a translation key for the given slot
-	 * @param slot The {@linkplain EquipmentSlot} to use
+	 * @param slot The {@linkplain InventorySlot} to use
 	 * @return A {@linkplain TranslatableComponent} with the item upgrader translation key for the given slot
 	 */
-	public static MutableComponent componentFromSlot(EquipmentSlot slot) {
-		return Component.translatable("equipmentSlot." + slot.getName());
+	public static MutableComponent componentFromSlot(InventorySlot slot) {
+		return Component.translatable("inventorySlot." + slot.getName());
 	}
 	
 	/**
 	 * Quickly gets a "When on X" or "When in X" depending on the slot type for the given slot
-	 * @param slot The {@linkplain EquipmentSlot} to use
+	 * @param slot The {@linkplain InventorySlot} to use
 	 * @return A {@linkplain TranslatableComponent} for the given "When in/on slot"
 	 */
-	public static MutableComponent slotInOn(EquipmentSlot slot) {
-		return Component.translatable("tooltip.itemupgrader.slots." + (slot.getType() == EquipmentSlot.Type.ARMOR ? "on" : "in"), ComponentHelper.componentFromSlot(slot));
+	public static MutableComponent slotInOn(InventorySlot slot) {
+		return Component.translatable("tooltip.itemupgrader.slots." + slot.getType().toString(), ComponentHelper.componentFromSlot(slot));
 	}
 	
 }

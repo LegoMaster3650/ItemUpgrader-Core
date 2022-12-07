@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
 
 import io._3650.itemupgrader.api.ItemUpgrade;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
 import net.minecraft.network.chat.TextColor;
@@ -26,7 +27,6 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
@@ -65,12 +65,12 @@ public class ItemUpgradeManager extends SimpleJsonResourceReloadListener {
 				//base
 				Ingredient base = Ingredient.fromJson(json.get("base"));
 				//slots
-				Set<EquipmentSlot> validSlots = Set.of();
+				Set<InventorySlot> validSlots = Set.of();
 				if (GsonHelper.isArrayNode(json, "slots")) {
 					JsonArray validSlotsJson = GsonHelper.getAsJsonArray(json, "slots");
-					validSlots = new LinkedHashSet<EquipmentSlot>(validSlotsJson.size());
+					validSlots = new LinkedHashSet<InventorySlot>(validSlotsJson.size());
 					for (var element : validSlotsJson) {
-						if (GsonHelper.isStringValue(element)) validSlots.add(EquipmentSlot.byName(element.getAsString()));
+						if (GsonHelper.isStringValue(element)) validSlots.add(InventorySlot.byName(element.getAsString()));
 					}
 				}
 				

@@ -11,11 +11,13 @@ import io._3650.itemupgrader.api.registry.ItemUpgraderRegistry;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
 import io._3650.itemupgrader.api.serializer.UpgradeConditionSerializer;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.client.ItemUpgraderClient;
 import io._3650.itemupgrader.network.NetworkHandler;
+import io._3650.itemupgrader.registry.ModInventorySlots;
 import io._3650.itemupgrader.registry.ModRecipes;
 import io._3650.itemupgrader.registry.ModTypedCriteria;
 import io._3650.itemupgrader.registry.ModUpgradeActions;
@@ -54,7 +56,9 @@ public class ItemUpgraderCore {
 	public static final Supplier<IForgeRegistry<UpgradeResultSerializer<? extends UpgradeResult>>> RESULT_REGISTRY = ModUpgradeResults.RESULTS.makeRegistry(() ->
 			new RegistryBuilder<UpgradeResultSerializer<?>>().disableSaving());
 	
-	public static final Supplier<IForgeRegistry<TypedCriteria>> TYPED_CRITERIA_REGISTRY = ModTypedCriteria.CRITERIA.makeRegistry(() -> new RegistryBuilder<TypedCriteria>());
+	public static final Supplier<IForgeRegistry<TypedCriteria>> TYPED_CRITERIA_REGISTRY = ModTypedCriteria.CRITERIA.makeRegistry(() -> new RegistryBuilder<TypedCriteria>().disableSync());
+	
+	public static final Supplier<IForgeRegistry<InventorySlot>> INVENTORY_SLOT_REGISTRY = ModInventorySlots.SLOTS.makeRegistry(() -> new RegistryBuilder<InventorySlot>());
 	
 	public ItemUpgraderCore() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -64,6 +68,7 @@ public class ItemUpgraderCore {
 		ModUpgradeConditions.CONDITIONS.register(bus);
 		ModUpgradeResults.RESULTS.register(bus);
 		ModTypedCriteria.CRITERIA.register(bus);
+		ModInventorySlots.SLOTS.register(bus);
 		
 		bus.addListener(this::setup);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ItemUpgraderClient::new);

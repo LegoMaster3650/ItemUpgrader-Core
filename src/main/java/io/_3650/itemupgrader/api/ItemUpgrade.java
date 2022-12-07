@@ -12,12 +12,12 @@ import com.google.common.collect.MultimapBuilder;
 
 import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -30,7 +30,7 @@ public class ItemUpgrade {
 	
 	private final ResourceLocation id;
 	private final Ingredient base;
-	private final Set<EquipmentSlot> validSlots;
+	private final Set<InventorySlot> validSlots;
 	private final Set<ResourceLocation> validActions;
 	private final ListMultimap<ResourceLocation, UpgradeAction> actions;
 	private final boolean visible;
@@ -41,13 +41,13 @@ public class ItemUpgrade {
 	 * Constructs an ItemUpgrade instance (you won't need to use this)
 	 * @param upgradeId The {@linkplain ResourceLocation} that identifies this upgrade
 	 * @param base The {@linkplain Ingredient} that defines which items are valid for this upgrade
-	 * @param validSlots The {@linkplain Set} of {@linkplain EquipmentSlot}s that are valid for this upgrade
+	 * @param validSlots The {@linkplain Set} of {@linkplain InventorySlot}s that are valid for this upgrade
 	 * @param actions The {@linkplain List} of {@linkplain UpgradeAction}s this upgrade runs
 	 * @param visible Whether the upgrade is visible
 	 * @param descriptionLines The upgrade's description line count
 	 * @param color The upgrade's {@linkplain TextColor}
 	 */
-	public ItemUpgrade(ResourceLocation upgradeId, Ingredient base, Set<EquipmentSlot> validSlots, ListMultimap<ResourceLocation, UpgradeAction> actions, boolean visible, int descriptionLines, TextColor color) {
+	public ItemUpgrade(ResourceLocation upgradeId, Ingredient base, Set<InventorySlot> validSlots, ListMultimap<ResourceLocation, UpgradeAction> actions, boolean visible, int descriptionLines, TextColor color) {
 		this.id = upgradeId;
 		this.base = base;
 		this.validSlots = ImmutableSet.copyOf(validSlots);
@@ -91,10 +91,10 @@ public class ItemUpgrade {
 	
 	/**
 	 * Gets the set of the valid slots for this upgrade
-	 * @return The {@linkplain Set} of {@linkplain EquipmentSlot}s that are valid for this upgrade
-	 * @see #isValidSlot(EquipmentSlot)
+	 * @return The {@linkplain Set} of {@linkplain InventorySlot}s that are valid for this upgrade
+	 * @see #isValidSlot(InventorySlot)
 	 */
-	public Set<EquipmentSlot> getValidSlots() {
+	public Set<InventorySlot> getValidSlots() {
 		return this.validSlots;
 	}
 	
@@ -109,10 +109,10 @@ public class ItemUpgrade {
 	
 	/**
 	 * Checks if the given slot is valid for this upgrade
-	 * @param slot The {@linkplain EquipmentSlot} to test
+	 * @param slot The {@linkplain InventorySlot} to test
 	 * @return If the slot is valid
 	 */
-	public boolean isValidSlot(EquipmentSlot slot) {
+	public boolean isValidSlot(InventorySlot slot) {
 		return this.validSlots.isEmpty() || this.validSlots.contains(slot);
 	}
 	
@@ -190,7 +190,7 @@ public class ItemUpgrade {
 		//valid slots
 		buf.writeInt(this.validSlots.size());
 		for (var slot : this.validSlots) {
-			buf.writeEnum(slot);
+			buf.writeResourceLocation(slot.getId());
 		}
 		//actions
 		buf.writeInt(this.validActions.size());
@@ -223,9 +223,9 @@ public class ItemUpgrade {
 		Ingredient netBase = Ingredient.fromNetwork(buf);
 		//valid slots
 		int netValidSlotsCount = buf.readInt();
-		LinkedHashSet<EquipmentSlot> netValidSlots = new LinkedHashSet<>(netValidSlotsCount);
+		LinkedHashSet<InventorySlot> netValidSlots = new LinkedHashSet<>(netValidSlotsCount);
 		for (int i = 0; i < netValidSlotsCount; i++) {
-			netValidSlots.add(buf.readEnum(EquipmentSlot.class));
+			netValidSlots.add(InventorySlot.byId(buf.readResourceLocation()));
 		}
 		//actions
 		int netValidActionsCount = buf.readInt();

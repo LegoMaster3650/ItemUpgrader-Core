@@ -7,13 +7,13 @@ import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEntrySet;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,9 +21,9 @@ public class UpdateSlotItemUpgradeResult extends UpgradeResult {
 	
 	private final UpgradeEntry<ItemStack> itemEntry;
 	private final UpgradeEntry<LivingEntity> livingEntry;
-	private final EquipmentSlot slot;
+	private final InventorySlot slot;
 	
-	public UpdateSlotItemUpgradeResult(IUpgradeInternals internals, UpgradeEntry<ItemStack> itemEntry, UpgradeEntry<LivingEntity> livingEntry, EquipmentSlot slot) {
+	public UpdateSlotItemUpgradeResult(IUpgradeInternals internals, UpgradeEntry<ItemStack> itemEntry, UpgradeEntry<LivingEntity> livingEntry, InventorySlot slot) {
 		super(internals, UpgradeEntrySet.SLOT.with(builder -> {
 			builder.requireAll(itemEntry, livingEntry);
 		}));
@@ -35,7 +35,7 @@ public class UpdateSlotItemUpgradeResult extends UpgradeResult {
 	@Override
 	public boolean execute(UpgradeEventData data) {
 		LivingEntity living = data.getEntry(this.livingEntry);
-		ItemStack stack = living.getItemBySlot(this.slot);
+		ItemStack stack = this.slot.getItem(living);
 		if (stack != null) {
 			data.forceModifyEntry(UpgradeEntry.SLOT, this.slot);
 			data.forceModifyEntry(this.itemEntry, stack);
@@ -66,7 +66,7 @@ public class UpdateSlotItemUpgradeResult extends UpgradeResult {
 		public UpdateSlotItemUpgradeResult fromJson(IUpgradeInternals internals, JsonObject json) {
 			UpgradeEntry<ItemStack> itemEntry = EntryCategory.ITEM.fromJson(json);
 			UpgradeEntry<LivingEntity> livingEntry = EntryCategory.LIVING.fromJson(json);
-			EquipmentSlot slot = EquipmentSlot.byName(GsonHelper.getAsString(json, "slot"));
+			InventorySlot slot = InventorySlot.byName(GsonHelper.getAsString(json, "slot"));
 			return new UpdateSlotItemUpgradeResult(internals, itemEntry, livingEntry, slot);
 		}
 		
@@ -74,14 +74,14 @@ public class UpdateSlotItemUpgradeResult extends UpgradeResult {
 		public void toNetwork(UpdateSlotItemUpgradeResult result, FriendlyByteBuf buf) {
 			result.itemEntry.toNetwork(buf);
 			result.livingEntry.toNetwork(buf);
-			buf.writeEnum(result.slot);
+			buf.writeResourceLocation(result.slot.getId());
 		}
 		
 		@Override
 		public UpdateSlotItemUpgradeResult fromNetwork(IUpgradeInternals internals, FriendlyByteBuf buf) {
 			UpgradeEntry<ItemStack> itemEntry = EntryCategory.ITEM.fromNetwork(buf);
 			UpgradeEntry<LivingEntity> livingEntry = EntryCategory.LIVING.fromNetwork(buf);
-			EquipmentSlot slot = buf.readEnum(EquipmentSlot.class);
+			InventorySlot slot = InventorySlot.byId(buf.readResourceLocation());
 			return new UpdateSlotItemUpgradeResult(internals, itemEntry, livingEntry, slot);
 		}
 		

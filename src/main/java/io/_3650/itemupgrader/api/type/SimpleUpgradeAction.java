@@ -14,6 +14,7 @@ import io._3650.itemupgrader.api.data.EntryCategory;
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEntrySet;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.api.util.UpgradeJsonHelper;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
@@ -23,7 +24,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -40,7 +40,7 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 	private final ImmutableList<UpgradeResult> elseResults;
 	private final Serializer serializer;
 	
-	public SimpleUpgradeAction(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, List<UpgradeCondition> conditions, List<UpgradeResult> results, List<UpgradeResult> elseResults, Serializer serializer) {
+	public SimpleUpgradeAction(IUpgradeInternals internals, Set<InventorySlot> validSlots, List<UpgradeCondition> conditions, List<UpgradeResult> results, List<UpgradeResult> elseResults, Serializer serializer) {
 		super(internals, validSlots, conditions);
 		this.results = ImmutableList.copyOf(results);
 		this.elseResults = ImmutableList.copyOf(elseResults);
@@ -92,7 +92,7 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 	
 	@Override
 	public void execute(UpgradeEventData data) {
-		if (data.hasEntry(UpgradeEntry.CONSUMED)) data.consume();
+		if (data.hasEntry(UpgradeEntry.CONSUMED)) data.consume(); // TODO auto consume too aggresive
 		for (UpgradeResult result : this.results) {
 			UpgradeEventData.InternalStuffIgnorePlease.setSuccess(data, result.execute(data));
 		}
@@ -159,7 +159,7 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 		}
 		
 		@Override
-		public SimpleUpgradeAction fromJson(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, JsonObject json) {
+		public SimpleUpgradeAction fromJson(IUpgradeInternals internals, Set<InventorySlot> validSlots, JsonObject json) {
 			Serializer makingSerializerInstance = this;
 			if (GsonHelper.isObjectNode(json, "player_override")) {
 				JsonObject playerOverrideJson = GsonHelper.getAsJsonObject(json, "player_override");
@@ -215,7 +215,7 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 			}
 		}
 		
-		public SimpleUpgradeAction fromNetwork(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, FriendlyByteBuf buf) {
+		public SimpleUpgradeAction fromNetwork(IUpgradeInternals internals, Set<InventorySlot> validSlots, FriendlyByteBuf buf) {
 			//conditions
 			List<UpgradeCondition> conditions = this.conditionsFromNetwork(buf);
 			//results

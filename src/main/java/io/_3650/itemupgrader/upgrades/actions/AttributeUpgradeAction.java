@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEntrySet;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.ConditionalUpgradeAction;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
@@ -28,7 +29,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -43,9 +43,9 @@ public class AttributeUpgradeAction extends ConditionalUpgradeAction {
 	private final Operation operation;
 	private final double amount;
 	private final String name;
-	private final Map<EquipmentSlot, UUID> uuids;
+	private final Map<InventorySlot, UUID> uuids;
 	
-	public AttributeUpgradeAction(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, List<UpgradeCondition> conditions, ResourceLocation attributeId, Operation operation, double amount, @Nullable String name, Map<EquipmentSlot, UUID> uuids) {
+	public AttributeUpgradeAction(IUpgradeInternals internals, Set<InventorySlot> validSlots, List<UpgradeCondition> conditions, ResourceLocation attributeId, Operation operation, double amount, @Nullable String name, Map<InventorySlot, UUID> uuids) {
 		super(internals, validSlots, conditions);
 		this.attributeId = attributeId;
 		this.attribute = Objects.requireNonNull(ForgeRegistries.ATTRIBUTES.getValue(attributeId));
@@ -122,16 +122,16 @@ public class AttributeUpgradeAction extends ConditionalUpgradeAction {
 		}
 		
 		@Override
-		public AttributeUpgradeAction fromJson(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, JsonObject json) {
+		public AttributeUpgradeAction fromJson(IUpgradeInternals internals, Set<InventorySlot> validSlots, JsonObject json) {
 			List<UpgradeCondition> conditions = this.conditionsFromJson(json);
 			ResourceLocation attributeId = new ResourceLocation(GsonHelper.getAsString(json, "attribute"));
 			Operation operation = getAttributeOperationByName(GsonHelper.getAsString(json, "operation", "add"));
 			double amount = GsonHelper.getAsDouble(json, "amount");
 			String name = GsonHelper.getAsString(json, "name", null);
-			Map<EquipmentSlot, UUID> uuids = Maps.newHashMap();
+			Map<InventorySlot, UUID> uuids = Maps.newHashMap();
 			if (GsonHelper.isObjectNode(json, "uuids")) {
 				JsonObject uuidJson = GsonHelper.getAsJsonObject(json, "uuids");
-				for (var slot : EquipmentSlot.values()) {
+				for (var slot : InventorySlot.values()) {
 					if (GsonHelper.isStringValue(uuidJson, slot.getName())) {
 						try {
 							UUID uuid = UUID.fromString(GsonHelper.getAsString(uuidJson, slot.getName()));
@@ -144,7 +144,7 @@ public class AttributeUpgradeAction extends ConditionalUpgradeAction {
 					}
 				}
 			} else {
-				for (var slot : EquipmentSlot.values()) {
+				for (var slot : InventorySlot.values()) {
 					uuids.put(slot, UUID.randomUUID());
 				}
 			}
@@ -160,18 +160,18 @@ public class AttributeUpgradeAction extends ConditionalUpgradeAction {
 			//name
 			buf.writeBoolean(action.name != null);
 			if (action.name != null) buf.writeUtf(action.name);
-			buf.writeMap(action.uuids, (buffer, slot) -> buffer.writeEnum(slot), (buffer, uuid) -> buffer.writeUUID(uuid));
+			buf.writeMap(action.uuids, (buffer, slot) -> buffer.writeResourceLocation(slot.getId()), (buffer, uuid) -> buffer.writeUUID(uuid));
 		}
 
 		@Override
-		public AttributeUpgradeAction fromNetwork(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, FriendlyByteBuf buf) {
+		public AttributeUpgradeAction fromNetwork(IUpgradeInternals internals, Set<InventorySlot> validSlots, FriendlyByteBuf buf) {
 			List<UpgradeCondition> conditions = this.conditionsFromNetwork(buf);
 			ResourceLocation attributeId = buf.readResourceLocation();
 			Operation operation = buf.readEnum(Operation.class);
 			double amount = buf.readDouble();
 			String name = null;
 			if (buf.readBoolean()) name = buf.readUtf();
-			Map<EquipmentSlot, UUID> uuids = buf.readMap(buffer -> buffer.readEnum(EquipmentSlot.class), buffer -> buffer.readUUID());
+			Map<InventorySlot, UUID> uuids = buf.readMap(buffer -> InventorySlot.byId(buffer.readResourceLocation()), buffer -> buffer.readUUID());
 			return new AttributeUpgradeAction(internals, validSlots, conditions, attributeId, operation, amount, name, uuids);
 		}
 		

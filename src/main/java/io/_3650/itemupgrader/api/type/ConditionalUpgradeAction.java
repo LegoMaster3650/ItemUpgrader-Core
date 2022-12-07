@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.api.util.UpgradeJsonHelper;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
@@ -17,7 +18,6 @@ import io._3650.itemupgrader.api.util.UpgradeTooltipHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -28,7 +28,7 @@ public abstract class ConditionalUpgradeAction extends UpgradeAction {
 	
 	private final ImmutableList<UpgradeCondition> conditions;
 	
-	public ConditionalUpgradeAction(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, List<UpgradeCondition> conditions) {
+	public ConditionalUpgradeAction(IUpgradeInternals internals, Set<InventorySlot> validSlots, List<UpgradeCondition> conditions) {
 		super(internals, validSlots);
 		this.conditions = ImmutableList.copyOf(conditions);
 	}

@@ -22,6 +22,8 @@ public class ItemUpgraderRegistry {
 	public static final ResourceLocation RESULTS = modRes("result_types");
 	/**The registry for {@linkplain TypedCriteria}*/
 	public static final ResourceLocation TYPED_CRITERIA = modRes("typed_criteria");
+	/**The registry for {@linkplain InventorySlot}*/
+	public static final ResourceLocation INVENTORY_SLOTS = modRes("inventory_slots");
 	
 	/**
 	 * Mostly just public for internal use only for creating resource locations with the mod id easily<br>

@@ -10,6 +10,7 @@ import com.google.common.collect.MultimapBuilder;
 import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.ItemUpgrade;
 import io._3650.itemupgrader.api.ItemUpgraderApi;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.api.util.UpgradeTooltipHelper;
@@ -18,7 +19,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -65,7 +65,7 @@ public class ClientEvents {
 				int slotsDisplayIndex = tooltip.size();
 				
 				//Action Contents
-				ListMultimap<EquipmentSlot, UpgradeAction> slotActions = MultimapBuilder.linkedHashKeys().arrayListValues().build();
+				ListMultimap<InventorySlot, UpgradeAction> slotActions = MultimapBuilder.linkedHashKeys().arrayListValues().build();
 				
 				for (ResourceLocation actionId : upgrade.getValidActions()) {
 					for (UpgradeAction action : upgrade.getActions(actionId)) {
@@ -95,10 +95,10 @@ public class ClientEvents {
 				//Slots Post
 				if (doSlotsDisplay) {
 					List<MutableComponent> slotsList = Lists.newArrayList();
-					for (EquipmentSlot slot : upgrade.getValidSlots()) {
+					for (InventorySlot slot : upgrade.getValidSlots()) {
 						slotsList.add(ComponentHelper.slotInOn(slot));
 					}
-					tooltip.add(slotsDisplayIndex, upgradeLine(Component.translatable("tooltip.itemupgrader.slots", slotsList.size() == 0 ? Component.translatable("equipmentSlot.any") : ComponentHelper.orList(slotsList)).withStyle(ChatFormatting.GRAY)));
+					tooltip.add(slotsDisplayIndex, upgradeLine(Component.translatable("tooltip.itemupgrader.slots", slotsList.size() == 0 ? Component.translatable("inventorySlot.any") : ComponentHelper.orList(slotsList)).withStyle(ChatFormatting.GRAY)));
 					if (hasDescription) tooltip.add(slotsDisplayIndex, upgradeLine(Component.literal("")));
 				}
 				

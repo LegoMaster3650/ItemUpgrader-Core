@@ -7,6 +7,7 @@ import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEntrySet;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.api.util.BoolHolder;
 import io._3650.itemupgrader.api.util.ComponentHelper;
@@ -40,8 +41,8 @@ public class DurabilityDamageUpgradeResult extends UpgradeResult {
 		ItemStack stack = data.getEntry(this.itemEntry);
 		BoolHolder broke = new BoolHolder(false);
 		stack.hurtAndBreak(this.amount, living, livingEntity -> {
-			EquipmentSlot slot = data.getEntryOrNull(UpgradeEntry.SLOT);
-			if (slot != null) livingEntity.broadcastBreakEvent(slot);
+			InventorySlot slot = data.getEntryOrNull(UpgradeEntry.SLOT);
+			if (slot.getBase() instanceof EquipmentSlot equipmentSlot) livingEntity.broadcastBreakEvent(equipmentSlot);
 			broke.value = true;
 		});
 		return broke.value;

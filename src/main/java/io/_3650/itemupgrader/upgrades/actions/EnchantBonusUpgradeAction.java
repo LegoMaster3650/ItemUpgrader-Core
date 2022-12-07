@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEntrySet;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.ConditionalUpgradeAction;
 import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.util.ComponentHelper;
@@ -18,7 +19,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
 public class EnchantBonusUpgradeAction extends ConditionalUpgradeAction {
@@ -27,7 +27,7 @@ public class EnchantBonusUpgradeAction extends ConditionalUpgradeAction {
 	private final int modifier;
 	private final int minBaseLevel;
 	
-	public EnchantBonusUpgradeAction(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, List<UpgradeCondition> conditions, ResourceLocation enchantId, int modifier, int minBaseLevel) {
+	public EnchantBonusUpgradeAction(IUpgradeInternals internals, Set<InventorySlot> validSlots, List<UpgradeCondition> conditions, ResourceLocation enchantId, int modifier, int minBaseLevel) {
 		super(internals, validSlots, conditions);
 		this.enchantId = enchantId;
 		this.modifier = modifier;
@@ -76,7 +76,7 @@ public class EnchantBonusUpgradeAction extends ConditionalUpgradeAction {
 		}
 		
 		@Override
-		public EnchantBonusUpgradeAction fromJson(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, JsonObject json) {
+		public EnchantBonusUpgradeAction fromJson(IUpgradeInternals internals, Set<InventorySlot> validSlots, JsonObject json) {
 			List<UpgradeCondition> conditions = this.conditionsFromJson(json);
 			ResourceLocation enchantId = new ResourceLocation(GsonHelper.getAsString(json, "enchantment"));
 			int modifier = GsonHelper.getAsInt(json, "amount");
@@ -93,7 +93,7 @@ public class EnchantBonusUpgradeAction extends ConditionalUpgradeAction {
 		}
 		
 		@Override
-		public EnchantBonusUpgradeAction fromNetwork(IUpgradeInternals internals, Set<EquipmentSlot> validSlots, FriendlyByteBuf buf) {
+		public EnchantBonusUpgradeAction fromNetwork(IUpgradeInternals internals, Set<InventorySlot> validSlots, FriendlyByteBuf buf) {
 			List<UpgradeCondition> conditions = this.conditionsFromNetwork(buf);
 			ResourceLocation enchantId = buf.readResourceLocation();
 			int modifier = buf.readInt();

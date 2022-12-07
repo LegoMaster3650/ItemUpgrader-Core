@@ -14,13 +14,13 @@ import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.event.UpgradeEvent;
 import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
+import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.registry.Reference;
 import io._3650.itemupgrader.upgrades.EntryCategoryManager;
 import io._3650.itemupgrader.upgrades.ItemUpgradeManager;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,7 +39,7 @@ public class ItemUpgraderApi {
 	/**
 	 * Runs an action, automatically building the data against the given action and getting the <b>REQUIRED</b> ItemStack from the event data passed in<br>
 	 * <br>
-	 * NOTE: If a valid {@linkplain EquipmentSlot} is provided in the data, the upgrade will verify that against the data.
+	 * NOTE: If a valid {@linkplain InventorySlot} is provided in the data, the upgrade will verify that against the data.
 	 * @param actionEntry A {@linkplain RegistryObject} for the {@linkplain UpgradeActionSerializer} of the action to run
 	 * @param builder An {@linkplain UpgradeEventData.Builder} to be built against the given action
 	 * @throws NoSuchElementException If no {@linkplain UpgradeEntry#ITEM ITEM} entry was present
@@ -56,7 +56,7 @@ public class ItemUpgraderApi {
 	/**
 	 * Runs an action on the given item, automatically building the data against the given action<br>
 	 * <br>
-	 * NOTE: If a valid {@linkplain EquipmentSlot} is provided in the data, the upgrade will verify that against the data.
+	 * NOTE: If a valid {@linkplain InventorySlot} is provided in the data, the upgrade will verify that against the data.
 	 * @param actionEntry A {@linkplain RegistryObject} for the {@linkplain UpgradeActionSerializer} of the action to run
 	 * @param builder An {@linkplain UpgradeEventData.Builder} to be built against the given action
 	 * @param stack The {@linkplain ItemStack} to run the upgrade on
@@ -72,7 +72,7 @@ public class ItemUpgraderApi {
 	/**
 	 * Runs an action, automatically getting the <b>REQUIRED</b> ItemStack from the event data passed in<br>
 	 * <br>
-	 * NOTE: If a valid {@linkplain EquipmentSlot} is provided in the data, the upgrade will verify that against the data.
+	 * NOTE: If a valid {@linkplain InventorySlot} is provided in the data, the upgrade will verify that against the data.
 	 * @param actionEntry A {@linkplain RegistryObject} for the {@linkplain UpgradeActionSerializer} of the action to run
 	 * @param data A pre-existing {@linkplain UpgradeEventData} with an owner item set
 	 * @see #runActions(ResourceLocation, UpgradeEventData, ItemStack)
@@ -85,7 +85,7 @@ public class ItemUpgraderApi {
 //	/**
 //	 * Runs an action on the given item with the given data<br>
 //	 * <br>
-//	 * NOTE: If a valid {@linkplain EquipmentSlot} is provided in the data, the upgrade will verify that against the data.
+//	 * NOTE: If a valid {@linkplain InventorySlot} is provided in the data, the upgrade will verify that against the data.
 //	 * @param actionEntry A {@linkplain RegistryObject} for the {@linkplain UpgradeActionSerializer} of the action to run
 //	 * @param data An {@linkplain UpgradeEventData} containing the data that will be provided.
 //	 * @param stack The {@linkplain ItemStack} to run the upgrade on
@@ -97,7 +97,7 @@ public class ItemUpgraderApi {
 	/**
 	 * Runs an action, automatically getting the <b>REQUIRED</b> ItemStack from the event data passed in<br>
 	 * <br>
-	 * NOTE: If a valid {@linkplain EquipmentSlot} is provided in the data, the upgrade will verify that against the data.
+	 * NOTE: If a valid {@linkplain InventorySlot} is provided in the data, the upgrade will verify that against the data.
 	 * @param actionId The {@linkplain ResourceLocation} ID of the action to run (<i>Recommended to use RegistryObject.getId()</i>)
 	 * @param data An {@linkplain UpgradeEventData} which requires at least the ITEM entry to be present
 	 * @throws NoSuchElementException If no {@linkplain UpgradeEntry#ITEM} entry was present
@@ -111,7 +111,7 @@ public class ItemUpgraderApi {
 	/**
 	 * Runs an action on the given item with the given data<br>
 	 * <br>
-	 * NOTE: If a valid {@linkplain EquipmentSlot} is provided in the data, the upgrade will verify that against the data.
+	 * NOTE: If a valid {@linkplain InventorySlot} is provided in the data, the upgrade will verify that against the data.
 	 * @param actionId The {@linkplain ResourceLocation} ID of the action to run (<i>Recommended to use RegistryObject.getId()</i>)
 	 * @param data An {@linkplain UpgradeEventData} containing the data that will be provided.
 	 * @param stack The {@linkplain ItemStack} to run the upgrade on
@@ -122,7 +122,7 @@ public class ItemUpgraderApi {
 		ItemUpgrade upgrade = getUpgrade(stack); //get upgrade on item
 		if (upgrade == null) return; //stop if no upgrade on item
 		if (!upgrade.isValidItem(stack)) {removeUpgradeNoUpdate(stack); return;} //stop if item upgrade is invalid and remove it
-		EquipmentSlot slot = data.getEntryOrNull(UpgradeEntry.SLOT); //get event slot
+		InventorySlot slot = data.getEntryOrNull(UpgradeEntry.SLOT); //get event slot
 		if (slot != null && !upgrade.isValidSlot(slot)) return; //stop if the event slot is invalid
 		if (!upgrade.hasAction(actionId)) return;
 		

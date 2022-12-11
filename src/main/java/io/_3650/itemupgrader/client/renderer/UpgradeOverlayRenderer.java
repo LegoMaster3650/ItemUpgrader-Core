@@ -36,7 +36,7 @@ public class UpgradeOverlayRenderer {
 	}
 	
 	// Rendering Logic
-
+	
 	private static HashSet<ResourceLocation> invalidCache = new HashSet<>();
 	
 	public static void render(ItemStack stack, PoseStack pose, int x, int y, float blitOffset) {
@@ -54,7 +54,7 @@ public class UpgradeOverlayRenderer {
 			TextureAtlasSprite sprite = getSprite(path);
 			if (sprite != null) {
 				pose.pushPose();
-				pose.translate(0, 0, blitOffset + 160.0F);
+				pose.translate(0, 0, blitOffset + getBlitOffset());
 				
 				float x1 = x;
 				float x2 = x + sprite.getWidth();
@@ -88,6 +88,13 @@ public class UpgradeOverlayRenderer {
 		return sprite;
 	}
 	
+	private static int blitOffset = -1;
+	
+	private static int getBlitOffset() {
+		if (blitOffset == -1) blitOffset = Config.CLIENT.overlayRenderDepth.get();
+		return blitOffset;
+	}
+	
 	// Reloading Logic
 	
 	private static final String TEXTURES = "textures/";
@@ -116,6 +123,7 @@ public class UpgradeOverlayRenderer {
 	public static void clearCaches() {
 		invalidCache.clear();
 		spriteCache.clear();
+		blitOffset = -1;
 	}
 	
 }

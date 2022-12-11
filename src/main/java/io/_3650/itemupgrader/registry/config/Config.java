@@ -54,6 +54,7 @@ public class Config {
 		public final IntValue recipeClickAreaHeight;
 		
 		public final BooleanValue renderUpgradeOverlays;
+		public final IntValue overlayRenderDepth;
 		
 		Client(ForgeConfigSpec.Builder builder) {
 			builder.push("tooltip");
@@ -78,6 +79,10 @@ public class Config {
 			builder.push("decoration");
 			
 			renderUpgradeOverlays = builder.comment("Should the mod render upgrade overlays on items in a GUI?", "This texture is an overlay, and will not recieve effects like enchantment glow.", "NOTE: This does NOT disable the loading of the textures, just the rendering", "[Default: true]").define("renderUpgradeOverlays", true);
+			overlayRenderDepth = builder.comment(
+					"Determines what depth the overlay renders at, allowing fine tuning of which elements the overlay appears above and below.",
+					"Don't touch unless the overlay is appearing over things besides the item and its' enchantment glow.",
+					"[Default: 110]").defineInRange("overlayRenderDepth", 110, 0, 500);
 			
 			builder.pop();
 		}

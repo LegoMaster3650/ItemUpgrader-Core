@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
@@ -15,6 +17,7 @@ import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
 import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
+import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
@@ -209,6 +212,18 @@ public class ItemUpgrade {
 		buf.writeInt(this.descriptionLines);
 		//color
 		buf.writeInt(this.color.getValue());
+	}
+	
+	private String descriptionId;
+	
+	/**
+	 * Gets the unlocalized descriptor id of this upgrade for translation
+	 * @return The unlocalized descriptor id of this upgrade for translation
+	 */
+	@Nonnull
+	public String getDescriptionId() {
+		if (this.descriptionId == null) this.descriptionId = Util.makeDescriptionId("upgrade", this.id);
+		return this.descriptionId;
 	}
 	
 	/**

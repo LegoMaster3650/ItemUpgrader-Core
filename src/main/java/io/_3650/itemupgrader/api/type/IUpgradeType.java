@@ -132,10 +132,22 @@ public abstract class IUpgradeType {
 	 *
 	 */
 	public static final record IUpgradeInternals(ResourceLocation id, @Nullable String tooltipOverride, boolean visible) {
+		/**
+		 * among us
+		 * @param id among us
+		 * @param json among us
+		 * @return among us
+		 */
 		public static final IUpgradeInternals of(ResourceLocation id, JsonObject json) {
 			return new IUpgradeInternals(id, GsonHelper.getAsString(json, "tooltip_override", null), GsonHelper.getAsBoolean(json, "visible", true));
 		}
 		
+		/**
+		 * among us
+		 * @param id among us
+		 * @param buf among us
+		 * @return among us
+		 */
 		public static final IUpgradeInternals of(ResourceLocation id, FriendlyByteBuf buf) {
 			String override = null;
 			if (buf.readBoolean()) {override = buf.readUtf();}
@@ -143,6 +155,10 @@ public abstract class IUpgradeType {
 			return new IUpgradeInternals(id, override, visibility);
 		}
 		
+		/**
+		 * among us
+		 * @param buf among us
+		 */
 		public final void to(FriendlyByteBuf buf) {
 			boolean override = this.tooltipOverride != null;
 			buf.writeBoolean(override);

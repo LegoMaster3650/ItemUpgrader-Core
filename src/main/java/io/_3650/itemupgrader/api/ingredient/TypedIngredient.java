@@ -26,6 +26,11 @@ public class TypedIngredient extends AbstractIngredient {
 	
 	private final ResourceLocation type;
 	private final TypedCriteria criteria;
+	
+	/**
+	 * Constructs a new {@linkplain TypedIngredient}
+	 * @param type The identifier for the {@linkplain TypedCriteria} for this ingredient
+	 */
 	public TypedIngredient(ResourceLocation type) {
 		super();
 		this.type = type;
@@ -56,8 +61,14 @@ public class TypedIngredient extends AbstractIngredient {
 		return json;
 	}
 	
+	/**
+	 * Serializer for {@linkplain TypedIngredient}s
+	 * @author LegoMaster3650
+	 */
 	public static class Serializer implements IIngredientSerializer<TypedIngredient> {
-		
+		/**
+		 * Singleton instance for the serializer
+		 */
 		public static final Serializer INSTANCE = new Serializer();
 		
 		@Override

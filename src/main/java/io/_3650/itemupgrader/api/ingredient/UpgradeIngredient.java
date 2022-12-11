@@ -23,6 +23,10 @@ public class UpgradeIngredient extends AbstractIngredient {
 	
 	private final ResourceLocation upgradeId;
 	
+	/**
+	 * Constructs a new {@linkplain UpgradeIngredient}
+	 * @param upgradeId The {@linkplain ResourceLocation} identifier of the upgrade to check for
+	 */
 	public UpgradeIngredient(ResourceLocation upgradeId) {
 		super();
 		this.upgradeId = upgradeId;
@@ -52,8 +56,14 @@ public class UpgradeIngredient extends AbstractIngredient {
 		return json;
 	}
 	
+	/**
+	 * Serializer for {@linkplain UpgradeIngredient}
+	 * @author LegoMaster3650
+	 */
 	public static class Serializer implements IIngredientSerializer<UpgradeIngredient> {
-		
+		/**
+		 * Singleton instance for the serializer
+		 */
 		public static final Serializer INSTANCE = new Serializer();
 		
 		@Override

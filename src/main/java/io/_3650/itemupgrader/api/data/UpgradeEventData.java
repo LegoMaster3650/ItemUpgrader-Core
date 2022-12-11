@@ -67,6 +67,10 @@ public class UpgradeEventData {
 	
 	private boolean resultSuccess = false;
 	
+	/**
+	 * Gets whether the last result to be run was successful (defaults to false)
+	 * @return Whether the last result to be run was successful (defaults to false)
+	 */
 	public boolean getLastResultSuccess() {
 		return this.resultSuccess;
 	}
@@ -316,7 +320,7 @@ public class UpgradeEventData {
 		 * {@linkplain UpgradeEntry#POSITION}<br>
 		 * {@linkplain UpgradeEntry#LEVEL}<br>
 		 * {@linkplain UpgradeEntry#SIDE}
-		 * @param living A {@linkplain LivingEntity} to use for context
+		 * @param player A {@linkplain Player} to use for context
 		 */
 		public Builder(Player player) {
 			this.entry(UpgradeEntry.PLAYER, player)
@@ -604,6 +608,11 @@ public class UpgradeEventData {
 	 */
 	public static final class InternalStuffIgnorePlease {
 		
+		/**
+		 * Sets whether the last result was successful
+		 * @param data The {@linkplain UpgradeEventData} to modify
+		 * @param value Whether the last result was successful
+		 */
 		public static void setSuccess(UpgradeEventData data, boolean value) {
 			data.resultSuccess = value;
 		}

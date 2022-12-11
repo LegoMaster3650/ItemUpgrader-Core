@@ -47,6 +47,11 @@ public abstract class UpgradeEvent extends Event {
 		 */
 		@Cancelable
 		public static class Pre extends Apply {
+			/**
+			 * Constructs a new {@linkplain Pre}
+			 * @param stack {@linkplain #stack}
+			 * @param upgradeId {@linkplain #upgradeId}
+			 */
 			public Pre(ItemStack stack, ResourceLocation upgradeId) {
 				super(stack, upgradeId);
 			}
@@ -61,6 +66,11 @@ public abstract class UpgradeEvent extends Event {
 		 * Event fired after an upgrade is applied to an item
 		 */
 		public static class Post extends Apply {
+			/**
+			 * Constructs a new {@linkplain Post}
+			 * @param stack {@linkplain #stack}
+			 * @param upgradeId {@linkplain #upgradeId}
+			 */
 			public Post(ItemStack stack, ResourceLocation upgradeId) {
 				super(stack, upgradeId);
 			}
@@ -72,7 +82,11 @@ public abstract class UpgradeEvent extends Event {
 	 * Event fired before an upgrade is removed from an item
 	 */
 	public static class Remove extends UpgradeEvent {
-		
+		/**
+		 * Constructs a new {@linkplain Remove}
+		 * @param stack {@linkplain #stack}
+		 * @param upgradeId {@linkplain #upgradeId}
+		 */
 		public Remove(ItemStack stack, ResourceLocation upgradeId) {
 			super(stack, upgradeId);
 		}
@@ -90,6 +104,12 @@ public abstract class UpgradeEvent extends Event {
 		 */
 		public final ResourceLocation previousUpgradeId;
 		
+		/**
+		 * Constructs a new {@linkplain Replace}
+		 * @param stack {@linkplain #stack}
+		 * @param upgradeId {@linkplain #upgradeId}
+		 * @param previousUpgradeId {@linkplain #previousUpgradeId}
+		 */
 		public Replace(ItemStack stack, ResourceLocation upgradeId, ResourceLocation previousUpgradeId) {
 			super(stack, upgradeId);
 			this.previousUpgradeId = previousUpgradeId;

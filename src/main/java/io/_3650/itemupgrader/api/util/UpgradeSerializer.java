@@ -30,6 +30,10 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 
+/**
+ * Utility for serializing and deserializing upgrades
+ * @author LegoMaster3650
+ */
 public class UpgradeSerializer {
 	
 	/**
@@ -43,7 +47,7 @@ public class UpgradeSerializer {
 		//get action id
 		ResourceLocation actionId = new ResourceLocation(GsonHelper.getAsString(json, "action"));
 		//minecraft never registers anything anyways, default to item upgrader instead
-		if (actionId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) actionId = ItemUpgraderRegistry.modRes(actionId.getPath());
+		if (actionId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) actionId = ItemUpgraderRegistry.ugRes(actionId.getPath());
 		//verify it exists and throw a temper tantrum if not
 		if (!ItemUpgraderCore.ACTION_REGISTRY.get().containsKey(actionId)) throw new NoSuchElementException("Action " + actionId.toString() + " does not exist");
 		//get internals
@@ -96,7 +100,7 @@ public class UpgradeSerializer {
 		//get condition id
 		ResourceLocation conditionId = new ResourceLocation(GsonHelper.getAsString(json, "type"));
 		//minecraft never registers anything anyways, default to item upgrader instead
-		if (conditionId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) conditionId = ItemUpgraderRegistry.modRes(conditionId.getPath());
+		if (conditionId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) conditionId = ItemUpgraderRegistry.ugRes(conditionId.getPath());
 		//verify it exists and throw a temper tantrum if not
 		if (!ItemUpgraderCore.CONDITION_REGISTRY.get().containsKey(conditionId)) throw new NoSuchElementException("Condition " + conditionId.toString() + " does not exist");
 		//get internals
@@ -139,7 +143,7 @@ public class UpgradeSerializer {
 		// get result id
 		ResourceLocation resultId = new ResourceLocation(GsonHelper.getAsString(json, "type"));
 		// minecraft never registers anything anyways, default to item upgrader instead
-		if (resultId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) resultId = ItemUpgraderRegistry.modRes(resultId.getPath());
+		if (resultId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) resultId = ItemUpgraderRegistry.ugRes(resultId.getPath());
 		//verify it exists and throw a temper tantrum if not
 		if (!ItemUpgraderCore.RESULT_REGISTRY.get().containsKey(resultId)) throw new NoSuchElementException("Result " + resultId.toString() + " does not exist");
 		// get internals

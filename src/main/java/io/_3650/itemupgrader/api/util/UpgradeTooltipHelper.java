@@ -8,6 +8,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 
+/**
+ * Utility for getting tooltips for components of upgrades
+ * @author LegoMaster3650
+ */
 public class UpgradeTooltipHelper {
 	
 	/**
@@ -34,7 +38,7 @@ public class UpgradeTooltipHelper {
 	
 	/**
 	 * Gets the tooltip for the given result
-	 * @param condition The {@linkplain UpgrdeResult} to get the tooltip for
+	 * @param result The {@linkplain UpgradeResult} to get the tooltip for
 	 * @param stack The {@linkplain ItemStack} used for context
 	 * @return The generated {@linkplain MutableComponent}
 	 */

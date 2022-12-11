@@ -132,7 +132,7 @@ public class ComponentHelper {
 	/**
 	 * Quickly gets a translation key for the given slot
 	 * @param slot The {@linkplain InventorySlot} to use
-	 * @return A {@linkplain TranslatableComponent} with the item upgrader translation key for the given slot
+	 * @return A {@linkplain Component} with the item upgrader translation key for the given slot
 	 */
 	public static MutableComponent componentFromSlot(InventorySlot slot) {
 		return Component.translatable("inventorySlot." + slot.getName());
@@ -141,10 +141,10 @@ public class ComponentHelper {
 	/**
 	 * Quickly gets a "When on X" or "When in X" depending on the slot type for the given slot
 	 * @param slot The {@linkplain InventorySlot} to use
-	 * @return A {@linkplain TranslatableComponent} for the given "When in/on slot"
+	 * @return A {@linkplain Component} for the given "When in/on slot"
 	 */
 	public static MutableComponent slotInOn(InventorySlot slot) {
-		return Component.translatable("tooltip.itemupgrader.slots." + slot.getType().toString(), ComponentHelper.componentFromSlot(slot));
+		return Component.translatable("tooltip.itemupgrader.slots." + slot.getDisplayType(), componentFromSlot(slot));
 	}
 	
 }

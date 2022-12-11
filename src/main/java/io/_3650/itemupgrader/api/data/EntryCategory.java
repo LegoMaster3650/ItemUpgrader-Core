@@ -29,7 +29,6 @@ import net.minecraft.world.phys.Vec3;
  * @author LegoMaster3650
  * 
  * @param <T> The type that this category corresponds to
- * @see EntryCategorySet
  * @see UpgradeEntry
  */
 public class EntryCategory<T> {

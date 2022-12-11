@@ -15,6 +15,7 @@ import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEntrySet;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.slot.InventorySlot;
+import io._3650.itemupgrader.api.type.IUpgradeType.IUpgradeInternals;
 import io._3650.itemupgrader.api.util.ComponentHelper;
 import io._3650.itemupgrader.api.util.UpgradeJsonHelper;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
@@ -40,6 +41,15 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 	private final ImmutableList<UpgradeResult> elseResults;
 	private final Serializer serializer;
 	
+	/**
+	 * Constructs a new {@linkplain SimpleUpgradeAction}
+	 * @param internals The {@linkplain IUpgradeInternals} that make up this action
+	 * @param validSlots A {@linkplain Set} of valid {@linkplain InventorySlot}s for this action
+	 * @param conditions The {@linkplain UpgradeCondition}s this action has
+	 * @param results The {@linkplain UpgradeResult}s this action will run if it conditions pass
+	 * @param elseResults The {@linkplain UpgradeResult}s this action will run if the conditions fail
+	 * @param serializer The {@linkplain Serializer} instance for this action
+	 */
 	public SimpleUpgradeAction(IUpgradeInternals internals, Set<InventorySlot> validSlots, List<UpgradeCondition> conditions, List<UpgradeResult> results, List<UpgradeResult> elseResults, Serializer serializer) {
 		super(internals, validSlots, conditions);
 		this.results = ImmutableList.copyOf(results);
@@ -49,8 +59,8 @@ public class SimpleUpgradeAction extends ConditionalUpgradeAction {
 	
 	/**
 	 * Constructs a new serializer for a {@linkplain SimpleUpgradeAction}
-	 * @param provided
-	 * @return
+	 * @param provided The {@linkplain UpgradeEntrySet} this action provides
+	 * @return A {@linkplain Supplier} of a {@linkplain Serializer} for this action for easy use in registries
 	 */
 	public static Supplier<Serializer> of(UpgradeEntrySet provided) {
 		return () -> new Serializer(provided);

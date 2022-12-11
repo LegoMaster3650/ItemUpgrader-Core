@@ -55,7 +55,7 @@ public class ModInventorySlots {
 			return this.slot;
 		}
 		
-		public InventorySlot.DisplayType getType() {
+		public String getDisplayType() {
 			return switch (this.slot.getType()) {
 				default -> InventorySlot.DisplayType.ON;
 				case ARMOR -> InventorySlot.DisplayType.ON;

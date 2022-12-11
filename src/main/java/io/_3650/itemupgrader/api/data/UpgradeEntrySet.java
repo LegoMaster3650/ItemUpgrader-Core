@@ -237,7 +237,7 @@ public class UpgradeEntrySet {
 		/**
 		 * Adds all {@code entries} to the builder's modified, required, and provided sets<br>
 		 * The modified list requires certain entries to be modifiable, useful for return data or cancellation
-		 * @param entry Every {@linkplain UpgradeEntry} to append to the builder's modified, required, and provided entry sets
+		 * @param entries Every {@linkplain UpgradeEntry} to append to the builder's modified, required, and provided entry sets
 		 * @return The {@linkplain Builder} to chain more statements on
 		 */
 		public Builder modifiableAll(UpgradeEntry<?>... entries) {
@@ -349,13 +349,13 @@ public class UpgradeEntrySet {
 	public static final UpgradeEntrySet ENCHANTMENT_ID = create(builder -> {
 		builder.require(UpgradeEntry.ENCHANTMENT_ID);
 	});
-	/**&ltEnchantment Level&gt*/
+	/**&lt;Enchantment Level&gt;*/
 	public static final UpgradeEntrySet ENCHANTMENT_LEVEL = create(builder -> {
 		builder.modifiable(UpgradeEntry.ENCHANTMENT_LEVEL);
 	});
-	/**Enchantment ID, &ltEnchantment Level&gt*/
+	/**Enchantment ID, &lt;Enchantment Level&gt;*/
 	public static final UpgradeEntrySet ENCHANTMENT = ENCHANTMENT_ID.with(ENCHANTMENT_LEVEL);
-	/**[Item], Enchantment ID, &ltEnchantment Level&gt*/
+	/**[Item], Enchantment ID, &lt;Enchantment Level&gt;*/
 	public static final UpgradeEntrySet ITEM_ENCHANTMENT = ITEM.with(ENCHANTMENT);
 	
 	/* ==== ENTITY STUFF ==== */
@@ -460,11 +460,11 @@ public class UpgradeEntrySet {
 	});
 	
 	/* ==== HELP ==== */
-	/**&ltCancelled&gt*/
+	/**&lt;Cancelled&gt;*/
 	public static final UpgradeEntrySet CANCELLABLE = create(builder -> {
 		builder.modifiable(UpgradeEntry.CANCELLED);
 	});
-	/**&ltConsumed&gt*/
+	/**&lt;Consumed&gt;*/
 	public static final UpgradeEntrySet CONSUMABLE = create(builder -> {
 		builder.modifiable(UpgradeEntry.CONSUMED);
 	});

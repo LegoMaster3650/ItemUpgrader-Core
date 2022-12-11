@@ -87,8 +87,8 @@ public class ItemUpgraderCore {
 			EntryCategory.init();
 			UpgradeEntry.init();
 			//actual common stuff
-			CraftingHelper.register(ItemUpgraderRegistry.modRes("typed"), TypedIngredient.Serializer.INSTANCE);
-			CraftingHelper.register(ItemUpgraderRegistry.modRes("upgrade"), UpgradeIngredient.Serializer.INSTANCE);
+			CraftingHelper.register(ItemUpgraderRegistry.ugRes("typed"), TypedIngredient.Serializer.INSTANCE);
+			CraftingHelper.register(ItemUpgraderRegistry.ugRes("upgrade"), UpgradeIngredient.Serializer.INSTANCE);
 			NetworkHandler.init();
 		});
 	}

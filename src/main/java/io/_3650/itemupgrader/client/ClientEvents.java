@@ -36,7 +36,7 @@ public class ClientEvents {
 			ItemUpgrade upgrade = ItemUpgraderApi.getUpgrade(stack);
 			if (upgrade == null) return;
 			if (!upgrade.isVisible()) return;
-			String upgradeTranslationKey = "upgrade." + ComponentHelper.keyFormat(upgrade.getId());
+			String upgradeTranslationKey = upgrade.getDescriptionId();
 			List<MutableComponent> tooltip = Lists.newArrayList();
 			if (Config.CLIENT.requiresKeyHeld.get() && !ModKeybinds.isKeyPressed(ModKeybinds.SHOW_TOOLTIP)) {
 				//Upgrade Header

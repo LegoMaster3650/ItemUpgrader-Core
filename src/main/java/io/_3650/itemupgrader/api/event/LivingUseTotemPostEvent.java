@@ -20,6 +20,12 @@ public class LivingUseTotemPostEvent extends Event {
 	/**The {@linkplain DamageSource} that triggered the totem*/
 	public final DamageSource damageSource;
 	
+	/**
+	 * Constructs a new {@linkplain LivingUseTotemPostEvent}
+	 * @param living The {@linkplain LivingEntity} that used the totem
+	 * @param totem The {@linkplain ItemStack} that was consumed
+	 * @param damageSource The {@linkplain DamageSource} that would have killed the entity
+	 */
 	public LivingUseTotemPostEvent(LivingEntity living, ItemStack totem, DamageSource damageSource) {
 		this.living = living;
 		this.totem = totem;

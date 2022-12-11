@@ -101,7 +101,7 @@ public class ItemUpgraderApi {
 	 * @param actionId The {@linkplain ResourceLocation} ID of the action to run (<i>Recommended to use RegistryObject.getId()</i>)
 	 * @param data An {@linkplain UpgradeEventData} which requires at least the ITEM entry to be present
 	 * @throws NoSuchElementException If no {@linkplain UpgradeEntry#ITEM} entry was present
-	 * @see #runActions(RegistryObject, UpgradeEventData, ItemStack)
+	 * @see #runActions(ResourceLocation, UpgradeEventData, ItemStack)
 	 */
 	public static void runActions(ResourceLocation actionId, UpgradeEventData data) throws NoSuchElementException {
 		ItemStack stack = data.getOptional(UpgradeEntry.ITEM).orElseThrow(() -> new NoSuchElementException("Missing Item Entry"));

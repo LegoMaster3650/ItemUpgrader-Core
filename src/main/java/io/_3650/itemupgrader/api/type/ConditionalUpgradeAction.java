@@ -28,6 +28,12 @@ public abstract class ConditionalUpgradeAction extends UpgradeAction {
 	
 	private final ImmutableList<UpgradeCondition> conditions;
 	
+	/**
+	 * Constructs a new conditional upgrade action
+	 * @param internals The {@linkplain IUpgradeInternals} that make up this action
+	 * @param validSlots A {@linkplain Set} of valid {@linkplain InventorySlot}s for this action
+	 * @param conditions The {@linkplain UpgradeCondition}s this action has
+	 */
 	public ConditionalUpgradeAction(IUpgradeInternals internals, Set<InventorySlot> validSlots, List<UpgradeCondition> conditions) {
 		super(internals, validSlots);
 		this.conditions = ImmutableList.copyOf(conditions);

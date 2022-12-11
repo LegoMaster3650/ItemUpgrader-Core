@@ -48,7 +48,7 @@ public class ItemUpgraderCore {
 	//I know this is item upgrader core not item upgrader but the mod really called Item Upgrader wont have many things meant to be exposed for external use ;P
 	public static final String MOD_ID = "itemupgrader";
 	
-	//TODO this will probably break
+	//ok it works now cool
 	public static final Supplier<IForgeRegistry<UpgradeActionSerializer<? extends UpgradeAction>>> ACTION_REGISTRY = ModUpgradeActions.ACTIONS.makeRegistry(() ->
 			new RegistryBuilder<UpgradeActionSerializer<?>>().disableSaving());
 	public static final Supplier<IForgeRegistry<UpgradeConditionSerializer<? extends UpgradeCondition>>> CONDITION_REGISTRY = ModUpgradeConditions.CONDITIONS.makeRegistry(() ->

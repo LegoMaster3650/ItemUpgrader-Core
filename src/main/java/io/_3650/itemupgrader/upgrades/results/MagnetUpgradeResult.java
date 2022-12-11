@@ -34,7 +34,6 @@ public class MagnetUpgradeResult extends UpgradeResult {
 	private final double speed;
 	private final boolean isSphere;
 	private final double rangeSquared;
-	private final double cubeRange;
 	
 	public MagnetUpgradeResult(IUpgradeInternals internals, UpgradeEntry<Vec3> posEntry, boolean attractItems, boolean attractXp, double range, double speed, boolean isSphere) {
 		super(internals, UpgradeEntrySet.create(builder -> {
@@ -47,7 +46,6 @@ public class MagnetUpgradeResult extends UpgradeResult {
 		this.speed = speed;
 		this.isSphere = isSphere;
 		this.rangeSquared = range * range;
-		this.cubeRange = isSphere ? Math.sqrt(this.rangeSquared * 2) : range;
 	}
 	
 	@Override
@@ -55,7 +53,7 @@ public class MagnetUpgradeResult extends UpgradeResult {
 		Vec3 pos = data.getEntry(this.posEntry);
 		Level level = data.getEntry(UpgradeEntry.LEVEL);
 		
-		AABB aabb = new AABB(pos.x() + this.cubeRange, pos.y() + this.cubeRange, pos.z() + this.cubeRange, pos.x() - this.cubeRange, pos.y() - this.cubeRange, pos.z() - this.cubeRange);
+		AABB aabb = new AABB(pos.x() + this.range, pos.y() + this.range, pos.z() + this.range, pos.x() - this.range, pos.y() - this.range, pos.z() - this.range);
 		
 		List<Entity> entities = level.getEntities((Entity) null, aabb, entity -> {
 			boolean validType = ((entity instanceof ItemEntity) && this.attractItems) || ((entity instanceof ExperienceOrb) && this.attractXp);

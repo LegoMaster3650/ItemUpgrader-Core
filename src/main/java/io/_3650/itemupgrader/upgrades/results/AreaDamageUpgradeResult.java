@@ -37,7 +37,6 @@ public class AreaDamageUpgradeResult extends UpgradeResult {
 	private final boolean isFire;
 	private final double range;
 	private final double rangeSquared;
-	private final double cubeRange;
 	
 	public AreaDamageUpgradeResult(float damage, IUpgradeInternals internals, UpgradeEntry<Vec3> posEntry,
 			UpgradeEntry<Entity> directSourceEntry,UpgradeEntry<Entity> sourceEntry, String damageSourceName,
@@ -57,7 +56,6 @@ public class AreaDamageUpgradeResult extends UpgradeResult {
 		this.isFire = isFire;
 		this.range = range;
 		this.rangeSquared = range * range;
-		this.cubeRange = Math.sqrt(this.rangeSquared * 2);
 	}
 	
 	@Override
@@ -74,7 +72,7 @@ public class AreaDamageUpgradeResult extends UpgradeResult {
 		if (this.isMagic) damageSource.setMagic();
 		if (this.isFire) damageSource.setIsFire();
 		
-		AABB aabb = new AABB(pos.x() + this.cubeRange, pos.y() + this.cubeRange, pos.z() + this.cubeRange, pos.x() - this.cubeRange, pos.y() - this.cubeRange, pos.z() - this.cubeRange);
+		AABB aabb = new AABB(pos.x() + this.range, pos.y() + this.range, pos.z() + this.range, pos.x() - this.range, pos.y() - this.range, pos.z() - this.range);
 		List<LivingEntity> targets = level.getEntities(EntityTypeTest.forClass(LivingEntity.class), aabb, entity -> {
 			return entity.position().distanceToSqr(pos) <= this.rangeSquared;
 		});

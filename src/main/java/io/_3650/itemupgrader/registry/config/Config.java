@@ -53,6 +53,8 @@ public class Config {
 		public final IntValue recipeClickAreaWidth;
 		public final IntValue recipeClickAreaHeight;
 		
+		public final BooleanValue renderUpgradeOverlays;
+		
 		Client(ForgeConfigSpec.Builder builder) {
 			builder.push("tooltip");
 			
@@ -65,12 +67,18 @@ public class Config {
 			builder.push("jei");
 			builder.comment("Tweaking the area you can click in the smithing table gui to view upgrade recipes.", "Mainly intended if you have an incompatible gui modifying resource pack.", ">> Requires a reload for changes to apply! <<").push("recipeClickArea");
 			
-			recipeClickAreaLeftX = builder.comment("X of left edge of click area").defineInRange("recipeClickAreaLeftX", 17, 0, 175);
-			recipeClickAreaTopY = builder.comment("Y of top edge of click area").defineInRange("recipeClickAreaTopY", 7, 0, 165);
-			recipeClickAreaWidth = builder.comment("Width of click area").defineInRange("recipeClickAreaWidth", 30, 1, 176);
-			recipeClickAreaHeight = builder.comment("Height of click area").defineInRange("recipeClickAreaHeight", 30, 1, 166);
+			recipeClickAreaLeftX = builder.comment("X of left edge of click area", "[Default (Hammer): 17]", "[Alternative (Plus Icon): 53]").defineInRange("recipeClickAreaLeftX", 17, 0, 175);
+			recipeClickAreaTopY = builder.comment("Y of top edge of click area", "[Default (Hammer): 7]", "[Alternative (Plus Icon): 49]").defineInRange("recipeClickAreaTopY", 7, 0, 165);
+			recipeClickAreaWidth = builder.comment("Width of click area", "[Default (Hammer): 30]", "[Alternative (Plus Icon): 13]").defineInRange("recipeClickAreaWidth", 30, 1, 176);
+			recipeClickAreaHeight = builder.comment("Height of click area", "[Default (Hammer): 30]", "[Alternative (Plus Icon): 13]").defineInRange("recipeClickAreaHeight", 30, 1, 166);
 			
 			builder.pop();
+			builder.pop();
+			///////////////////////////////////////////////////////////
+			builder.push("decoration");
+			
+			renderUpgradeOverlays = builder.comment("Should the mod render upgrade overlays on items in a GUI?", "This texture is an overlay, and will not recieve effects like enchantment glow.", "NOTE: This does NOT disable the loading of the textures, just the rendering", "[Default: true]").define("renderUpgradeOverlays", true);
+			
 			builder.pop();
 		}
 		

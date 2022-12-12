@@ -82,6 +82,7 @@ public class Config {
 			overlayRenderDepth = builder.comment(
 					"Determines what depth the overlay renders at, allowing fine tuning of which elements the overlay appears above and below.",
 					"Don't touch unless the overlay is appearing over things besides the item and its' enchantment glow.",
+					">> Requires a resource pack reload in order to take effect!",
 					"[Default: 110]").defineInRange("overlayRenderDepth", 110, 0, 500);
 			
 			builder.pop();

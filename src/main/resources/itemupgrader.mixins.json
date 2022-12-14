@@ -6,6 +6,8 @@
 	"mixins": [
 		"ApplyBonusCountMixin",
 		"BlockMixin",
+		"BowItemMixin",
+		"CrossbowItemMixin",
 		"IForgeItemStackMixin",
 		"ItemStackMixin",
 		"LivingEntityMixin",

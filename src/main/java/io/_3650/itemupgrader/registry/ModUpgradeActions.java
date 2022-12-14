@@ -61,6 +61,11 @@ public class ModUpgradeActions {
 	
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> TRIDENT_HIT = ACTIONS.register("trident_hit", SimpleUpgradeAction.of(UpgradeEntrySet.ENTITY_ITEM.with(builder -> builder.provideAll(UpgradeEntry.PROJECTILE, UpgradeEntry.DIRECT_DAMAGER).cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> PROJECTILE_BLOCK = ACTIONS.register("projectile_block", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_ITEM.with(builder -> builder.provideAll(UpgradeEntry.PROJECTILE, UpgradeEntry.TARGET_ENTITY, UpgradeEntry.DIRECT_DAMAGER).cancellable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> BOW_USE = ACTIONS.register("bow_use", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.cancellable().consumable())));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> BOW_SHOOT = ACTIONS.register("bow_shoot", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BOW_ITEM, UpgradeEntry.PROJECTILE))));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> CROSSBOW_SHOOT = ACTIONS.register("crossbow_shoot", SimpleUpgradeAction.of(UpgradeEntrySet.LIVING_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BOW_ITEM, UpgradeEntry.PROJECTILE))));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> ARROW_SPEED = ACTIONS.register("arrow_speed", SimpleUpgradeAction.of(UpgradeEntrySet.ITEM.with(builder -> builder.modifiable(UpgradeEntry.ARROW_SPEED))));
+	public static final RegistryObject<SimpleUpgradeAction.Serializer> ARROW_INACCURACY = ACTIONS.register("arrow_inaccuracy", SimpleUpgradeAction.of(UpgradeEntrySet.ITEM.with(builder -> builder.modifiable(UpgradeEntry.ARROW_INACCURACY))));
 	
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> BREAK_BLOCK = ACTIONS.register("break_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BLOCK_POS, UpgradeEntry.BLOCK_STATE).cancellable())));
 	public static final RegistryObject<SimpleUpgradeAction.Serializer> PLACE_BLOCK = ACTIONS.register("place_block", SimpleUpgradeAction.of(UpgradeEntrySet.PLAYER_SLOT_ITEM.with(builder -> builder.provideAll(UpgradeEntry.BLOCK_POS, UpgradeEntry.BLOCK_STATE).cancellable())));

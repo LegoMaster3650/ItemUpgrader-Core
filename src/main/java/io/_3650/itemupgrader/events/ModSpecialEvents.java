@@ -5,6 +5,9 @@ import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.registry.ModUpgradeActions;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -55,6 +58,32 @@ public class ModSpecialEvents {
 		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.ENCHANTABILITY, new UpgradeEventData.Builder(stack)
 				.modifiableEntry(UpgradeEntry.ENCHANTABILITY, originalValue));
 		return data.getEntry(UpgradeEntry.ENCHANTABILITY);
+	}
+	
+	public static void bowShoot(ItemStack bow, Player player, ItemStack stack, AbstractArrow arrow, boolean hasAmmo) {
+		if (hasAmmo) ItemUpgraderApi.runActions(ModUpgradeActions.BOW_SHOOT, new UpgradeEventData.Builder(player)
+				.entry(UpgradeEntry.ITEM, bow)
+				.entry(UpgradeEntry.BOW_ITEM, stack)
+				.entry(UpgradeEntry.PROJECTILE, arrow));
+	}
+	
+	public static void crossbowShoot(ItemStack crossbow, LivingEntity living, ItemStack stack, Projectile projectile) {
+		ItemUpgraderApi.runActions(ModUpgradeActions.CROSSBOW_SHOOT, new UpgradeEventData.Builder(living)
+				.entry(UpgradeEntry.ITEM, crossbow)
+				.entry(UpgradeEntry.BOW_ITEM, stack)
+				.entry(UpgradeEntry.PROJECTILE, projectile));
+	}
+	
+	public static float arrowSpeed(ItemStack stack, float baseSpeed) {
+		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.ARROW_SPEED, new UpgradeEventData.Builder(stack)
+				.modifiableEntry(UpgradeEntry.ARROW_SPEED, baseSpeed));
+		return data.getEntry(UpgradeEntry.ARROW_SPEED);
+	}
+	
+	public static float arrowInaccuracy(ItemStack stack, float baseInaccuracy) {
+		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.ARROW_INACCURACY, new UpgradeEventData.Builder(stack)
+				.modifiableEntry(UpgradeEntry.ARROW_INACCURACY, baseInaccuracy));
+		return data.getEntry(UpgradeEntry.ARROW_INACCURACY);
 	}
 	
 }

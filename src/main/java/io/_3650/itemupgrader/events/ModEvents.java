@@ -27,6 +27,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -53,6 +54,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingUseTotemEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
+import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -463,7 +465,7 @@ public class ModEvents {
 	}
 	
 	/*
-	 * IMPACT
+	 * PROJETILE
 	 */
 	
 	@SubscribeEvent
@@ -519,6 +521,21 @@ public class ModEvents {
 				event.setCanceled(true);
 				return;
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void bowLoad(ArrowNockEvent event) {
+		ItemStack stack = event.getBow();
+		Player player = event.getEntity();
+		UpgradeEventData data = ItemUpgraderApi.runActions(ModUpgradeActions.BOW_USE, new UpgradeEventData.Builder(player, slotFromHand(event.getHand()))
+				.entry(UpgradeEntry.ITEM, stack)
+				.cancellable()
+				.consumable());
+		if (data.isCancelled()) event.setAction(InteractionResultHolder.fail(stack));
+		else if (data.isConsumed()) {
+			player.startUsingItem(event.getHand());
+			event.setAction(InteractionResultHolder.consume(stack));
 		}
 	}
 	

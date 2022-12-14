@@ -80,6 +80,8 @@
 	"upgradeEntry.itemupgrader.block_drops": "Block Drops",
 	"upgradeEntry.itemupgrader.do_shield_damage": "Damage Shield",
 	"upgradeEntry.itemupgrader.projectile": "Projectile",
+	"upgradeEntry.itemupgrader.arrow_speed": "Arrow Speed",
+	"upgradeEntry.itemupgrader.arrow_inaccuracy": "Arrow Inaccuracy",
 	
 	"upgradeEntry.itemupgrader.cancelled": "Cancelled",
 	"upgradeEntry.itemupgrader.consumed": "Consumed",
@@ -93,6 +95,7 @@
 	"damageSourceProperty.hasEntity": "has entity",
 	"damageSourceProperty.hasDirectEntity": "has direct entity",
 	"damageSourceProperty.isBypassArmor": "bypasses armor",
+	"damageSourceProperty.isBypassEnchantments": "bypasses enchantments",
 	"damageSourceProperty.isBypassInvul": "bypasses invulnerability",
 	"damageSourceProperty.isBypassMagic": "bypasses magic defense",
 	"damageSourceProperty.isCreativePlayer": "is creative player",
@@ -144,7 +147,8 @@
 	"damageSource.explosion": "Explosion",
 	"damageSource.itemupgrader": "Item Upgrader",
 	"damageSource.badRespawnPoint": "Bad Respawn Point",
-
+	"damageSource.sonic_boom": "Sonic Boom",
+	
 	
 	
 	"upgradeAction.itemupgrader.attribute": "",
@@ -199,6 +203,11 @@
 	
 	"upgradeAction.itemupgrader.trident_hit": "On trident hit: ",
 	"upgradeAction.itemupgrader.projectile_block": "On projectile block: ",
+	"upgradeAction.itemupgrader.bow_use": "On load: ",
+	"upgradeAction.itemupgrader.bow_shoot": "On shoot: ",
+	"upgradeAction.itemupgrader.crossbow_shoot": "On shoot: ",
+	"upgradeAction.itemupgrader.arrow_speed": "",
+	"upgradeAction.itemupgrader.arrow_inaccuracy": "",
 	
 	"upgradeAction.itemupgrader.break_block": "On block broken: ",
 	"upgradeAction.itemupgrader.place_block": "On block placed: ",
@@ -236,6 +245,7 @@
 	"upgradeCondition.itemupgrader.edible": "item is edible",
 	"upgradeCondition.itemupgrader.sneaking": "sneaking",
 	"upgradeCondition.itemupgrader.random": "%s chance",
+	"upgradeCondition.itemupgrader.has_enchantment": "has %s%s",
 	
 	
 	
@@ -271,7 +281,9 @@
 	"upgradeResult.itemupgrader.autosmelt": "Smelt dropped items.",
 	"upgradeResult.itemupgrader.display_item": "Display an item.",
 	"upgradeResult.itemupgrader.area_damage": "Deal %s damage to all entities within %s blocks.",
-	"upgradeResult.itemupgrader.pierce": "+%s pierce",
+	"upgradeResult.itemupgrader.pierce": "+%s piercing",
+	"upgradeResult.itemupgrader.arrow_power": "+%s power",
+	"upgradeResult.itemupgrader.arrow_knockback": "+%s punch",
 	
 	"upgradeResult.itemupgrader.update_position": "Update position %s",
 	"upgradeResult.itemupgrader.update_item": "Update item %s in slot %s",

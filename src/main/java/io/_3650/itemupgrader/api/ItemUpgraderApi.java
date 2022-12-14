@@ -144,7 +144,7 @@ public class ItemUpgraderApi {
 	 * @return Whether the stack has an upgrade applied
 	 */
 	public static boolean hasUpgrade(ItemStack stack) {
-		return stack.hasTag() && stack.getTag().contains(Reference.UPGRADE_TAG);
+		return !stack.isEmpty() && stack.hasTag() && stack.getTag().contains(Reference.UPGRADE_TAG);
 	}
 	
 	/**

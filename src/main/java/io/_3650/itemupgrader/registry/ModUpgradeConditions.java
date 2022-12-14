@@ -10,6 +10,7 @@ import io._3650.itemupgrader.upgrades.conditions.DamageSourceTypeUpgradeConditio
 import io._3650.itemupgrader.upgrades.conditions.DamageSourceUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.EdibleUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.EyesInFluidUpgradeCondition;
+import io._3650.itemupgrader.upgrades.conditions.HasEnchantmentUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.HasUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.ItemCooldownUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.PredicateUpgradeCondition;
@@ -51,6 +52,7 @@ public class ModUpgradeConditions {
 	public static final RegistryObject<EdibleUpgradeCondition.Serializer> EDIBLE = CONDITIONS.register("edible", () -> new EdibleUpgradeCondition.Serializer());
 	public static final RegistryObject<SneakingUpgradeCondition.Serializer> SNEAKING = CONDITIONS.register("sneaking", () -> new SneakingUpgradeCondition.Serializer());
 	public static final RegistryObject<RandomUpgradeCondition.Serializer> RANDOM = CONDITIONS.register("random", () -> new RandomUpgradeCondition.Serializer());
+	public static final RegistryObject<HasEnchantmentUpgradeCondition.Serializer> HAS_ENCHANTMENT = CONDITIONS.register("has_enchantment", () -> new HasEnchantmentUpgradeCondition.Serializer());
 	
 	
 }

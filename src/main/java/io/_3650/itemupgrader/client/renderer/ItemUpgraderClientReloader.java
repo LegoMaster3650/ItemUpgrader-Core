@@ -8,11 +8,6 @@ public class ItemUpgraderClientReloader extends SimplePreparableReloadListener<V
 	
 	public static final ItemUpgraderClientReloader INSTANCE = new ItemUpgraderClientReloader();
 	
-	public void onResourceManagerReload(ResourceManager pResourceManager) {
-		UpgradeOverlayRenderer.reload(pResourceManager);
-		UpgradeOverlayRenderer.clearCaches();
-	}
-
 	@Override
 	protected Void prepare(ResourceManager resourceManager, ProfilerFiller profiler) {
 		UpgradeOverlayRenderer.reload(resourceManager);

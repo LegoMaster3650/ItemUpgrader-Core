@@ -23,7 +23,9 @@ import io._3650.itemupgrader.upgrades.results.ItemCooldownUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.LoadPositionUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.MagnetUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.PlaySoundUpgradeResult;
-import io._3650.itemupgrader.upgrades.results.ProjectilePierceUpgradeResult;
+import io._3650.itemupgrader.upgrades.results.ArrowPierceUpgradeResult;
+import io._3650.itemupgrader.upgrades.results.ArrowPowerUpgradeResult;
+import io._3650.itemupgrader.upgrades.results.ArrowKnockbackUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.RandomTickUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.RemoveItemUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.SavePositionUpgradeResult;
@@ -77,7 +79,9 @@ public class ModUpgradeResults {
 	public static final RegistryObject<AutoSmeltUpgradeResult.Serializer> AUTOSMELT = RESULTS.register("autosmelt", () -> new AutoSmeltUpgradeResult.Serializer());
 	public static final RegistryObject<DisplayItemUpgradeResult.Serializer> DISPLAY_ITEM = RESULTS.register("display_item", () -> new DisplayItemUpgradeResult.Serializer());
 	public static final RegistryObject<AreaDamageUpgradeResult.Serializer> AREA_DAMAGE = RESULTS.register("area_damage", () -> new AreaDamageUpgradeResult.Serializer());
-	public static final RegistryObject<ProjectilePierceUpgradeResult.Serializer> PROJETILE_PIERCE = RESULTS.register("pierce", () -> new ProjectilePierceUpgradeResult.Serializer());
+	public static final RegistryObject<ArrowPierceUpgradeResult.Serializer> ARROW_PIERCE = RESULTS.register("pierce", () -> new ArrowPierceUpgradeResult.Serializer());
+	public static final RegistryObject<ArrowPowerUpgradeResult.Serializer> ARROW_POWER = RESULTS.register("arrow_power", () -> new ArrowPowerUpgradeResult.Serializer());
+	public static final RegistryObject<ArrowKnockbackUpgradeResult.Serializer> ARROW_KNOCKBACK = RESULTS.register("arrow_knockback", () -> new ArrowKnockbackUpgradeResult.Serializer());
 	
 	public static final RegistryObject<AddEntryUpgradeResult.Serializer> ADD_ENTRY = RESULTS.register("add_entry", () -> new AddEntryUpgradeResult.Serializer());
 	public static final RegistryObject<MultiplyEntryUpgradeResult.Serializer> MULTIPLY_ENTRY = RESULTS.register("multiply_entry", () -> new MultiplyEntryUpgradeResult.Serializer());

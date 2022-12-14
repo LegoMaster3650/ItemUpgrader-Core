@@ -39,6 +39,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 	private final boolean hasEntity;
 	private final boolean hasDirectEntity;
 	private final boolean isBypassArmor;
+	private final boolean isBypassEnchantments;
 	private final boolean isBypassInvul;
 	private final boolean isBypassMagic;
 	private final boolean isCreativePlayer;
@@ -51,7 +52,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 	private final boolean isProjectile;
 	
 	public DamageSourceUpgradeCondition(IUpgradeInternals internals, boolean inverted, UpgradeEntry<DamageSource> sourceEntry,
-			boolean hasEntity, boolean hasDirectEntity, boolean isBypassArmor,
+			boolean hasEntity, boolean hasDirectEntity, boolean isBypassArmor, boolean isBypassEnchantments,
 			boolean isBypassInvul, boolean isBypassMagic, boolean isCreativePlayer,
 			boolean isDamageHelmet, boolean isExplosion, boolean isFall, boolean isFire,
 			boolean isMagic, boolean isNoAggro, boolean isProjectile) {
@@ -62,6 +63,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 		this.hasEntity = hasEntity;
 		this.hasDirectEntity = hasDirectEntity;
 		this.isBypassArmor = isBypassArmor;
+		this.isBypassEnchantments = isBypassEnchantments;
 		this.isBypassInvul = isBypassInvul;
 		this.isBypassMagic = isBypassMagic;
 		this.isCreativePlayer = isCreativePlayer;
@@ -81,6 +83,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 		if (this.hasEntity) result &= damage.getEntity() != null;
 		if (this.hasDirectEntity) result &= damage.getDirectEntity() != null;
 		if (this.isBypassArmor) result &= damage.isBypassArmor();
+		if (this.isBypassEnchantments) result &= damage.isBypassEnchantments();
 		if (this.isBypassInvul) result &= damage.isBypassInvul();
 		if (this.isBypassMagic) result &= damage.isBypassMagic();
 		if (this.isCreativePlayer) result &= damage.isCreativePlayer();
@@ -110,6 +113,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 			if (this.hasEntity) tooltipList.add(Component.translatable("damageSourceProperty.hasEntity"));
 			if (this.hasDirectEntity) tooltipList.add(Component.translatable("damageSourceProperty.hasDirectEntity"));
 			if (this.isBypassArmor) tooltipList.add(Component.translatable("damageSourceProperty.isBypassArmor"));
+			if (this.isBypassEnchantments) tooltipList.add(Component.translatable("damageSourceProperty.isBypassEnchantments"));
 			if (this.isBypassInvul) tooltipList.add(Component.translatable("damageSourceProperty.isBypassInvul"));
 			if (this.isBypassMagic) tooltipList.add(Component.translatable("damageSourceProperty.isBypassMagic"));
 			if (this.isCreativePlayer) tooltipList.add(Component.translatable("damageSourceProperty.isCreativePlayer"));
@@ -138,6 +142,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 			boolean hasEntity = GsonHelper.getAsBoolean(json, "hasEntity", false);
 			boolean hasDirectEntity = GsonHelper.getAsBoolean(json, "hasDirectEntity", false);
 			boolean isBypassArmor = GsonHelper.getAsBoolean(json, "isBypassArmor", false);
+			boolean isBypassEnchantments = GsonHelper.getAsBoolean(json, "isBypassEnchantments", false);
 			boolean isBypassInvul = GsonHelper.getAsBoolean(json, "isBypassInvul", false);
 			boolean isBypassMagic = GsonHelper.getAsBoolean(json, "isBypassMagic", false);
 			boolean isCreativePlayer = GsonHelper.getAsBoolean(json, "isCreativePlayer", false);
@@ -149,7 +154,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 			boolean isNoAggro = GsonHelper.getAsBoolean(json, "isNoAggro", false);
 			boolean isProjectile = GsonHelper.getAsBoolean(json, "isProjectile", false);
 			return new DamageSourceUpgradeCondition(internals, inverted, sourceEntry,
-					hasEntity, hasDirectEntity, isBypassArmor, isBypassInvul,
+					hasEntity, hasDirectEntity, isBypassArmor, isBypassEnchantments, isBypassInvul,
 					isBypassMagic, isCreativePlayer, isDamageHelmet, isExplosion,
 					isFall, isFire, isMagic, isNoAggro, isProjectile);
 		}
@@ -160,6 +165,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 			buf.writeBoolean(condition.hasEntity);
 			buf.writeBoolean(condition.hasDirectEntity);
 			buf.writeBoolean(condition.isBypassArmor);
+			buf.writeBoolean(condition.isBypassEnchantments);
 			buf.writeBoolean(condition.isBypassInvul);
 			buf.writeBoolean(condition.isBypassMagic);
 			buf.writeBoolean(condition.isCreativePlayer);
@@ -178,6 +184,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 			boolean hasEntity = buf.readBoolean();
 			boolean hasDirectEntity = buf.readBoolean();
 			boolean isBypassArmor = buf.readBoolean();
+			boolean isBypassEnchantments = buf.readBoolean();
 			boolean isBypassInvul = buf.readBoolean();
 			boolean isBypassMagic = buf.readBoolean();
 			boolean isCreativePlayer = buf.readBoolean();
@@ -189,7 +196,7 @@ public class DamageSourceUpgradeCondition extends UpgradeCondition {
 			boolean isNoAggro = buf.readBoolean();
 			boolean isProjectile = buf.readBoolean();
 			return new DamageSourceUpgradeCondition(internals, inverted, sourceEntry,
-					hasEntity, hasDirectEntity, isBypassArmor, isBypassInvul,
+					hasEntity, hasDirectEntity, isBypassArmor, isBypassEnchantments, isBypassInvul,
 					isBypassMagic, isCreativePlayer, isDamageHelmet, isExplosion,
 					isFall, isFire, isMagic, isNoAggro, isProjectile);		}
 		

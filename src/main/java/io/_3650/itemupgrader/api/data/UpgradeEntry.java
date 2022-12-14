@@ -120,6 +120,7 @@ public class UpgradeEntry<T> {
 	public static final UpgradeEntry<ItemStack> ITEM = FACTORY.createDefault("item", ItemStack.class, EntryCategory.ITEM);
 	public static final UpgradeEntry<ItemStack> PREV_ITEM = FACTORY.create("previous_item", ItemStack.class, EntryCategory.ITEM);
 	public static final UpgradeEntry<ItemStack> USED_ITEM = FACTORY.create("used_item", ItemStack.class, EntryCategory.ITEM);
+	public static final UpgradeEntry<ItemStack> BOW_ITEM = FACTORY.create("bow_item", ItemStack.class, EntryCategory.ITEM);
 	public static final UpgradeEntry<Entity> ENTITY = FACTORY.createDefault("entity", Entity.class, EntryCategory.ENTITY);
 	public static final UpgradeEntry<Vec3> POSITION = FACTORY.createDefault("position", Vec3.class, EntryCategory.POSITION);
 	public static final UpgradeEntry<Level> LEVEL = FACTORY.create("level", Level.class);
@@ -150,6 +151,8 @@ public class UpgradeEntry<T> {
 	public static final UpgradeEntry<List<ItemStack>> BLOCK_DROPS = FACTORY.create("block_drops", RegistryHelper.fixStupidClass(List.class));
 	public static final UpgradeEntry<Boolean> DO_SHIELD_DAMAGE = FACTORY.create("do_shield_damage", Boolean.class, EntryCategory.BOOL_VALUE);
 	public static final UpgradeEntry<Projectile> PROJECTILE = FACTORY.create("projectile", Projectile.class);
+	public static final UpgradeEntry<Float> ARROW_SPEED = FACTORY.create("arrow_speed", Float.class, EntryCategory.FLOAT_VALUE);
+	public static final UpgradeEntry<Float> ARROW_INACCURACY = FACTORY.create("arrow_inaccuracy", Float.class, EntryCategory.FLOAT_VALUE);
 	
 	/**<b><u>Intended for use in results</u></b>**/
 	public static final UpgradeEntry<Boolean> CANCELLED = FACTORY.create("cancelled", Boolean.class); //twitter entry    bottom text

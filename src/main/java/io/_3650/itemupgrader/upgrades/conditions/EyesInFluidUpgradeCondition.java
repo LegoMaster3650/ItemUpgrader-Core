@@ -36,7 +36,6 @@ public class EyesInFluidUpgradeCondition extends UpgradeCondition {
 		this.fluidKey = fluidKey;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean test(UpgradeEventData data) {
 		return data.getEntry(this.entityEntry).isEyeInFluidType(this.fluid);

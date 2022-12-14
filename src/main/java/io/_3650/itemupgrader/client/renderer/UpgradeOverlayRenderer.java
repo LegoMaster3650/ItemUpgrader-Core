@@ -40,6 +40,7 @@ public class UpgradeOverlayRenderer {
 	private static HashSet<ResourceLocation> invalidCache = new HashSet<>();
 	
 	public static void render(ItemStack stack, PoseStack pose, int x, int y, float blitOffset) {
+		if (stack.isEmpty()) return;
 		try {
 			if (!Config.CLIENT.renderUpgradeOverlays.get()) return;
 		} catch (IllegalStateException e) { //just in case the renderer is being dumb and somehow rendering an item before the client config exists

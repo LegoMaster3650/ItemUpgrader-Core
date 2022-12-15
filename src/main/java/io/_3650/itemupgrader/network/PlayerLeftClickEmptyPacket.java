@@ -22,6 +22,8 @@ public record PlayerLeftClickEmptyPacket(EquipmentSlot slot, boolean emptyStack)
 	public static void handle(PlayerLeftClickEmptyPacket packet, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
 			ServerPlayer player = ctx.get().getSender();
+			if (player == null || player.level.isClientSide) return;
+			player.level.getServer().executeBlocking(null);
 			ItemStack stack = packet.emptyStack ? ItemStack.EMPTY : player.getItemBySlot(packet.slot);
 			ModEvents.leftClickBase(packet.slot, player, stack, packet.emptyStack);
 		});

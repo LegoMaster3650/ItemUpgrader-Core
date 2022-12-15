@@ -22,6 +22,7 @@ public record PlayerRightClickEmptyPacket(EquipmentSlot slot) {
 	public static void handle(PlayerRightClickEmptyPacket packet, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
 			ServerPlayer player = ctx.get().getSender();
+			if (player == null || player.level.isClientSide) return;
 			ModEvents.rightClickBase(packet.slot, player, ItemStack.EMPTY, true);
 		});
 		ctx.get().setPacketHandled(true);

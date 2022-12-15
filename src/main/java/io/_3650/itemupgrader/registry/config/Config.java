@@ -10,9 +10,9 @@ public class Config {
 	
 	public static class Server {
 		
-		
-		
 		Server(ForgeConfigSpec.Builder builder) {
+			
+			
 			
 		}
 		
@@ -20,22 +20,14 @@ public class Config {
 	
 	public static class Common {
 
-		public final BooleanValue basePackEnabled;
-		public final BooleanValue basePackRecipes;
-
 		public final BooleanValue allowRadiusSphere;
+		public final BooleanValue allowLivingTick;
 		
 		Common(ForgeConfigSpec.Builder builder) {
-			builder.comment("Strangely buggy when in server config so this is in common config instead.").push("datapack");
-			
-			basePackEnabled = builder.comment("Is the mod's default upgrade datapack enabled?","Disable this if you only want to use custom upgrade datapacks.","[Default: true]").define("basePackEnabled", true);
-			basePackRecipes = builder.comment("Should the mod's default upgrade datapack recipes be enabled?", "Disable this to easily use your own recipes.", "[Default: true]").define("basePackRecipes", true);
-			
-			builder.pop();
-			
 			builder.push("performance");
 			
 			allowRadiusSphere = builder.comment("Allows upgrades to search for items in a sphere rather than a cube if specified.", "Disabling this COULD help performance.", "Requires datapack reload to take effect.", "[Default: true]").define("allowMagneticSphere", true);
+			allowLivingTick = builder.comment("Allows the mod to run per-tick actions for any living entity besides a player", "Disabling this COULD help performance.", "Also note that players will still run per-tick events.", "[Default: true]").define("allowLivingTick", true);
 			
 			builder.pop();
 		}

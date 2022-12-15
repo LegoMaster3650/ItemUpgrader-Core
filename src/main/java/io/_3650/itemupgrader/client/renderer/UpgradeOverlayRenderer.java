@@ -52,6 +52,7 @@ public class UpgradeOverlayRenderer {
 		if (invalidCache.contains(upgradeId)) return;
 		ResourceLocation path = new ResourceLocation(upgradeId.getNamespace(), MAINDIR + upgradeId.getPath());
 		if (textures.contains(path)) {
+			Minecraft.getInstance().getProfiler().push("itemupgrader_overlay");
 			TextureAtlasSprite sprite = getSprite(path);
 			if (sprite != null) {
 				pose.pushPose();
@@ -76,6 +77,7 @@ public class UpgradeOverlayRenderer {
 				
 				pose.popPose();
 			} else invalidCache.add(path);
+			Minecraft.getInstance().getProfiler().pop();
 		} else invalidCache.add(upgradeId);
 	}
 	

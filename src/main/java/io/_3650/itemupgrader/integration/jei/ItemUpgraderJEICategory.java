@@ -7,6 +7,7 @@ import io._3650.itemupgrader.recipes.ItemUpgradeRecipe;
 import mezz.jei.api.constants.ModIds;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -55,10 +56,11 @@ public class ItemUpgraderJEICategory implements IRecipeCategory<ItemUpgradeRecip
 	public void setRecipe(IRecipeLayoutBuilder builder, ItemUpgradeRecipe recipe, IFocusGroup focuses) {
 		List<ItemStack> validItems = recipe.getUpgrade().getValidItems();
 		ResourceLocation upgradeId = recipe.getUpgrade().getId();
-		builder.addSlot(RecipeIngredientRole.INPUT, 1, 1).addItemStacks(validItems);
+		IRecipeSlotBuilder inputSlot = builder.addSlot(RecipeIngredientRole.INPUT, 1, 1).addItemStacks(validItems);
 		builder.addSlot(RecipeIngredientRole.INPUT, 50, 1).addIngredients(recipe.getCatalyst());
 		List<ItemStack> upgradedItems = validItems.stream().map(stack -> ItemUpgraderApi.applyUpgradeNoUpdate(stack.copy(), upgradeId)).toList();
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 108, 1).addItemStacks(upgradedItems);
+		IRecipeSlotBuilder outputSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, 108, 1).addItemStacks(upgradedItems);
+		builder.createFocusLink(inputSlot, outputSlot);
 	}
 	
 	@Override

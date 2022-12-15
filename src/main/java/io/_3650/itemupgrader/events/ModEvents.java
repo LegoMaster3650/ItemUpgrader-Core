@@ -20,6 +20,7 @@ import io._3650.itemupgrader.network.NetworkHandler;
 import io._3650.itemupgrader.network.PlayerLeftClickEmptyPacket;
 import io._3650.itemupgrader.network.PlayerRightClickEmptyPacket;
 import io._3650.itemupgrader.registry.ModUpgradeActions;
+import io._3650.itemupgrader.registry.config.Config;
 import io._3650.itemupgrader.registry.types.AttributeReplacement;
 import io._3650.itemupgrader.registry.types.ModUpgradeEntry;
 import io._3650.itemupgrader.registry.types.UpgradeHitLimited;
@@ -73,10 +74,14 @@ public class ModEvents {
 	
 	@SubscribeEvent
 	public static void livingTick(LivingTickEvent event) {
+		LivingEntity living = event.getEntity();
+		if (!Config.COMMON.allowLivingTick.get() && !(living instanceof Player)) return;
+		living.level.getProfiler().push("itemupgrader_living_tick");
 		for (EquipmentSlot slot : EquipmentSlot.values()) {
-			UpgradeEventData.Builder builder = new UpgradeEventData.Builder(event.getEntity(), slot);
+			UpgradeEventData.Builder builder = new UpgradeEventData.Builder(living, slot);
 			ItemUpgraderApi.runActions(ModUpgradeActions.LIVING_TICK, builder);
 		}
+		living.level.getProfiler().pop();
 	}
 	
 	/*

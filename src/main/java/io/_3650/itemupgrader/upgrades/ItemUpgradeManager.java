@@ -52,6 +52,8 @@ public class ItemUpgradeManager extends SimpleJsonResourceReloadListener {
 			contextValid = false;
 		}
 		
+		profiler.push("upgrade_reload");
+		
 		for (var upgradeId : jsonMap.keySet()) {
 			try {
 				JsonObject json = jsonMap.get(upgradeId).getAsJsonObject();
@@ -105,6 +107,8 @@ public class ItemUpgradeManager extends SimpleJsonResourceReloadListener {
 				LOGGER.error("Couldn't parse upgrade " + upgradeId.toString(), err);
 			}
 		}
+		
+		profiler.pop();
 		
 		this.upgrades = builder.build();
 		

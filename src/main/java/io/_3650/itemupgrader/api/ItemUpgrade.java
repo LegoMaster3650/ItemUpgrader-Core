@@ -17,6 +17,7 @@ import io._3650.itemupgrader.api.serializer.UpgradeActionSerializer;
 import io._3650.itemupgrader.api.slot.InventorySlot;
 import io._3650.itemupgrader.api.type.UpgradeAction;
 import io._3650.itemupgrader.api.util.UpgradeSerializer;
+import io._3650.itemupgrader.registry.config.CachedConfig;
 import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TextColor;
@@ -75,7 +76,7 @@ public class ItemUpgrade {
 	 * @return If the stack is valid
 	 */
 	public boolean isValidItem(ItemStack stack) {
-		return this.base.test(stack);
+		return this.base.test(stack) && !CachedConfig.isBlacklisted(stack.getItem());
 	}
 	
 	private List<ItemStack> validItemsCache;

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 public class Config {
@@ -23,11 +24,19 @@ public class Config {
 		public final BooleanValue allowRadiusSphere;
 		public final BooleanValue allowLivingTick;
 		
+		public final ConfigValue<String> upgradeItemBlacklist;
+		
 		Common(ForgeConfigSpec.Builder builder) {
 			builder.push("performance");
 			
 			allowRadiusSphere = builder.comment("Allows upgrades to search for items in a sphere rather than a cube if specified.", "Disabling this COULD help performance.", "Requires datapack reload to take effect.", "[Default: true]").define("allowMagneticSphere", true);
 			allowLivingTick = builder.comment("Allows the mod to run per-tick actions for any living entity besides a player", "Disabling this COULD help performance.", "Also note that players will still run per-tick events.", "[Default: true]").define("allowLivingTick", true);
+			
+			builder.pop();
+			
+			builder.push("compatibility");
+			
+			upgradeItemBlacklist = builder.comment("Blacklist filter for which items can have upgrades.", "This is a regular expression. Feel free to use https://regex101.com/ to test these.", ">> If this doesn't fully apply to JEI or something after one /reload just do it again to finish the job.", "[Default: tconstruct").define("upgradeItemBlacklist", "tconstruct");
 			
 			builder.pop();
 		}

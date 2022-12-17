@@ -293,6 +293,10 @@
 	
 	"upgradeResult.itemupgrader.add_entry": "%s %s",
 	"upgradeResult.itemupgrader.multiply_entry": "%s %s",
-	"upgradeResult.itemupgrader.set_number": "Set %s to %s"
+	"upgradeResult.itemupgrader.set_number": "Set %s to %s",
+	
+	"upgrade.itemupgrader_core.brick": "Amogus Brick (Mod Mascot)",
+	"upgrade.itemupgrader_core.brick.description": "My Reaction To That Information",
+	"upgrade.itemupgrader_core.brick.icon": "ඞ"
 	
 }

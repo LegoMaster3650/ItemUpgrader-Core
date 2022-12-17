@@ -1,15 +1,15 @@
 modLoader="javafml"
 loaderVersion="[43,)"
 license="MIT License"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+issueTrackerURL="https://github.com/LegoMaster3650/ItemUpgrader-Core/issues"
 
 [[mods]]
 modId="itemupgrader"
 version="${file.jarVersion}"
 displayName="Item Upgrader Core"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
-#logoFile="itemupgrader.png"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/itemupgrader-core"
+logoFile="itemupgrader_core.png"
 #credits="Joe Mama"
 authors="LegoMaster3650"
 displayTest="MATCH_VERSION"
@@ -32,4 +32,4 @@ Core for the Item Upgrader mod, containing the base upgrade system and more gene
 	side="BOTH"
 
 [modproperties.itemupgrader]
-	catalogueItemIcon="minecraft:smithing_table"
+	catalogueImageIcon="itemupgrader_core_small.png"

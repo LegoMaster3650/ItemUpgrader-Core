@@ -1,0 +1,59 @@
+{
+	"base": [
+		{
+			"item": "minecraft:brick"
+		}
+	],
+	"color": "#FF0000",
+	"slots": ["mainhand"],
+	"description": 1,
+	"upgrade": [
+		{
+			"action": "right_click",
+			"player_override": {"source": "entity"},
+			"result": [
+				{
+					"type": "display_item",
+					"item": {
+						"item": "minecraft:observer"
+					}
+				},
+				{
+					"type": "command",
+					"command": "playsound minecraft:ui.toast.challenge_complete player @s ~ ~ ~ 1 2",
+					"visible": false
+				}
+			]
+		},
+		{
+			"action": "left_click_block",
+			"visible": false,
+			"player_override": {"source": "entity"},
+			"condition": {
+				"type": "block",
+				"block": "minecraft:dragon_egg"
+			},
+			"result": [
+				{
+					"type": "display_item",
+					"item": {
+						"item": "minecraft:dragon_head"
+					}
+				},
+				{
+					"type": "command",
+					"command": "playsound minecraft:ui.toast.challenge_complete player @s ~ ~ ~ 1 2",
+					"visible": false
+				},
+				{
+					"type": "command",
+					"command": "playsound minecraft:music.credits music @s ~ ~ ~ 10000 2",
+					"visible": false
+				}
+			]
+		}
+	],
+	"conditions": [{
+		"type": "itemupgrader_content:base_pack_enabled"
+	}]
+}

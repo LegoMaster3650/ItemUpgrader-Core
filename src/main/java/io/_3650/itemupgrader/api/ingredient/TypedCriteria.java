@@ -51,7 +51,7 @@ public class TypedCriteria {
 	 * @return Whether the item passes the predicate's test
 	 */
 	public boolean test(ItemStack stack) {
-		return stack.is(this.tag) || this.predicate.test(stack);
+		return this.predicate.test(stack) || this.tag != null && stack.is(this.tag);
 	}
 	
 }

@@ -246,6 +246,8 @@
 	"upgradeCondition.itemupgrader.sneaking": "sneaking",
 	"upgradeCondition.itemupgrader.random": "%s chance",
 	"upgradeCondition.itemupgrader.has_enchantment": "has %s%s",
+	"upgradeCondition.itemupgrader.fall_flying": "is flying",
+	"upgradeCondition.itemupgrader.position": "position is within bounds",
 	
 	
 	
@@ -284,6 +286,7 @@
 	"upgradeResult.itemupgrader.pierce": "+%s piercing",
 	"upgradeResult.itemupgrader.arrow_power": "+%s power",
 	"upgradeResult.itemupgrader.arrow_knockback": "+%s punch",
+	"upgradeResult.itemupgrader.accelerate": "accelerate forwards by %s",
 	
 	"upgradeResult.itemupgrader.update_position": "Update position %s",
 	"upgradeResult.itemupgrader.update_item": "Update item %s in slot %s",

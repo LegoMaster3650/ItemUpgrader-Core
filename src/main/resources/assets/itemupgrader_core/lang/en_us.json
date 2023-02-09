@@ -246,7 +246,7 @@
 	"upgradeCondition.itemupgrader.sneaking": "sneaking",
 	"upgradeCondition.itemupgrader.random": "%s chance",
 	"upgradeCondition.itemupgrader.has_enchantment": "has %s%s",
-	"upgradeCondition.itemupgrader.fall_flying": "is flying",
+	"upgradeCondition.itemupgrader.fall_flying": "flying",
 	"upgradeCondition.itemupgrader.position": "position is within bounds",
 	
 	

@@ -15,6 +15,7 @@ import io._3650.itemupgrader.api.data.UpgradeEntry;
 import io._3650.itemupgrader.api.data.UpgradeEventData;
 import io._3650.itemupgrader.api.event.LivingUseTotemPostEvent;
 import io._3650.itemupgrader.api.slot.InventorySlot;
+import io._3650.itemupgrader.commands.ModCommands;
 import io._3650.itemupgrader.mixin.ThrownTridentAccessor;
 import io._3650.itemupgrader.network.NetworkHandler;
 import io._3650.itemupgrader.network.PlayerLeftClickEmptyPacket;
@@ -45,6 +46,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -67,6 +69,15 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ItemUpgraderCore.MOD_ID)
 public class ModEvents {
+	
+	/*
+	 * COMMANDS
+	 */
+	
+	@SubscribeEvent
+	public static void registerCommands(RegisterCommandsEvent event) {
+		ModCommands.register(event.getDispatcher());
+	}
 	
 	/*
 	 * TICKING

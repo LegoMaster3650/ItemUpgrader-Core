@@ -17,6 +17,7 @@ import io._3650.itemupgrader.api.type.UpgradeCondition;
 import io._3650.itemupgrader.api.type.UpgradeResult;
 import io._3650.itemupgrader.client.ItemUpgraderClient;
 import io._3650.itemupgrader.network.NetworkHandler;
+import io._3650.itemupgrader.registry.ModArgumentTypes;
 import io._3650.itemupgrader.registry.ModInventorySlots;
 import io._3650.itemupgrader.registry.ModRecipes;
 import io._3650.itemupgrader.registry.ModTypedCriteria;
@@ -69,6 +70,7 @@ public class ItemUpgraderCore {
 		ModUpgradeResults.RESULTS.register(bus);
 		ModTypedCriteria.CRITERIA.register(bus);
 		ModInventorySlots.SLOTS.register(bus);
+		ModArgumentTypes.ARGUMENT_TYPES.register(bus);
 		
 		bus.addListener(this::setup);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ItemUpgraderClient::new);

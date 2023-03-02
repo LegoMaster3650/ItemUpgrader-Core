@@ -4,6 +4,12 @@
 	"key.categories.itemupgrader": "Item Upgrader",
 	"key.itemupgrader.show_tooltip": "Show Tooltip",
 	
+	"itemupgrade.unknown": "Unknown upgrade: %s",
+	"commands.upgrade.success.single": "Applied upgrade %s to %s's item",
+	"commands.upgrade.success.multiple": "Applied upgrade %s to %s entities",
+	"commands.upgrade.failed.incompatible": "%s cannot support that upgrade",
+	"commands.upgrade.failed": "Nothing changed. Targets either have no item in their hands or the upgrade could not be applied",
+	
 	"inventorySlot.mainhand": "Main Hand",
 	"inventorySlot.offhand": "Off Hand",
 	"inventorySlot.head": "Head",

@@ -52,8 +52,5 @@
 				}
 			]
 		}
-	],
-	"conditions": [{
-		"type": "itemupgrader_content:base_pack_enabled"
-	}]
+	]
 }

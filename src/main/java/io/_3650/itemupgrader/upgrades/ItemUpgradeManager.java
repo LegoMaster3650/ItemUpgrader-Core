@@ -2,12 +2,12 @@ package io._3650.itemupgrader.upgrades;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
@@ -123,6 +123,10 @@ public class ItemUpgradeManager extends SimpleJsonResourceReloadListener {
 	@Nullable
 	public ItemUpgrade getUpgrade(ResourceLocation upgradeId) {
 		return this.upgrades.get(upgradeId);
+	}
+	
+	public Optional<ItemUpgrade> getOptional(ResourceLocation upgradeId) {
+		return Optional.ofNullable(this.upgrades.get(upgradeId));
 	}
 	
 	public Map<ResourceLocation, ItemUpgrade> getUpgrades() {

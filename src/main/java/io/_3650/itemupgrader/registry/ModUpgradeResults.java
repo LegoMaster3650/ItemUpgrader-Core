@@ -3,6 +3,7 @@ package io._3650.itemupgrader.registry;
 import io._3650.itemupgrader.ItemUpgraderCore;
 import io._3650.itemupgrader.api.registry.ItemUpgraderRegistry;
 import io._3650.itemupgrader.api.serializer.UpgradeResultSerializer;
+import io._3650.itemupgrader.upgrades.results.AccelerateUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.AreaDamageUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.AttributeUpgradeResult;
 import io._3650.itemupgrader.upgrades.results.AutoSmeltUpgradeResult;
@@ -82,6 +83,7 @@ public class ModUpgradeResults {
 	public static final RegistryObject<ArrowPierceUpgradeResult.Serializer> ARROW_PIERCE = RESULTS.register("pierce", () -> new ArrowPierceUpgradeResult.Serializer());
 	public static final RegistryObject<ArrowPowerUpgradeResult.Serializer> ARROW_POWER = RESULTS.register("arrow_power", () -> new ArrowPowerUpgradeResult.Serializer());
 	public static final RegistryObject<ArrowKnockbackUpgradeResult.Serializer> ARROW_KNOCKBACK = RESULTS.register("arrow_knockback", () -> new ArrowKnockbackUpgradeResult.Serializer());
+	public static final RegistryObject<AccelerateUpgradeResult.Serializer> ACCELERATE = RESULTS.register("accelerate", () -> new AccelerateUpgradeResult.Serializer());
 	
 	public static final RegistryObject<AddEntryUpgradeResult.Serializer> ADD_ENTRY = RESULTS.register("add_entry", () -> new AddEntryUpgradeResult.Serializer());
 	public static final RegistryObject<MultiplyEntryUpgradeResult.Serializer> MULTIPLY_ENTRY = RESULTS.register("multiply_entry", () -> new MultiplyEntryUpgradeResult.Serializer());

@@ -12,18 +12,14 @@ public class ModKeybinds {
 	
 	private static final String MAIN_CATEGORY = "key.categories." + ItemUpgraderCore.MOD_ID;
 	
-	public static final KeyMapping SHOW_TOOLTIP = new KeyMapping("key." + ItemUpgraderCore.MOD_ID + ".show_tooltip", KeyConflictContext.GUI, InputConstants.Type.KEYSYM, InputConstants.KEY_LSHIFT, MAIN_CATEGORY);
-	
-	public static KeyMapping showTooltip;
+	public static final KeyMapping SHOW_TOOLTIP = createKeybind("show_tooltip", KeyConflictContext.GUI, InputConstants.KEY_LSHIFT, MAIN_CATEGORY);
 	
 	public static void init(RegisterKeyMappingsEvent event) {
-		showTooltip = createKeybind(event, "show_tooltip", KeyConflictContext.GUI, InputConstants.KEY_LSHIFT, MAIN_CATEGORY);
+		event.register(SHOW_TOOLTIP);
 	}
 	
-	private static KeyMapping createKeybind(RegisterKeyMappingsEvent event, String name, KeyConflictContext context, int keycode, String category) {
-		KeyMapping keyMap = new KeyMapping("key." + ItemUpgraderCore.MOD_ID + "." + name, context, InputConstants.Type.KEYSYM, keycode, category);
-		event.register(keyMap);
-		return keyMap;
+	private static KeyMapping createKeybind(String name, KeyConflictContext context, int keycode, String category) {
+		return new KeyMapping("key." + ItemUpgraderCore.MOD_ID + "." + name, context, InputConstants.Type.KEYSYM, keycode, category);
 	}
 	
 	public static boolean isKeyPressed(KeyMapping key) {

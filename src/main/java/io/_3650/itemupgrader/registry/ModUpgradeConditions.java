@@ -10,9 +10,11 @@ import io._3650.itemupgrader.upgrades.conditions.DamageSourceTypeUpgradeConditio
 import io._3650.itemupgrader.upgrades.conditions.DamageSourceUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.EdibleUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.EyesInFluidUpgradeCondition;
+import io._3650.itemupgrader.upgrades.conditions.FallFlyingUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.HasEnchantmentUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.HasUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.ItemCooldownUpgradeCondition;
+import io._3650.itemupgrader.upgrades.conditions.PositionUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.PredicateUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.RandomUpgradeCondition;
 import io._3650.itemupgrader.upgrades.conditions.ResultSuccessUpgradeCondition;
@@ -53,6 +55,8 @@ public class ModUpgradeConditions {
 	public static final RegistryObject<SneakingUpgradeCondition.Serializer> SNEAKING = CONDITIONS.register("sneaking", () -> new SneakingUpgradeCondition.Serializer());
 	public static final RegistryObject<RandomUpgradeCondition.Serializer> RANDOM = CONDITIONS.register("random", () -> new RandomUpgradeCondition.Serializer());
 	public static final RegistryObject<HasEnchantmentUpgradeCondition.Serializer> HAS_ENCHANTMENT = CONDITIONS.register("has_enchantment", () -> new HasEnchantmentUpgradeCondition.Serializer());
+	public static final RegistryObject<FallFlyingUpgradeCondition.Serializer> FALL_FLYING = CONDITIONS.register("fall_flying", () -> new FallFlyingUpgradeCondition.Serializer());
+	public static final RegistryObject<PositionUpgradeCondition.Serializer> POSITION = CONDITIONS.register("position", () -> new PositionUpgradeCondition.Serializer());
 	
 	
 }

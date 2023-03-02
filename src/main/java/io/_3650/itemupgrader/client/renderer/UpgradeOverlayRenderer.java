@@ -87,7 +87,7 @@ public class UpgradeOverlayRenderer {
 		if (spriteCache.containsKey(path)) return spriteCache.get(path);
 		TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(path);
 		if (sprite != null) spriteCache.put(path, sprite);
-		if (sprite != null) LOGGER.debug(sprite.getName().toString());
+//		if (sprite != null) LOGGER.debug(sprite.getName().toString());
 		return sprite;
 	}
 	
@@ -109,7 +109,7 @@ public class UpgradeOverlayRenderer {
 	public static void reload(ResourceManager resourceManager) {
 		ImmutableSet.Builder<ResourceLocation> resources = ImmutableSet.builder();
 		
-		LOGGER.debug("Reloading Upgrade Textures...");
+		LOGGER.info("Reloading Upgrade Textures...");
 		
 		for (ResourceLocation loc : resourceManager.listResources(DIR, loc -> loc.getPath().endsWith(SUFFIX)).keySet()) {
 			String path = loc.getPath();
@@ -118,7 +118,7 @@ public class UpgradeOverlayRenderer {
 		
 		textures = resources.build();
 		
-		LOGGER.debug("Loaded " + textures.size() + " textures");
+		LOGGER.info("Loaded " + textures.size() + " textures");
 		
 		return;
 	}

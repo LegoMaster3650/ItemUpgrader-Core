@@ -21,7 +21,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -111,11 +110,6 @@ public class ClientEvents {
 	
 	private static MutableComponent upgradeLine(MutableComponent component) {
 		return Component.translatable("tooltip.itemupgrader.prefix").withStyle(ChatFormatting.DARK_GRAY).append(component);
-	}
-	
-	@SubscribeEvent
-	public static void onKeyMappings(RegisterKeyMappingsEvent event) {
-		ModKeybinds.init(event);
 	}
 	
 }
